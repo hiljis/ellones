@@ -1,6 +1,9 @@
 .App {
 	text-align: center;
 	display: grid;
-	grid-template-rows: [header-start] 10rem [header-end][main-start] minmax(calc(100vh - 10rem), min-content) [main-end][footer-start] 30rem [footer-end];
-	grid-template-columns: 100vw;
+	grid-template-rows: [header-start] 10rem [header-end][main-start] minmax(calc(100vh - 10rem), auto) [main-end][footer-start] 30rem [footer-end];
+	grid-template-columns: [content-start] 100vw [content-end];
+	position: relative;
+	width: 100vw;
+	min-height: 100vh;
 }
