@@ -1,10 +1,11 @@
+import { ReactComponent as EllonesLogo } from '../../../assets/svg/ellones_logo-black--50.svg';
 import './HeaderLogo.scss';
 
 const HeaderLogo = () => {
 	return (
 		<div className="headerLogo">
-			<div>LOGO SVG</div>
-			<div>LOGO TEXT</div>
+			<EllonesLogo className="headerLogo--img" />
+			<p className="headerLogo--text">ellones</p>
 		</div>
 	);
 };
