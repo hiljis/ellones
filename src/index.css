@@ -1,13 +1,33 @@
+:root {
+	--f-family: 'Poppins', sans-serif;
+
+	--color-black: black;
+	--color-white: white;
+	--color-primary: blue;
+	--color-secondary: orange;
+
+	--radius-round: 100rem;
+	--radius-xsm: 0.3rem;
+	--radius-sm: 0.8rem;
+	--radius--md: 1.2rem;
+	--radius-lg: 2.4rem;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	/* 1 rem = 10px */
+	font-size: 62.5%;
+	font-family: inherit;
+}
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans',
+		'Droid Sans', 'Helvetica Neue', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
