@@ -4,13 +4,14 @@
 	--color-black: black;
 	--color-white: white;
 	--color-primary: blue;
+	--color-primary--dark: rgb(0, 0, 200);
 	--color-secondary: orange;
 
-	--radius-round: 100rem;
-	--radius-xsm: 0.3rem;
-	--radius-sm: 0.6rem;
+	--radius--round: 100rem;
+	--radius--xsm: 0.3rem;
+	--radius--sm: 0.6rem;
 	--radius--md: 1.2rem;
-	--radius-lg: 2.4rem;
+	--radius--lg: 2.4rem;
 }
 
 * {

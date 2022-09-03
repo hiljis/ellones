@@ -1,6 +1,23 @@
 .themeDropdown {
-	position: absolute;
-	top: 50%;
-	left: -10rem;
-	transform: translateY(-50%);
+	position: relative;
+	&__btn {
+		width: 4.5rem;
+		height: 4.5rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: var(--radius--round);
+		border: 2px solid transparent;
+		background-color: transparent;
+		cursor: pointer;
+
+		&:hover {
+			border: 2px solid var(--color-black);
+		}
+
+		&--icon {
+			width: 2.5rem;
+			height: 2.5rem;
+		}
+	}
 }

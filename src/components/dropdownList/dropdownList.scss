@@ -1,0 +1,24 @@
+.dropdownList {
+	position: absolute;
+	top: calc(50% + 3rem);
+	left: 50%;
+	transform: translate(-50%, 2rem);
+	border: 3px solid var(--color-black);
+	border-radius: var(--radius--md);
+	padding: 1.6rem 0;
+	background-color: white;
+	list-style: none;
+}
+
+.user li:hover {
+	background-color: blue;
+	color: white;
+}
+
+.theme li:hover {
+	background-color: rgb(255, 204, 0);
+}
+
+.market li:hover {
+	background-color: rgb(241, 0, 133);
+}

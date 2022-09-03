@@ -1,0 +1,35 @@
+.userDropdown {
+	position: relative;
+	&__btn {
+		width: 4.5rem;
+		height: 4.5rem;
+		border-radius: var(--radius--round);
+		border: none;
+		background-color: transparent;
+		cursor: pointer;
+		overflow: hidden;
+		transition: all 0.1s;
+
+		&:hover {
+			transform: translate(-3px, -3px);
+			box-shadow: 3px 3px 0 0 var(--color-secondary);
+		}
+
+		&:active {
+			transform: translate(0, 0);
+			box-shadow: none;
+		}
+
+		&--icon {
+			width: 100%;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background-color: var(--color-primary);
+			color: var(--color-white);
+			font-size: 1.8rem;
+			font-weight: 600;
+		}
+	}
+}

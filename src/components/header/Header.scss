@@ -11,7 +11,7 @@
 	justify-content: space-between;
 
 	&--right {
-		position: relative;
-		background-color: pink;
+		display: flex;
+		gap: 3rem;
 	}
 }

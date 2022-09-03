@@ -1,11 +1,12 @@
 import './HeaderNav.scss';
+import MarketDropdown from './marketDropdown/MarketDropdown';
 
 const HeaderNav = () => {
 	return (
 		<nav className="headerNav">
-			<span>COMPARE</span>
-			<span>layer 1s</span>
-			<span>market</span>
+			<a className="headerNav__link headerNav__link--compare">compare</a>
+			<a className="headerNav__link headerNav__link--l1s">layer 1s</a>
+			<MarketDropdown />
 		</nav>
 	);
 };
