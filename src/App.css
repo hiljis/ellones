@@ -7,9 +7,3 @@
 	width: 100vw;
 	min-height: 100vh;
 }
-
-.content {
-	grid-column: content-start / content-end;
-	grid-row: main-start / main-end;
-	background-color: yellow;
-}

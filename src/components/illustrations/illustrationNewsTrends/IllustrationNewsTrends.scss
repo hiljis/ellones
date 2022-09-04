@@ -1,0 +1,25 @@
+.illustration__container--news {
+	display: flex;
+	align-items: center;
+	gap: 2rem;
+}
+
+.illustration__icon--news {
+	position: relative;
+	width: 0.8rem;
+	height: 0.8rem;
+	border-radius: var(--radius--round);
+
+	&:last-child:after {
+		content: '';
+		width: 2rem;
+		height: 2rem;
+		border: 2px solid transparent;
+		border-radius: var(--radius--round);
+
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+}
