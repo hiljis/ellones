@@ -7,7 +7,7 @@ type DropdownListProps = {
 };
 
 const DropdownList = (props: DropdownListProps) => {
-	return <ul className={`dropdownList ${props.type}`}>{props.children}</ul>;
+	return <ul className={`dropdownList dropdownList--${props.type}`}>{props.children}</ul>;
 };
 
 export default DropdownList;

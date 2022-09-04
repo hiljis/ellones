@@ -1,13 +1,13 @@
 import ThemeDropdown from '../themeDropDown/ThemeDropDown';
 import UserDropdown from '../userDropdown/UserDropdown';
 import './Header.scss';
-import HeaderLogo from './HeaderLogo/HeaderLogo';
+import LogoFull from '../LogoFull/LogoFull';
 import HeaderNav from './HeaderNav/HeaderNav';
 
 const Header = () => {
 	return (
 		<header className="header">
-			<HeaderLogo />
+			<LogoFull />
 			<HeaderNav />
 			<div className="header--right">
 				<ThemeDropdown />

@@ -8,17 +8,32 @@
 	padding: 1.6rem 0;
 	background-color: white;
 	list-style: none;
-}
 
-.user li:hover {
-	background-color: blue;
-	color: white;
-}
+	&--user li:hover,
+	&--user li:focus {
+		background-color: blue;
+		color: white;
+	}
 
-.theme li:hover {
-	background-color: rgb(255, 204, 0);
-}
+	&--user li:active {
+		background-color: rgba(0, 0, 255, 0.75);
+	}
 
-.market li:hover {
-	background-color: rgb(241, 0, 133);
+	&--theme li:hover,
+	&--theme li:focus {
+		background-color: rgb(255, 204, 0);
+	}
+
+	&--theme li:active {
+		background-color: rgba(255, 204, 0, 0.75);
+	}
+
+	&--market li:hover,
+	&--market li:focus {
+		background-color: rgb(241, 0, 133);
+	}
+
+	&--market li:active {
+		background-color: rgba(241, 0, 133, 0.75);
+	}
 }

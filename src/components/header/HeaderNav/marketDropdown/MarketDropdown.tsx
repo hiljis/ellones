@@ -21,6 +21,7 @@ const MarketDropdown = () => {
 					<DropdownListItem>price action</DropdownListItem>
 					<DropdownListItem>dominance</DropdownListItem>
 					<DropdownListItem>pairs</DropdownListItem>
+					<DropdownListItem>pairs</DropdownListItem>
 				</DropdownList>
 			)}
 		</div>

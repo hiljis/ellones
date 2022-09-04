@@ -1,0 +1,59 @@
+.linkSocial {
+	display: flex;
+	align-items: center;
+	gap: 1.6rem;
+
+	text-decoration: none;
+	font-size: 1.8rem;
+	letter-spacing: 4px;
+	font-weight: 600;
+	color: var(--color-black);
+	cursor: pointer;
+	width: min-content;
+	white-space: nowrap;
+
+	&:active {
+		opacity: 0.5;
+	}
+
+	&__icon {
+		width: 2.5rem;
+		height: 2.5rem;
+	}
+
+	&--twitter:hover,
+	&--twitter:focus {
+		svg {
+			fill: var(--color-twitter);
+		}
+
+		color: var(--color-twitter);
+	}
+
+	&--facebook:hover,
+	&--facebook:focus {
+		svg {
+			fill: var(--color-facebook);
+		}
+
+		color: var(--color-facebook);
+	}
+
+	&--github:hover,
+	&--github:focus {
+		svg {
+			fill: var(--color-github);
+		}
+
+		color: var(--color-github);
+	}
+
+	&--youtube:hover,
+	&--youtube:focus {
+		svg {
+			fill: var(--color-youtube);
+		}
+
+		color: var(--color-youtube);
+	}
+}

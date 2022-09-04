@@ -1,0 +1,62 @@
+.linkText {
+	position: relative;
+	text-decoration: none;
+	font-size: 1.8rem;
+	letter-spacing: 4px;
+	font-weight: 600;
+	color: var(--color-black);
+	cursor: pointer;
+	width: min-content;
+	white-space: nowrap;
+
+	&::after {
+		content: '';
+		position: absolute;
+		bottom: -1rem;
+		left: 0;
+		width: 100%;
+		height: 3px;
+		border-radius: var(--radius--round);
+		pointer-events: none;
+		transition: all 0.1s;
+	}
+
+	&:active::after,
+	&:visited::after {
+		opacity: 0.5;
+	}
+
+	&--email {
+		font-size: 1.4rem;
+	}
+
+	&--email:hover,
+	&--email:focus {
+		color: rgba(0, 0, 255, 1);
+	}
+
+	&--email:hover::after,
+	&--email:focus:after {
+		background-color: rgba(0, 0, 255, 1);
+	}
+
+	&--compare:hover::after,
+	&--compare:focus::after {
+		background-color: rgba(0, 0, 255, 1);
+	}
+
+	&--l1s:hover::after,
+	&--l1s:focus::after {
+		background-color: rgba(0, 128, 0, 1);
+	}
+
+	&--market:hover::after,
+	&--market:focus::after {
+		background-color: rgba(255, 38, 121, 1);
+	}
+
+	&--resource:hover::after,
+	&--resource:focus::after {
+		background-color: rgb(0, 0, 0);
+	}
+}

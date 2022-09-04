@@ -7,6 +7,15 @@
 	--color-primary--dark: rgb(0, 0, 200);
 	--color-secondary: orange;
 
+	--color-twitter: rgb(29, 161, 242);
+	--color-twitter--50: rgba(29, 161, 242, 0.5);
+	--color-facebook: rgb(24, 119, 242);
+	--color-facebook--50: rgba(24, 119, 242, 0.5);
+	--color-youtube: rgb(205, 32, 31);
+	--color-youtube--50: rgba(205, 32, 31, 0.5);
+	--color-github: rgb(23, 21, 21);
+	--color-github--50: rgba(23, 21, 21, 0.5);
+
 	--radius--round: 100rem;
 	--radius--xsm: 0.3rem;
 	--radius--sm: 0.6rem;
