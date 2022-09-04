@@ -11,14 +11,14 @@ type FeatureProps = {
 };
 
 const Feature = (props: FeatureProps) => {
-	const handleMove = (e: any) => {
-		console.log(e);
+	const handleToggleDisabled = (e: any) => {
+		e.target.classList.toggle('show');
 	};
 
 	if (props.disabled) {
 		console.log(props.header);
 		return (
-			<div className="feature disabled" onMouseMove={handleMove}>
+			<div className="feature disabled" onClick={handleToggleDisabled}>
 				<h3 className="feature__header">{props.header}</h3>
 			</div>
 		);

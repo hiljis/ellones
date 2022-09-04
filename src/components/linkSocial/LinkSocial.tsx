@@ -3,7 +3,6 @@ import { ReactComponent as IconFacebook } from './icons/icon_facebook.svg';
 import { ReactComponent as IconGithub } from './icons/icon_github.svg';
 import { ReactComponent as IconYoutube } from './icons/icon_youtube.svg';
 import './LinkSocial.scss';
-import LinkText from '../linkText/LinkText';
 
 type LinkSocialProps = {
 	plattform: 'twitter' | 'youtube' | 'facebook' | 'github';

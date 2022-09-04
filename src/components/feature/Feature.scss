@@ -62,6 +62,19 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
+
+			transition: all 1s;
+		}
+	}
+
+	&.disabled.show {
+		position: relative;
+		background-color: var(--color-primary--light);
+		color: var(--color-primary--dark);
+
+		&::after {
+			padding-top: 10rem;
+			opacity: 0.5;
 		}
 	}
 
