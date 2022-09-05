@@ -1,4 +1,4 @@
-import Feature from '../../components/feature/Feature';
+import Feature from '../../components/featureCard/FeatureCard';
 import './Features.section.scss';
 
 const Features = () => {

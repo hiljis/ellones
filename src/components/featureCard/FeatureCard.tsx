@@ -1,6 +1,6 @@
 import { ReactComponent as IllustrationCharts } from './icons/illustration__charts.svg';
 import { ReactComponent as IconLogoInvert } from '../../assets/svg/ellones_logo-black--50.svg';
-import './Feature.scss';
+import './FeatureCard.scss';
 import IllustrationMarket from '../illustrations/illustrationMarket/IllustrationMarket';
 import IllustrationNetwork from '../illustrations/illustrationNetwork/IllustrationNetwork';
 import IllustrationNewsTrends from '../illustrations/illustrationNewsTrends/IllustrationNewsTrends';
