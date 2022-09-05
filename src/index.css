@@ -2,6 +2,9 @@
 	--f-family: 'Poppins', sans-serif;
 
 	--color-black: black;
+	--color-grey: rgb(67, 67, 67);
+	--color-grey--light: rgb(202, 202, 202);
+	--color-grey--lightest: rgb(248, 248, 248);
 	--color-white: white;
 	--color-primary: blue;
 	--color-primary--light: rgb(107, 107, 255);
