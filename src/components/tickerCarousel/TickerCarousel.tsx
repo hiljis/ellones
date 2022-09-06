@@ -38,7 +38,7 @@ const TickerCarousel: React.FC<Props> = ({ tickers, numVisibleCards }) => {
 	};
 
 	return (
-		<Fragment>
+		<div className="carousel__container">
 			<div className="carousel">
 				<button
 					className="carousel__btn carousel__btn--left"
@@ -74,7 +74,7 @@ const TickerCarousel: React.FC<Props> = ({ tickers, numVisibleCards }) => {
 					}}
 				></div>
 			</div>
-		</Fragment>
+		</div>
 	);
 };
 

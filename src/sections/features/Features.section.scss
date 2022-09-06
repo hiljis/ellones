@@ -1,4 +1,12 @@
 .section__features {
+	display: flex;
+	flex-direction: column;
+
+	width: 100%;
+	padding-top: 15rem;
+}
+
+.featuresGrid {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	grid-template-rows: 1fr 1fr 1fr;

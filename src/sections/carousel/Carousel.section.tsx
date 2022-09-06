@@ -9,7 +9,8 @@ type Props = {
 
 const Carousel: React.FC<Props> = ({ visibleCards }) => {
 	return (
-		<section className="section__carousel">
+		<section className="section__carousel" id="sectionCarousel">
+			<h4 className="section__header">Layer 1 protocols</h4>
 			<TickerCarousel numVisibleCards={visibleCards} tickers={tickers} />
 		</section>
 	);
