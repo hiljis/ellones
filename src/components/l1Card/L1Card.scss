@@ -1,7 +1,12 @@
+.l1CardContainer {
+	padding: 0.4rem;
+}
+
 .l1Card {
 	background-color: white;
 	border-radius: var(--radius--sm);
-	width: 12rem;
+	width: 100%;
+	height: 100%;
 
 	display: flex;
 	align-items: flex-end;
@@ -15,6 +20,7 @@
 	text-transform: uppercase;
 	line-height: 1;
 	letter-spacing: -1px;
+	border: 1px solid black;
 
 	&:hover.btc {
 		background-color: orange;

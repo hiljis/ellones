@@ -5,7 +5,7 @@ import './Home.scss';
 const Home = () => {
 	return (
 		<main className="home">
-			<Carousel />
+			<Carousel visibleCards={5} />
 			<Features />
 		</main>
 	);

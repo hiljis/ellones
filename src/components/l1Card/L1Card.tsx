@@ -1,14 +1,19 @@
 import './L1Card.scss';
+import { StyledL1Card } from './StyledL1Card';
 
-type l1CardProps = {
+type Props = {
 	ticker: string;
+	width: number;
 };
 
-const L1Card = (props: l1CardProps) => {
+const L1Card: React.FC<Props> = ({ ticker, width }) => {
 	return (
-		<a className={`l1Card ${props.ticker}`} href="#">
-			{props.ticker}
-		</a>
+		<div className="l1CardContainer" style={{ width: width }}>
+			<a className={`l1Card ${ticker}`} href="#">
+				{ticker}
+			</a>
+		</div>
+		// <StyledL1Card position={position}>{ticker}</StyledL1Card>
 	);
 };
 
