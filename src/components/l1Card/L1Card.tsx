@@ -1,5 +1,4 @@
 import './L1Card.scss';
-import { StyledL1Card } from './StyledL1Card';
 
 type Props = {
 	ticker: string;
