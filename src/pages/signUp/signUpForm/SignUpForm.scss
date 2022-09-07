@@ -1,0 +1,99 @@
+.signUpForm__container {
+	width: 30%;
+}
+
+.signUpForm {
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+
+.formRow {
+	width: 100%;
+	display: flex;
+	gap: 2rem;
+	justify-content: space-between;
+
+	input {
+		width: 50%;
+	}
+
+	select {
+		width: 50%;
+	}
+}
+
+.inputField {
+	font-size: 1.6rem;
+	font-weight: 500;
+	letter-spacing: 2px;
+	padding: 1.2rem 2rem;
+	border: none;
+	box-shadow: inset 0 0 0 2px var(--color-black);
+	border-radius: var(--radius--md);
+	color: var(--color-black);
+
+	&:focus {
+		box-shadow: inset 0 0 0 3px var(--color-primary);
+		outline: none;
+	}
+
+	&::placeholder {
+		color: var(--color-primary);
+		opacity: 1;
+	}
+
+	&::-ms-input-placeholder {
+		color: var(--color-primary);
+		opacity: 1;
+	}
+
+	&::-ms-input-placeholder {
+		color: var(--color-primary);
+		opacity: 1;
+	}
+}
+
+.selectField {
+	font-size: 1.6rem;
+	font-weight: 500;
+	letter-spacing: 2px;
+	padding: 1.2rem 2rem;
+	border: none;
+	box-shadow: inset 0 0 0 2px var(--color-black);
+	border-radius: var(--radius--md);
+	color: var(--color-black);
+
+	-webkit-appearance: none;
+	appearance: none;
+
+	&:hover {
+		border-color: red;
+	}
+
+	&:focus {
+		box-shadow: inset 0 0 0 3px var(--color-primary);
+		outline: none;
+	}
+}
+
+.btn--submit {
+	border: none;
+	font-size: 1.8rem;
+	font-weight: 600;
+	letter-spacing: 2px;
+	padding: 2rem;
+	background-color: var(--color-black);
+	color: var(--color-white);
+	border-radius: var(--radius--md);
+	margin-top: 3rem;
+	cursor: pointer;
+
+	&:hover {
+		background-color: var(--color-primary);
+	}
+
+	&:active {
+		background-color: var(--color-primary--light);
+	}
+}

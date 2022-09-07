@@ -1,0 +1,64 @@
+.signUpPage {
+	grid-column: content-start / content-end;
+	grid-row: main-start / main-end;
+	min-height: calc(100vh - 10rem);
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 15rem;
+}
+
+.signUpLeft {
+	display: flex;
+	flex-direction: column;
+	gap: 5rem;
+	align-items: center;
+}
+
+.signUpHeader {
+	font-size: 8rem;
+	font-weight: 600;
+	line-height: 1;
+}
+
+.colorSpectrum {
+	width: 120%;
+	height: 3rem;
+	display: flex;
+	flex-wrap: nowrap;
+	border-radius: var(--radius--round);
+	overflow: hidden;
+}
+
+.colorSpectrum--color {
+	flex-grow: 1;
+	height: 100%;
+}
+
+.purple {
+	background-color: #7000ff;
+}
+
+.blue {
+	background-color: #0075ff;
+}
+
+.green {
+	background-color: #00d4ad;
+}
+
+.yellow {
+	background-color: #ffd600;
+}
+
+.orange {
+	background-color: #ff5c00;
+}
+
+.red {
+	background-color: #ff006b;
+}
+
+.signUpForm {
+}
