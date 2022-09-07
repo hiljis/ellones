@@ -2,7 +2,7 @@ import './L1Card.scss';
 
 type Props = {
 	ticker: string;
-	width: number;
+	width?: number;
 };
 
 const L1Card: React.FC<Props> = ({ ticker, width }) => {

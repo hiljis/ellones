@@ -1,4 +1,4 @@
-import { ReactComponent as IconArrowDown } from './icons/Icon__heroHome--arrowDown.svg';
+import { ReactComponent as IconArrowDown } from '../../assets/svg/Icon__arrowDown.svg';
 import './HeroHome.scss';
 
 const HeroHome: React.FC = () => {

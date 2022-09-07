@@ -1,0 +1,60 @@
+.section__whatIs {
+	overflow: hidden;
+	border-radius: var(--radius--md);
+}
+
+.section__what:hover .what__btn {
+	box-shadow: inset 0 0 0 1px var(--color-primary);
+}
+
+.section__what:active .what__btn {
+	margin: 0.6rem;
+	padding: 1rem;
+}
+
+.btn--sectionWide {
+	width: 100%;
+	padding: 3rem 6rem;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	border: none;
+	background-color: black;
+	color: white;
+	cursor: pointer;
+
+	.question {
+		// color: var(--color-primary);
+		font-weight: 600;
+		font-size: 3.2rem;
+	}
+
+	svg path {
+		fill: white;
+	}
+}
+
+.answer--container {
+	background-color: black;
+	overflow: hidden;
+	text-align: left;
+	height: min-content;
+	transition: height 0.4s;
+}
+
+.answer--text {
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: min-content;
+	padding: 6rem;
+	padding-top: 0;
+	font-size: 1.6rem;
+	color: white;
+	background-color: black;
+	text-align: left;
+}
+
+.collapsed {
+	height: 0;
+}
