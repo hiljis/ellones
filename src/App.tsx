@@ -3,6 +3,7 @@ import './App.css';
 import Footer from './components/footer/Footer';
 import Header from './components/header/Header';
 import Home from './pages/home/Home';
+import L1PresentationPage from './pages/l1Presentation/L1Presentation.page';
 import L1sPage from './pages/layer1s/L1s.page';
 import SignUpPage from './pages/signUp/SignUp.page';
 
@@ -12,7 +13,8 @@ function App() {
 			<Header />
 			{/* <Home /> */}
 			{/* <SignUpPage /> */}
-			<L1sPage />
+			{/* <L1sPage /> */}
+			<L1PresentationPage />
 			<Footer />
 		</div>
 	);

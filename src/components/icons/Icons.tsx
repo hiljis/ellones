@@ -22,7 +22,7 @@ import { ReactComponent as IconQNT } from '../../assets/svg/L1s/qnt.svg';
 import { ReactComponent as IconTRX } from '../../assets/svg/L1s/trx.svg';
 
 export const getIcon = (ticker: string, className: string = '') => {
-	if (ticker === 'btc') return <IconBTC />;
+	if (ticker === 'btc') return <IconBTC className={className} />;
 	else if (ticker === 'eth') return <IconETH className={className} />;
 	else if (ticker === 'bnb') return <IconBNB className={className} />;
 	else if (ticker === 'ada') return <IconADA className={className} />;

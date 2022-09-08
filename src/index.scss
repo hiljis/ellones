@@ -54,7 +54,7 @@
 
 	--radius--round: 100rem;
 	--radius--xsm: 0.3rem;
-	--radius--sm: 0.6rem;
+	--radius--sm: 0.8rem;
 	--radius--md: 1.2rem;
 	--radius--lg: 2.4rem;
 	--radius--xl: 3.2rem;
@@ -91,4 +91,66 @@ code {
 	align-self: flex-start;
 	margin-left: 10rem;
 	margin-bottom: 5rem;
+}
+
+.icon--xs {
+	width: 3rem;
+	height: auto;
+}
+
+.icon--sm {
+	width: 8rem;
+	height: auto;
+}
+
+.icon--white {
+	path {
+		fill: white;
+	}
+}
+
+.btn {
+	padding: 1rem 2rem;
+	font-size: 1.6rem;
+	font-weight: 500;
+	border: 2px solid;
+	color: var(--color-white);
+	background-color: var(--color-black);
+	border-radius: var(--radius--sm);
+	cursor: pointer;
+
+	&--invert {
+		background-color: transparent;
+		&--white {
+			color: var(--color-white);
+			border-color: var(--color-white);
+		}
+		&--black {
+			color: var(--color-black);
+			border-color: var(--color-black);
+		}
+		&--primary {
+			color: var(--color-primary);
+			border-color: var(--color-primary);
+		}
+	}
+
+	&--full {
+		&--white {
+			background-color: var(--color-white);
+			color: var(--color-black);
+		}
+		&--black {
+			background-color: var(--color-black);
+			color: var(--color-white);
+		}
+		&--primary {
+			background-color: var(--color-primary);
+			color: var(--color-white);
+		}
+	}
+}
+
+.op--0 {
+	opacity: 0;
 }
