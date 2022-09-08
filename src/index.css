@@ -1,14 +1,46 @@
 :root {
+	--color-secondary: rgb(0, 200, 175);
+	--color-secondary--10: rgba(0, 200, 175, 0.1);
+	--color-secondary--25: rgba(0, 200, 175, 0.25);
+	--color-secondary--50: rgba(0, 200, 175, 0.5);
+	--color-secondary--dark: rgb(0, 115, 100);
+
+	--color-tertiary: orange;
+	--color-tertiary--10: rgba(255, 165, 0, 0.1);
+	--color-tertiary--25: rgba(255, 165, 0, 0.25);
+	--color-tertiary--50: rgba(255, 165, 0, 0.5);
+	--color-tertiary--75: rgba(255, 165, 0, 0.75);
+	--color-tertiary--dark: rgb(215, 140, 0);
+
+	--color-delete: rgb(255, 0, 100);
+
+	--color-text: #3c4b62;
+
+	/* --f-family--text: 'Inter', 'Inter UI', Helvetica, Arial, sans-serif; */
+	/* --f-family--headers: 'Poppins', sans-serif; */
+	/* --f-family--ellones: 'Europa-Bold'; */
+
 	--f-family: 'Poppins', sans-serif;
 
+	--color-primary: blue;
+	--color-primary--10: rgba(0, 0, 255, 0.1);
+	--color-primary--25: rgba(0, 0, 255, 0.25);
+	--color-primary--50: rgba(0, 0, 255, 0.5);
+	--color-primary--75: rgba(0, 0, 255, 0.75);
+	--color-primary--light: rgb(125, 125, 255);
+	--color-primary--lighter: rgb(200, 200, 255);
+	--color-primary--lightest: rgb(245, 245, 255);
+	--color-primary--dark: rgb(0, 0, 200);
+	--color-primary--darker: rgb(0, 0, 140);
+	--color-primary--darkest: rgb(0, 0, 80);
+
 	--color-black: black;
+	--color-black--10: rgba(0, 0, 0, 0.1);
 	--color-grey: rgb(67, 67, 67);
 	--color-grey--light: rgb(202, 202, 202);
 	--color-grey--lightest: rgb(248, 248, 248);
 	--color-white: white;
-	--color-primary: blue;
-	--color-primary--light: rgb(107, 107, 255);
-	--color-primary--dark: rgb(0, 0, 200);
+	--color-white--25: rgba(255, 255, 255, 0.25);
 	--color-secondary: orange;
 
 	--color-twitter: rgb(29, 161, 242);
@@ -25,6 +57,7 @@
 	--radius--sm: 0.6rem;
 	--radius--md: 1.2rem;
 	--radius--lg: 2.4rem;
+	--radius--xl: 3.2rem;
 }
 
 html {

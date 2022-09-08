@@ -59,16 +59,16 @@ const Footer = () => {
 				<div className="footer__col">
 					<h4 className="footer__col--header">SOCIALS</h4>
 					<div className="footer__col--item">
-						<LinkSocial plattform="twitter" />
+						<LinkSocial plattform="twitter" href="#" withText={true} />
 					</div>
 					<div className="footer__col--item">
-						<LinkSocial plattform="youtube" />
+						<LinkSocial plattform="youtube" href="#" withText={true} />
 					</div>
 					<div className="footer__col--item">
-						<LinkSocial plattform="github" />
+						<LinkSocial plattform="github" href="#" withText={true} />
 					</div>
 					<div className="footer__col--item">
-						<LinkSocial plattform="facebook" />
+						<LinkSocial plattform="facebook" href="#" withText={true} />
 					</div>
 				</div>
 			</div>

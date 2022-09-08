@@ -1,6 +1,27 @@
 .l1CardContainer {
+	position: relative;
 	padding: 0.4rem;
 	height: 20rem;
+	cursor: pointer;
+
+	svg {
+		position: absolute;
+		width: 70%;
+		top: 50%;
+		left: 50%;
+		pointer-events: none;
+		transform: translate(-50%, -50%);
+		opacity: 0;
+
+		path {
+			fill: white;
+			stroke: white;
+		}
+	}
+
+	&:hover svg {
+		opacity: 1;
+	}
 }
 
 .l1Card {
@@ -40,6 +61,74 @@
 	}
 	&:hover.sol {
 		background-color: rgb(132, 0, 255);
+		color: white;
+	}
+	&:hover.avax {
+		background-color: rgb(0, 0, 0);
+		color: white;
+	}
+	&:hover.atom {
+		background-color: rgb(0, 0, 0);
+		color: white;
+	}
+	&:hover.trx {
+		background-color: rgb(0, 0, 0);
+		color: white;
+	}
+	&:hover.icp {
+		background-color: rgb(0, 0, 0);
+		color: white;
+	}
+	&:hover.rune {
+		background-color: rgb(0, 0, 0);
+		color: white;
+	}
+	&:hover.hbar {
+		background-color: rgb(0, 0, 0);
+		color: white;
+	}
+	&:hover.algo {
+		background-color: rgb(0, 0, 0);
+		color: white;
+	}
+	&:hover.dot {
+		background-color: rgb(132, 0, 255);
+		color: white;
+	}
+	&:hover.egld {
+		background-color: rgb(0, 0, 0);
+		color: white;
+	}
+	&:hover.eos {
+		background-color: rgb(0, 0, 0);
+		color: white;
+	}
+	&:hover.flow {
+		background-color: rgb(0, 0, 0);
+		color: white;
+	}
+	&:hover.near {
+		background-color: rgb(0, 0, 0);
+		color: white;
+	}
+	&:hover.xlm {
+		background-color: rgb(0, 0, 0);
+		color: white;
+	}
+	&:hover.xtz {
+		background-color: rgb(0, 0, 0);
+		color: white;
+	}
+	&:hover.qnt {
+		background-color: rgb(0, 0, 0);
+		color: white;
+	}
+	&:hover.ftm {
+		background-color: rgb(0, 0, 0);
+		color: white;
+	}
+	&:hover.matic {
+		background-color: rgb(0, 0, 0);
 		color: white;
 	}
 }

@@ -1,5 +1,5 @@
 import L1Card from '../../components/l1Card/L1Card';
-import './Layer1sGrid.section.scss';
+import './L1sGrid.section.scss';
 
 const tickers = [
 	'btc',
@@ -25,7 +25,7 @@ const tickers = [
 	'egld',
 ];
 
-const Layer1sGrid: React.FC = () => {
+const L1sGrid: React.FC = () => {
 	return (
 		<section className="section__layer1s">
 			<h4 className="section__header section__header--layer1sGrid">Layer 1 protocols</h4>
@@ -38,4 +38,4 @@ const Layer1sGrid: React.FC = () => {
 	);
 };
 
-export default Layer1sGrid;
+export default L1sGrid;

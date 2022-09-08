@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { ReactComponent as IconArrowDown } from '../../assets/svg/Icon__arrowDown.svg';
-import './Layer1sWhat.section.scss';
+import './L1sWhat.section.scss';
 
-const Layer1sWhat: React.FC = () => {
+const L1sWhat: React.FC = () => {
 	const [collapsed, setCollapsed] = useState(true);
 
 	const handleToggleCollapsed = () => {
@@ -29,4 +29,4 @@ const Layer1sWhat: React.FC = () => {
 	);
 };
 
-export default Layer1sWhat;
+export default L1sWhat;

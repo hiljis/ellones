@@ -6,25 +6,18 @@ import './LinkSocial.scss';
 
 type LinkSocialProps = {
 	plattform: 'twitter' | 'youtube' | 'facebook' | 'github';
-};
-
-const socialHrefs = {
-	twitter: '#',
-	youtube: '#',
-	facebook: '#',
-	github: '#',
+	href: string;
+	withText: boolean;
 };
 
 const LinkSocial = (props: LinkSocialProps) => {
-	const href = socialHrefs[props.plattform];
-
 	return (
-		<a className={`linkSocial linkSocial--${props.plattform}`} href={href}>
+		<a className={`linkSocial linkSocial--${props.plattform}`} href={props.href} rel="noopener noreferrer">
 			{props.plattform === 'twitter' ? <IconTwitter className="linkSocial__icon" /> : ''}
 			{props.plattform === 'facebook' ? <IconFacebook className="linkSocial__icon" /> : ''}
 			{props.plattform === 'github' ? <IconGithub className="linkSocial__icon" /> : ''}
 			{props.plattform === 'youtube' ? <IconYoutube className="linkSocial__icon" /> : ''}
-			{props.plattform}
+			{props.withText ?? props.plattform}
 		</a>
 	);
 };
