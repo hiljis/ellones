@@ -14,6 +14,9 @@
 
 	--color-delete: rgb(255, 0, 100);
 
+	--color-positive: rgb(0, 231, 161);
+	--color-negative: rgb(255, 0, 122);
+
 	--color-text: #3c4b62;
 
 	/* --f-family--text: 'Inter', 'Inter UI', Helvetica, Arial, sans-serif; */
@@ -53,7 +56,8 @@
 	--color-github--50: rgba(23, 21, 21, 0.5);
 
 	--radius--round: 100rem;
-	--radius--xsm: 0.3rem;
+	--radius--xxs: 0.3rem;
+	--radius--xs: 0.6rem;
 	--radius--sm: 0.8rem;
 	--radius--md: 1.2rem;
 	--radius--lg: 2.4rem;

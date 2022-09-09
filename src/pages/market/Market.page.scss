@@ -1,0 +1,7 @@
+.marketPage {
+	grid-column: content-start / content-end;
+	grid-row: main-start / main-end;
+
+	display: flex;
+	flex-direction: column;
+}
