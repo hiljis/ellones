@@ -14,9 +14,9 @@ const L1Modal: React.FC<Props> = ({ children, closeHandler }) => {
 	};
 
 	return (
-		<div className="layer1Modal" onClick={handleClick} ref={ref}>
-			<section className="layer1Modal__content">{children}</section>
-		</div>
+		<section className="layer1Modal" onClick={handleClick} ref={ref}>
+			{children}
+		</section>
 	);
 };
 

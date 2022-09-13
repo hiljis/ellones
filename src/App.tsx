@@ -7,6 +7,7 @@ import L1PresentationPage from './pages/l1Presentation/L1Presentation.page';
 import L1sPage from './pages/layer1s/L1s.page';
 import MarketPage from './pages/market/Market.page';
 import SignUpPage from './pages/signUp/SignUp.page';
+import UserAccountPage from './pages/userAccount/UserAccount.page';
 
 function App() {
 	return (
@@ -16,7 +17,8 @@ function App() {
 			{/* <SignUpPage /> */}
 			{/* <L1sPage /> */}
 			{/* <L1PresentationPage /> */}
-			<MarketPage />
+			{/* <MarketPage /> */}
+			<UserAccountPage />
 			<Footer />
 		</div>
 	);

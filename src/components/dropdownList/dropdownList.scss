@@ -36,4 +36,14 @@
 	&--market li:active {
 		background-color: rgba(241, 0, 133, 0.75);
 	}
+
+	&--l1s li:hover,
+	&--l1s li:focus {
+		background-color: rgb(141, 0, 241);
+		color: white;
+	}
+
+	&--l1s li:active {
+		background-color: rgba(141, 0, 241, 0.75);
+	}
 }
