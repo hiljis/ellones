@@ -89,6 +89,17 @@ code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
+a {
+	color: var(--color-black);
+	font-size: 1.6rem;
+	font-weight: 600;
+	text-decoration: none;
+
+	&:hover {
+		color: inherit;
+	}
+}
+
 .section__header {
 	font-size: 1.2rem;
 	font-weight: 500;

@@ -26,7 +26,9 @@ const L1SummaryCard: React.FC<Props> = ({ ticker }) => {
 					provident. Voluptatem.
 				</p>
 				<div className="layer1__info__links">
-					<LinkText text="bitcoin.org" href="#" type="resource" />
+					<LinkText href="#" type="resource">
+						bitcoin.org
+					</LinkText>
 					<div className="layer1__info__socials">
 						<LinkSocial plattform="facebook" href="#" withText={false} />
 						<LinkSocial plattform="github" href="#" withText={false} />

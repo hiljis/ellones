@@ -1,6 +1,6 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import DropdownList from '../dropdownList/dropdownList';
-import DropdownListItem from '../dropdownList/dropdownListItem/dropdownListItem';
 import './UserDropdown.scss';
 
 const UserDropdown = () => {
@@ -16,8 +16,8 @@ const UserDropdown = () => {
 			</button>
 			{isOpen && (
 				<DropdownList type="user">
-					<DropdownListItem>my profile</DropdownListItem>
-					<DropdownListItem>sign out</DropdownListItem>
+					<Link to="/account">My profile</Link>
+					<Link to="/signout">Sign out</Link>
 				</DropdownList>
 			)}
 		</div>

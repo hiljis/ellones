@@ -12,12 +12,17 @@ type LinkSocialProps = {
 
 const LinkSocial = (props: LinkSocialProps) => {
 	return (
-		<a className={`linkSocial linkSocial--${props.plattform}`} href={props.href} rel="noopener noreferrer">
+		<a
+			className={`linkSocial linkSocial--${props.plattform}`}
+			href={props.href}
+			target="_blank"
+			rel="noopener noreferrer"
+		>
 			{props.plattform === 'twitter' ? <IconTwitter className="linkSocial__icon" /> : ''}
 			{props.plattform === 'facebook' ? <IconFacebook className="linkSocial__icon" /> : ''}
 			{props.plattform === 'github' ? <IconGithub className="linkSocial__icon" /> : ''}
 			{props.plattform === 'youtube' ? <IconYoutube className="linkSocial__icon" /> : ''}
-			{props.withText ?? props.plattform}
+			{props.withText && props.plattform}
 		</a>
 	);
 };
