@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import DropdownList from '../dropdownList/dropdownList';
-import DropdownListItem from '../dropdownList/dropdownListItem/dropdownListItem';
 import { getIcon } from '../icons/Icons';
 import './StatBoxDropdown.scss';
 
@@ -31,7 +30,7 @@ const StatBoxDropDown: React.FC<Props> = ({ title }) => {
 			{open ? (
 				<DropdownList type="l1s">
 					{options.map((option) => (
-						<DropdownListItem>{option}</DropdownListItem>
+						<div>{option}</div>
 					))}
 				</DropdownList>
 			) : (

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './ButtonSignOut.scss';
 
 const ButtonSignOut: React.FC = () => {
@@ -9,9 +10,9 @@ const ButtonSignOut: React.FC = () => {
 		}
 	};
 	return (
-		<button className="btn__SignOut" type="button" onClick={handleSignOut}>
+		<Link to="/signout" className="btn__SignOut" type="button" onClick={handleSignOut}>
 			Sign out
-		</button>
+		</Link>
 	);
 };
 
