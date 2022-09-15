@@ -1,5 +1,6 @@
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { signUpUser, SIGN_UP_METHOD_EMAIL_PASSWORD } from '../../../app/firebase/firebase';
 import './SignUpForm.scss';
 
 interface User {
@@ -84,9 +85,15 @@ const SignUpForm: React.FC = () => {
 			occupation: Yup.string().required('Required'),
 		}),
 		onSubmit: (values, actions) => {
-			console.log({ values, actions });
-			alert(JSON.stringify(values, null, 2));
-			actions.setSubmitting(false);
+			console.log({ values });
+			try {
+				signUpUser(SIGN_UP_METHOD_EMAIL_PASSWORD, values);
+				console.log('SIGN UP SUCCESS');
+			} catch (err) {
+				console.error('SIGN UP FAILED');
+			} finally {
+				actions.setSubmitting(false);
+			}
 		},
 	});
 
