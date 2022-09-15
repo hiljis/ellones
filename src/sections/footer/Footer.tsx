@@ -1,6 +1,6 @@
-import LinkSocial from '../linkSocial/LinkSocial';
-import LinkText from '../linkText/LinkText';
-import LogoFull from '../LogoFull/LogoFull';
+import LinkSocial from '../../components/linkSocial/LinkSocial';
+import LinkText from '../../components/linkText/LinkText';
+import LogoFull from '../../components/LogoFull/LogoFull';
 import './Footer.scss';
 import FooterCopy from './footerCopy/FooterCopy';
 
@@ -9,51 +9,75 @@ const Footer = () => {
 		<section className="footer">
 			<div className="footer__cols">
 				<div className="footer__col">
-					<h4 className="footer__col--header">
+					<div className="footer__col--header">
 						<LogoFull />
-					</h4>
+					</div>
 					<div className="footer__col--item">
-						<LinkText text="support@ellones.com" href="henric.hiljanen@gmail.com" type="email" />
+						<LinkText href="henric.hiljanen@gmail.com" type="email">
+							support@ellones.com
+						</LinkText>
 					</div>
 					<h5 className="footer__col--subHeader">DATA PROVIDERS</h5>
 					<div className="footer__col--item">
-						<LinkText text="coingecko" href="#" type="resource" />
+						<LinkText href="https://www.coingecko.com/" type="resource">
+							coingecko
+						</LinkText>
 					</div>
 					<div className="footer__col--item">
-						<LinkText text="defilama" href="#" type="resource" />
+						<LinkText href="https://defillama.com/" type="resource">
+							defilama
+						</LinkText>
 					</div>
 				</div>
 				<div className="footer__col">
 					<h4 className="footer__col--header">LINKS</h4>
 					<div className="footer__col--item">
-						<LinkText text="compare" href="#" type="compare" />
+						<LinkText href="/compare" type="compare">
+							compare
+						</LinkText>
 					</div>
 					<div className="footer__col--item">
-						<LinkText text="layer 1s" href="#" type="l1s" />
+						<LinkText href="/l1s" type="l1s">
+							layer 1s
+						</LinkText>
 					</div>
 					<div className="footer__col--item">
-						<LinkText text="price action" href="#" type="market" />
+						<LinkText href="/change" type="market">
+							change
+						</LinkText>
 					</div>
 					<div className="footer__col--item">
-						<LinkText text="dominance" href="#" type="market" />
+						<LinkText href="/dominance" type="market">
+							dominance
+						</LinkText>
 					</div>
 					<div className="footer__col--item">
-						<LinkText text="pairs" href="#" type="market" />
+						<LinkText href="/pairs" type="market">
+							pairs
+						</LinkText>
 					</div>
 				</div>
 				<div className="footer__col">
 					<h4 className="footer__col--header">RESOUCES</h4>
 					<div className="footer__col--item">
-						<LinkText text="resource 1" href="#" type="resource" />
+						<LinkText href="#" type="resource">
+							resource 1
+						</LinkText>
 					</div>
 					<div className="footer__col--item">
-						<LinkText text="resource 2" href="#" type="resource" />
+						<LinkText href="#" type="resource">
+							resource 2
+						</LinkText>
 					</div>
 					<div className="footer__col--item">
-						<LinkText text="resource 3" href="#" type="resource" />
+						<LinkText href="#" type="resource">
+							resource 3
+						</LinkText>
 					</div>
 					<div className="footer__col--item">
-						<LinkText text="resource 4" href="#" type="resource" />
+						<LinkText href="#" type="resource">
+							resource 4
+						</LinkText>
 					</div>
 				</div>
 				<div className="footer__col">

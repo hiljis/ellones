@@ -1,7 +1,8 @@
 import React from 'react';
+import { Routes, Route, Link } from 'react-router-dom';
 import './App.css';
-import Footer from './components/footer/Footer';
-import Header from './components/header/Header';
+import Footer from './sections/footer/Footer';
+import Header from './sections/header/Header';
 import Home from './pages/home/Home';
 import L1PresentationPage from './pages/l1Presentation/L1Presentation.page';
 import L1sPage from './pages/layer1s/L1s.page';
@@ -13,12 +14,14 @@ function App() {
 	return (
 		<div className="App">
 			<Header />
-			{/* <Home /> */}
-			{/* <SignUpPage /> */}
-			{/* <L1sPage /> */}
-			{/* <L1PresentationPage /> */}
-			{/* <MarketPage /> */}
-			<UserAccountPage />
+			<Routes>
+				<Route path="/" element={<Home />} />
+				<Route path="/change" element={<MarketPage />} />
+				<Route path="/signup" element={<SignUpPage />} />
+				<Route path="/account" element={<UserAccountPage />} />
+				<Route path="/l1s" element={<L1sPage />} />
+				<Route path="/l1s/:l1Name" element={<L1PresentationPage />} />
+			</Routes>
 			<Footer />
 		</div>
 	);
