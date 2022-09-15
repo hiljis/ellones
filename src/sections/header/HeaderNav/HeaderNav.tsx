@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import LinkText from '../../../components/linkText/LinkText';
 import './HeaderNav.scss';
 import MarketDropdown from './marketDropdown/MarketDropdown';

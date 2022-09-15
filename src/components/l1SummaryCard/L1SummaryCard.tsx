@@ -9,7 +9,6 @@ type Props = {
 };
 
 const L1SummaryCard: React.FC<Props> = ({ ticker }) => {
-	console.log(ticker);
 	return (
 		<aside className="layer1SummaryCard" id="bitcoin">
 			<div className="layer1__box layer1__info">
