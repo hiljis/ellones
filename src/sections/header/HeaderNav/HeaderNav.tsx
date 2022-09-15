@@ -1,11 +1,16 @@
+import LinkText from '../../../components/linkText/LinkText';
 import './HeaderNav.scss';
 import MarketDropdown from './marketDropdown/MarketDropdown';
 
 const HeaderNav = () => {
 	return (
 		<nav className="headerNav">
-			<a className="headerNav__link headerNav__link--compare">compare</a>
-			<a className="headerNav__link headerNav__link--l1s">layer 1s</a>
+			<LinkText href="/compare" type="compare">
+				compare
+			</LinkText>
+			<LinkText href="/l1s" type="l1s">
+				layer 1s
+			</LinkText>
 			<MarketDropdown />
 		</nav>
 	);

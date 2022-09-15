@@ -4,7 +4,6 @@ import { ReactComponent as IconLight } from './icons/Icon_sun.svg';
 import { ReactComponent as IconDark } from './icons/icon_moon.svg';
 import { ReactComponent as IconBlue } from './icons/icon_blue.svg';
 import DropdownList from '../dropdownList/dropdownList';
-import DropdownListItem from '../dropdownList/dropdownListItem/dropdownListItem';
 import './ThemeDropDown.scss';
 
 const ThemeDropdown = () => {
@@ -21,18 +20,18 @@ const ThemeDropdown = () => {
 			</button>
 			{isOpen && (
 				<DropdownList type="theme">
-					<DropdownListItem>
+					<div>
 						<IconLight />
 						<span>light</span>
-					</DropdownListItem>
-					<DropdownListItem>
+					</div>
+					<div>
 						<IconDark />
 						<span>dark</span>
-					</DropdownListItem>
-					<DropdownListItem>
+					</div>
+					<div>
 						<IconBlue />
 						<span>blue</span>
-					</DropdownListItem>
+					</div>
 				</DropdownList>
 			)}
 		</div>

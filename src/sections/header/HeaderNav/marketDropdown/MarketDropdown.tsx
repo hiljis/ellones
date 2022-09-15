@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import DropdownList from '../../../dropdownList/dropdownList';
-import DropdownListItem from '../../../dropdownList/dropdownListItem/dropdownListItem';
+import { Link } from 'react-router-dom';
+import DropdownList from '../../../../components/dropdownList/dropdownList';
 import { ReactComponent as IconCaretDown } from '../icons/icon_caret-down.svg';
 import './MarketDropdown.scss';
 
@@ -18,10 +18,9 @@ const MarketDropdown = () => {
 			</button>
 			{isOpen && (
 				<DropdownList type="market">
-					<DropdownListItem>price action</DropdownListItem>
-					<DropdownListItem>dominance</DropdownListItem>
-					<DropdownListItem>pairs</DropdownListItem>
-					<DropdownListItem>pairs</DropdownListItem>
+					<Link to="/change">Change</Link>
+					<Link to="/dominance">Dominance</Link>
+					<Link to="/pairs">Pairs</Link>
 				</DropdownList>
 			)}
 		</div>

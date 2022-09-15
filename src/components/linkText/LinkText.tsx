@@ -1,18 +1,27 @@
+import { NavLink } from 'react-router-dom';
 import './LinkText.scss';
 
 type LinkTextProps = {
-	text: string;
-	type: 'compare' | 'l1s' | 'market' | 'resource' | 'email';
+	children: string;
+	type: 'compare' | 'l1s' | 'market' | 'resource' | 'email' | 'external';
 	href: string;
 };
 
 const LinkText = (props: LinkTextProps) => {
 	const href = props.type === 'email' ? `mailto: ${props.href}` : props.href;
 
+	if (props.type === 'resource') {
+		return (
+			<a href={href} className={`linkText linkText--${props.type}`} target="_blank" rel="noopener noreferrer">
+				{props.children}
+			</a>
+		);
+	}
+
 	return (
-		<a className={`linkText linkText--${props.type}`} href={href}>
-			{props.text}
-		</a>
+		<NavLink to={href} className={`linkText linkText--${props.type}`}>
+			{props.children}
+		</NavLink>
 	);
 };
 

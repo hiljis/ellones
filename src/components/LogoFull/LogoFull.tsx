@@ -1,12 +1,13 @@
+import { Link } from 'react-router-dom';
 import { ReactComponent as EllonesLogo } from '../../assets/svg/ellones_logo-black--50.svg';
 import './LogoFull.scss';
 
 const LogoFull = () => {
 	return (
-		<div className="logoFull">
+		<Link to="/" className="logoFull">
 			<EllonesLogo className="logoFull--img" />
 			<p className="logoFull--text">ellones</p>
-		</div>
+		</Link>
 	);
 };
 

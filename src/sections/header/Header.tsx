@@ -1,7 +1,7 @@
-import ThemeDropdown from '../themeDropDown/ThemeDropDown';
-import UserDropdown from '../userDropdown/UserDropdown';
+import ThemeDropdown from '../../components/themeDropDown/ThemeDropDown';
+import UserDropdown from '../../components/userDropdown/UserDropdown';
 import './Header.scss';
-import LogoFull from '../LogoFull/LogoFull';
+import LogoFull from '../../components/LogoFull/LogoFull';
 import HeaderNav from './HeaderNav/HeaderNav';
 
 const Header = () => {
