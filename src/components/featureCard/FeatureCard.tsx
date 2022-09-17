@@ -16,7 +16,6 @@ const Feature = (props: FeatureProps) => {
 	};
 
 	if (props.disabled) {
-		console.log(props.header);
 		return (
 			<div className="feature disabled" onClick={handleToggleDisabled}>
 				<h3 className="feature__header">{props.header}</h3>

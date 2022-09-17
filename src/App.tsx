@@ -14,15 +14,13 @@ import { fetchProfiles, selectProfile } from './store/profiles/profilesSlice';
 
 function App() {
 	const profiles = useAppSelector((state) => state.profiles.profiles);
-	const profileBitcoin = useAppSelector((state) => selectProfile(state, 'bitcoin'));
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
-		if (!profileBitcoin) {
+		if (!profiles.length) {
 			dispatch(fetchProfiles());
 		}
-		console.log(profileBitcoin);
-	}, [dispatch, profileBitcoin]);
+	}, [dispatch, profiles]);
 
 	return (
 		<div className="App">
