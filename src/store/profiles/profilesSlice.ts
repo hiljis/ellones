@@ -1,6 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { profile } from 'console';
-import { string } from 'yup';
 import { RootState } from '../store';
 
 export interface Profile {
@@ -56,5 +54,6 @@ export const { fetchProfiles, fetchProfilesSuccess, fetchProfilesFailed } = prof
 
 export const selectProfile = (state: RootState, name: string) =>
 	state.profiles.profiles.filter((profile) => profile.name === name)[0];
+export const selectProfiles = (state: RootState) => state.profiles.profiles;
 
 export default profilesSlice.reducer;

@@ -34,22 +34,6 @@ export const auth = getAuth();
 
 export const db = getFirestore();
 
-////////////////////////////////////////////////////////////////////////////////////////////
-// SIGN UP
-////////////////////////////////////////////////////////////////////////////////////////////
-export const SIGN_UP_METHOD_EMAIL_PASSWORD = 10;
-
-export const signUpUser = async (method, { username, email, password, gender, age, occupation }) => {
-	if (method === SIGN_UP_METHOD_EMAIL_PASSWORD) {
-		try {
-			const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-			console.log(userCredential.user);
-		} catch (err) {
-			throw err;
-		}
-	}
-};
-
 // CREATE AUTH USER
 export const createAuthUserWithEmailAndPassword = async (email, password) => {
 	if (!email || !password) return;

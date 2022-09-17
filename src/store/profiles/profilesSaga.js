@@ -1,4 +1,4 @@
-import { call, put, takeEvery, all } from 'redux-saga/effects';
+import { call, put, takeEvery } from 'redux-saga/effects';
 import { getProfiles } from '../../app/firebase/firebase';
 import { fetchProfilesSuccess, fetchProfilesFailed } from './profilesSlice';
 
@@ -34,7 +34,7 @@ function* fetchProfilesAsync() {
 	}
 }
 
-function* profilesSaga() {
+export function* profilesSaga() {
 	yield takeEvery('profiles/fetchProfiles', fetchProfilesAsync);
 }
 

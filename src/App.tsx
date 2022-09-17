@@ -10,10 +10,11 @@ import SignUpPage from './pages/signUp/SignUp.page';
 import UserAccountPage from './pages/userAccount/UserAccount.page';
 import { useAppDispatch, useAppSelector } from './store/hooks';
 import { useEffect } from 'react';
-import { fetchProfiles, selectProfile } from './store/profiles/profilesSlice';
+import { fetchProfiles, selectProfile, selectProfiles } from './store/profiles/profilesSlice';
+import { fetchMarketData, selectPriceHistory } from './store/marketData/marketDataSlice';
 
 function App() {
-	const profiles = useAppSelector((state) => state.profiles.profiles);
+	const profiles = useAppSelector(selectProfiles);
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {

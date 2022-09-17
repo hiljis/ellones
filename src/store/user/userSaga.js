@@ -1,5 +1,4 @@
-import { takeLatest, put, call, all, takeEvery } from 'redux-saga/effects';
-import { User } from './userSlice';
+import { takeLatest, put, call, all } from 'redux-saga/effects';
 
 import { signInSuccess, signInFailed, signOutSuccess, signOutFailed, signUpSuccess, signUpFailed } from './user.action';
 
@@ -42,10 +41,13 @@ export function* signInWithGoogle() {
 }
 
 export function* signUp({ payload }) {
-	const { email, password, displayName } = payload;
+	const { email, password, username, gender, age, occupation } = payload;
 	try {
 		const { user } = yield call(createAuthUserWithEmailAndPassword, email, password);
-		user.displayName = displayName;
+		user.username = username;
+		user.gender = gender;
+		user.age = age;
+		user.occupation = occupation;
 		yield put(signUpSuccess(user));
 	} catch (error) {
 		yield put(signUpFailed(error));
@@ -77,9 +79,12 @@ export function* signOut() {
 }
 
 export function* userSagas() {
-	yield takeEvery('user/checkUserSession', isUserAuthenticated);
-	yield takeEvery('user/signUpEmailStart', signUp);
-	yield takeEvery('user/signInEmailStart', signInWithEmail);
-	yield takeEvery('user/signInGoogleStart', signInWithGoogle);
-	yield takeEvery('user/signOutStart', signOut);
+	yield all([
+		call(yield takeLatest('user/checkUserSession', isUserAuthenticated)),
+		call(yield takeLatest('user/signUpStart', signUp)),
+		call(yield takeLatest('user/signUpSuccess', signInAfterSignUp)),
+		call(yield takeLatest('user/signInEmailStart', signInWithEmail)),
+		call(yield takeLatest('user/signInGoogleStart', signInWithGoogle)),
+		call(yield takeLatest('user/signOutStart', signOut)),
+	]);
 }

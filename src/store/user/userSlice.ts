@@ -11,7 +11,7 @@ export interface User {
 }
 
 export interface UserState {
-	currentUser: User;
+	currentUser: User | null;
 	isLoading: boolean;
 	error: string;
 }
@@ -49,13 +49,10 @@ export const userSlice = createSlice({
 			state.isLoading = false;
 			state.error = action.payload;
 		},
-		signUpEmailStart: (state, action: PayloadAction<User>) => {
+		signUpStart: (state, action: PayloadAction<User>) => {
 			state.isLoading = true;
 		},
-		signUpSuccess: (state, action: PayloadAction<User>) => {
-			state.isLoading = false;
-			state.currentUser = action.payload;
-		},
+		signUpSuccess: (state, action: PayloadAction<User>) => {},
 		signUpFailed: (state, action: PayloadAction<string>) => {
 			state.isLoading = false;
 			state.error = action.payload;
@@ -65,8 +62,10 @@ export const userSlice = createSlice({
 		},
 		signOutSuccess: (state) => {
 			state.isLoading = false;
+			state.currentUser = null;
 		},
-		signOutFailed: (state, action) => {
+		signOutFailed: (state, action: PayloadAction<string>) => {
+			state.isLoading = false;
 			state.error = action.payload;
 		},
 	},
@@ -78,7 +77,7 @@ export const {
 	signInGoogleStart,
 	signInSuccess,
 	signInFailed,
-	signUpEmailStart,
+	signUpStart,
 	signUpSuccess,
 	signUpFailed,
 	signOutStart,
