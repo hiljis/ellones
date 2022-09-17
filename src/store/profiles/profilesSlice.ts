@@ -4,11 +4,11 @@ import { RootState } from '../store';
 export interface Profile {
 	cgId: string;
 	chainType: string;
-	circSupply: string;
+	circSupply: number;
 	dScore: number;
 	discord: string;
 	ecoScore: number;
-	genesis: Date;
+	genesis: { seconds: number; nanoseconds: number };
 	github: string;
 	inflation: number;
 	maxSupply: number;
@@ -18,6 +18,7 @@ export interface Profile {
 	twitter: string;
 	website: string;
 	youtube: string;
+	shortDescript: string;
 }
 
 export type ProfilesState = {
@@ -52,8 +53,9 @@ export const profilesSlice = createSlice({
 
 export const { fetchProfiles, fetchProfilesSuccess, fetchProfilesFailed } = profilesSlice.actions;
 
-export const selectProfile = (state: RootState, name: string) =>
-	state.profiles.profiles.filter((profile) => profile.name === name)[0];
+export const selectProfile = (state: RootState, ticker: string) =>
+	state.profiles.profiles.filter((profile) => profile.ticker === ticker)[0];
+
 export const selectProfiles = (state: RootState) => state.profiles.profiles;
 
 export default profilesSlice.reducer;

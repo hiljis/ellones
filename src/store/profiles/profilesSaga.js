@@ -22,6 +22,7 @@ function setLocalProfiles(profiles) {
 function* fetchProfilesAsync() {
 	try {
 		const localProfiles = getLocalProfiles();
+		// const localProfiles = null;
 		if (!localProfiles) {
 			const profiles = yield call(getProfiles);
 			yield put(fetchProfilesSuccess(profiles));

@@ -1,3 +1,6 @@
+import { capFirst, formatNumberAndExtractUnit, removeHttps } from '../../app/utils/format';
+import { useAppSelector } from '../../store/hooks';
+import { selectProfile } from '../../store/profiles/profilesSlice';
 import { getIcon } from '../icons/Icons';
 import LinkButton from '../linkButton/LinkButton';
 import LinkSocial from '../linkSocial/LinkSocial';
@@ -9,29 +12,32 @@ type Props = {
 };
 
 const L1SummaryCard: React.FC<Props> = ({ ticker }) => {
+	const profile = useAppSelector((state) => selectProfile(state, ticker));
+	const genesisYear = new Date(profile.genesis.seconds * 1000).getFullYear();
+	const { number: tps, unit: tpsUnit } = formatNumberAndExtractUnit(profile.tps);
+	const { number: circSupply, unit: circSupplyUnit } = formatNumberAndExtractUnit(profile.circSupply);
+	let { number: maxSupply, unit: maxSupplyUnit } =
+		profile.maxSupply === 0 ? { number: '-', unit: '' } : formatNumberAndExtractUnit(profile.maxSupply);
 	return (
 		<aside className="layer1SummaryCard" id="bitcoin">
 			<div className="layer1__box layer1__info">
 				<div className="layer1__info__header">
-					<h4>Bitcoin</h4>
+					<h4>{capFirst(profile.name)}</h4>
 					<div className="tags">
-						<span className="tag">2009</span>
-						<span className="tag">POW</span>
+						<span className="tag">{genesisYear}</span>
+						<span className="tag">{profile.chainType}</span>
 					</div>
 				</div>
-				<p className="layer1__info--description">
-					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nihil, iure. At, nihil animi. Quae
-					temporibus non labore. Ipsa velit hic veniam possimus cupiditate iusto numquam ad ipsam dicta
-					provident. Voluptatem.
-				</p>
+				<p className="layer1__info--description">{profile.shortDescript}</p>
 				<div className="layer1__info__links">
-					<LinkText href="#" type="resource">
-						bitcoin.org
+					<LinkText href={profile.website} type="resource">
+						{removeHttps(profile.website)}
 					</LinkText>
 					<div className="layer1__info__socials">
-						<LinkSocial plattform="facebook" href="#" withText={false} />
-						<LinkSocial plattform="github" href="#" withText={false} />
-						<LinkSocial plattform="twitter" href="#" withText={false} />
+						{profile.twitter && <LinkSocial plattform="twitter" href={profile.twitter} withText={false} />}
+						{profile.github && <LinkSocial plattform="github" href={profile.github} withText={false} />}
+						{profile.discord && <LinkSocial plattform="discord" href={profile.discord} withText={false} />}
+						{profile.youtube && <LinkSocial plattform="youtube" href={profile.youtube} withText={false} />}
 					</div>
 				</div>
 			</div>
@@ -40,35 +46,28 @@ const L1SummaryCard: React.FC<Props> = ({ ticker }) => {
 				<div className="layer1__stats__grid">
 					<div className="layer1__statBox">
 						<div className="layer1__stat">
-							<span className="layer1__stat__number">1</span>
-							<span className="layer1__stat__unit"></span>
+							<span className="layer1__stat__number">{tps}</span>
+							<span className="layer1__stat__unit">{tpsUnit}</span>
 						</div>
-						<span className="layer1__stat__title">Mcap Rank</span>
+						<span className="layer1__stat__title">TPS</span>
 					</div>
 					<div className="layer1__statBox">
 						<div className="layer1__stat">
-							<span className="layer1__stat__number">10</span>
-							<span className="layer1__stat__unit">TPM</span>
+							<span className="layer1__stat__number">{circSupply}</span>
+							<span className="layer1__stat__unit">{circSupplyUnit}</span>
 						</div>
-						<span className="layer1__stat__title">Speed</span>
+						<span className="layer1__stat__title">C. Supply</span>
 					</div>
 					<div className="layer1__statBox">
 						<div className="layer1__stat">
-							<span className="layer1__stat__number">100</span>
-							<span className="layer1__stat__unit">K</span>
-						</div>
-						<span className="layer1__stat__title">Validators</span>
-					</div>
-					<div className="layer1__statBox">
-						<div className="layer1__stat">
-							<span className="layer1__stat__number">21</span>
-							<span className="layer1__stat__unit">M</span>
+							<span className="layer1__stat__number">{maxSupply}</span>
+							<span className="layer1__stat__unit">{maxSupplyUnit}</span>
 						</div>
 						<span className="layer1__stat__title">Max Supply</span>
 					</div>
 					<div className="layer1__statBox">
 						<div className="layer1__stat">
-							<span className="layer1__stat__number">2</span>
+							<span className="layer1__stat__number">{profile.inflation}</span>
 							<span className="layer1__stat__unit">%</span>
 						</div>
 						<span className="layer1__stat__title">Inflation</span>
@@ -77,9 +76,10 @@ const L1SummaryCard: React.FC<Props> = ({ ticker }) => {
 
 				<div className="layer1__stats__footer">
 					<span className="layer1__stats__footer__title">Decentralization Score</span>
-					<div className="layer1__stat__filler score--9">
+					<div className={`layer1__stat__filler score--${profile.dScore}`}>
 						<span className="layer1__stat__filler__score">
-							<span className="layer1__stat__number">9 / 10</span>
+							{/* <span className="layer1__stat__number">{profile.dScore} / 10</span> */}
+							<span className="layer1__stat__number"></span>
 						</span>
 					</div>
 				</div>
@@ -87,7 +87,7 @@ const L1SummaryCard: React.FC<Props> = ({ ticker }) => {
 
 			<div className="layer1__box layer1__logo">
 				{getIcon(ticker, 'layer1__logo__img icon--white')}
-				<LinkButton text="Learn more" href={`#${ticker}`} style="invert" />
+				<LinkButton text="Learn more" href={`/l1s/${ticker}`} style="invert" />
 			</div>
 		</aside>
 	);

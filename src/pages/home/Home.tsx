@@ -7,7 +7,7 @@ const Home = () => {
 	return (
 		<main className="home">
 			<HeroHome />
-			<Carousel visibleCards={5} />
+			<Carousel visibleCards={7} />
 			<Features />
 		</main>
 	);

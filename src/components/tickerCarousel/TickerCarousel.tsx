@@ -1,16 +1,18 @@
 import { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useAppSelector } from '../../store/hooks';
+import { selectProfiles } from '../../store/profiles/profilesSlice';
 import L1Card from '../l1Card/L1Card';
 import { ReactComponent as IconArrowLeft } from './icons/ArrowL.svg';
 import { ReactComponent as IconArrowRight } from './icons/ArrowR.svg';
 import './TickerCarousel.scss';
 
 type Props = {
-	tickers: string[];
 	numVisibleCards: number;
 };
 
-const TickerCarousel: React.FC<Props> = ({ tickers, numVisibleCards }) => {
-	const numCards = tickers.length;
+const TickerCarousel: React.FC<Props> = ({ numVisibleCards }) => {
+	const profiles = useAppSelector(selectProfiles);
+	const numCards = profiles.length;
 	const hiddenCards = numCards - numVisibleCards;
 	const [hiddenLeft, sethiddenLeft] = useState(0);
 	const [cardWidth, setCardWidth] = useState(0);
@@ -37,6 +39,14 @@ const TickerCarousel: React.FC<Props> = ({ tickers, numVisibleCards }) => {
 		sethiddenLeft((prev) => prev + 1);
 	};
 
+	if (!profiles) {
+		return (
+			<div className="carousel__container">
+				<div>LOADER</div>
+			</div>
+		);
+	}
+
 	return (
 		<div className="carousel__container">
 			<div className="carousel">
@@ -50,8 +60,8 @@ const TickerCarousel: React.FC<Props> = ({ tickers, numVisibleCards }) => {
 				</button>
 				<div className="carousel__content" ref={contentRef}>
 					<div className="carousel__cards" style={{ left: -hiddenLeft * cardWidth }}>
-						{tickers.map((ticker, i) => {
-							return <L1Card ticker={ticker} key={i} width={cardWidth} />;
+						{profiles.map((profile, i) => {
+							return <L1Card ticker={profile.ticker} key={i} width={cardWidth} />;
 						})}
 					</div>
 				</div>

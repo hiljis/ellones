@@ -1,16 +1,16 @@
 import { takeLatest, put, call, all } from 'redux-saga/effects';
 
-import { signInSuccess, signInFailed, signOutSuccess, signOutFailed, signUpSuccess, signUpFailed } from './user.action';
+import { signInSuccess, signInFailed, signOutSuccess, signOutFailed, signUpSuccess, signUpFailed } from './userSlice';
 
 import {
 	getCurrentUser,
 	createUserDocumentFromAuth,
 	signInWithGooglePopup,
-	signIn,
 	signOutUser,
 	createAuthUserWithEmailAndPassword,
-} from '../../utils/firebase/firebase.utils';
-import { SIGN_IN_METHOD_EMAIL_PASSWORD } from '../../app/firebase/firebase';
+	signInUser,
+	SIGN_IN_METHOD_EMAIL_PASSWORD,
+} from '../../app/firebase/firebase';
 
 export function* getSnapShotFromUserAuth(userAuth) {
 	try {
@@ -24,7 +24,7 @@ export function* getSnapShotFromUserAuth(userAuth) {
 export function* signInWithEmail({ payload }) {
 	const { email, password } = payload;
 	try {
-		const { user } = yield call(signIn, SIGN_IN_METHOD_EMAIL_PASSWORD, email, password);
+		const { user } = yield call(signInUser, SIGN_IN_METHOD_EMAIL_PASSWORD, email, password);
 		yield call(getSnapShotFromUserAuth, user);
 	} catch (error) {
 		yield put(signInFailed(error));
@@ -79,12 +79,12 @@ export function* signOut() {
 }
 
 export function* userSagas() {
-	yield all([
-		call(yield takeLatest('user/checkUserSession', isUserAuthenticated)),
-		call(yield takeLatest('user/signUpStart', signUp)),
-		call(yield takeLatest('user/signUpSuccess', signInAfterSignUp)),
-		call(yield takeLatest('user/signInEmailStart', signInWithEmail)),
-		call(yield takeLatest('user/signInGoogleStart', signInWithGoogle)),
-		call(yield takeLatest('user/signOutStart', signOut)),
-	]);
+	// yield all([
+	// 	call(yield takeLatest('user/checkUserSession', isUserAuthenticated)),
+	// 	call(yield takeLatest('user/signUpStart', signUp)),
+	// 	call(yield takeLatest('user/signUpSuccess', signInAfterSignUp)),
+	// 	call(yield takeLatest('user/signInEmailStart', signInWithEmail)),
+	// 	call(yield takeLatest('user/signInGoogleStart', signInWithGoogle)),
+	// 	call(yield takeLatest('user/signOutStart', signOut)),
+	// ]);
 }
