@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Layer1Modal from '../../sections/layer1Modal/L1Modal';
 import { getIcon } from '../icons/Icons';
 import L1SummaryCard from '../l1SummaryCard/L1SummaryCard';
@@ -7,10 +8,10 @@ import './L1Card.scss';
 type Props = {
 	ticker: string;
 	width?: number;
-	href?: string;
+	link: boolean;
 };
 
-const L1Card: React.FC<Props> = ({ ticker, width, href }) => {
+const L1Card: React.FC<Props> = ({ ticker, width, link }) => {
 	const [modalOpen, setModalOpen] = useState(false);
 	const handleOpen = () => {
 		setModalOpen(true);
@@ -18,15 +19,22 @@ const L1Card: React.FC<Props> = ({ ticker, width, href }) => {
 	const handleClose = () => {
 		setModalOpen(false);
 	};
+	const card = link ? (
+		<Link className={`l1Card ${ticker}`} to={`/l1s/${ticker}`}>
+			{ticker}
+		</Link>
+	) : (
+		<div className={`l1Card ${ticker}`}>{ticker}</div>
+	);
+
 	return (
 		<>
 			<div className="l1CardContainer" style={{ width: width }} onClick={handleOpen}>
-				<a className={`l1Card ${ticker}`} href={href}>
-					{ticker}
-				</a>
+				{}
+				{card}
 				{getIcon(ticker)}
 			</div>
-			{modalOpen ? (
+			{modalOpen && !link ? (
 				<Layer1Modal closeHandler={handleClose}>
 					<L1SummaryCard ticker={ticker} />
 				</Layer1Modal>

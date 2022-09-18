@@ -19,17 +19,18 @@ export interface Profile {
 	website: string;
 	youtube: string;
 	shortDescript: string;
+	longDescript: string;
 }
 
 export type ProfilesState = {
 	profiles: Profile[];
-	isLoading: boolean;
+	status: 'idle' | 'loading' | 'failed' | 'success';
 	error: string;
 };
 
 const initialState: ProfilesState = {
 	profiles: [],
-	isLoading: false,
+	status: 'idle',
 	error: '',
 };
 
@@ -38,14 +39,14 @@ export const profilesSlice = createSlice({
 	initialState,
 	reducers: {
 		fetchProfiles: (state) => {
-			state.isLoading = true;
+			state.status = 'loading';
 		},
 		fetchProfilesSuccess: (state, action: PayloadAction<Profile[]>) => {
-			state.isLoading = false;
+			state.status = 'success';
 			state.profiles = action.payload;
 		},
 		fetchProfilesFailed: (state, action: PayloadAction<string>) => {
-			state.isLoading = false;
+			state.status = 'failed';
 			state.error = action.payload;
 		},
 	},
@@ -57,5 +58,14 @@ export const selectProfile = (state: RootState, ticker: string) =>
 	state.profiles.profiles.filter((profile) => profile.ticker === ticker)[0];
 
 export const selectProfiles = (state: RootState) => state.profiles.profiles;
+
+export const selectIsValidTicker = (state: RootState, ticker: string) => {
+	const profileWithTicker = state.profiles.profiles.filter((profile) => profile.ticker === ticker);
+	return profileWithTicker.length === 0 ? false : true;
+};
+
+export const selectProfilesStatus = (state: RootState) => {
+	return state.profiles.status;
+};
 
 export default profilesSlice.reducer;

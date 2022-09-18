@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useAppSelector } from '../../store/hooks';
 import { selectProfiles } from '../../store/profiles/profilesSlice';
 import L1Card from '../l1Card/L1Card';
@@ -61,7 +61,7 @@ const TickerCarousel: React.FC<Props> = ({ numVisibleCards }) => {
 				<div className="carousel__content" ref={contentRef}>
 					<div className="carousel__cards" style={{ left: -hiddenLeft * cardWidth }}>
 						{profiles.map((profile, i) => {
-							return <L1Card ticker={profile.ticker} key={i} width={cardWidth} />;
+							return <L1Card ticker={profile.ticker} key={i} width={cardWidth} link={false} />;
 						})}
 					</div>
 				</div>

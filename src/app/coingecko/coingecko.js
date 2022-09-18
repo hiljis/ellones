@@ -12,7 +12,7 @@ const tickerId = {
 	near: 'near',
 	matic: 'matic-network',
 	egld: 'elrond-erd-2',
-	xtz: 'tezoz',
+	xtz: 'tezos',
 	algo: 'algorand',
 	hbar: 'hedera-hashgraph',
 	trx: 'tron',
