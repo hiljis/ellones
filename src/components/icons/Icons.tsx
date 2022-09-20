@@ -20,6 +20,7 @@ import { ReactComponent as IconMATIC } from '../../assets/svg/L1s/matic.svg';
 import { ReactComponent as IconNEAR } from '../../assets/svg/L1s/near.svg';
 import { ReactComponent as IconQNT } from '../../assets/svg/L1s/qnt.svg';
 import { ReactComponent as IconTRX } from '../../assets/svg/L1s/trx.svg';
+import { ReactComponent as IconNEO } from '../../assets/svg/L1s/neo.svg';
 
 export const getIcon = (ticker: string, className: string = '') => {
 	if (ticker === 'btc') return <IconBTC className={className} />;
@@ -44,4 +45,5 @@ export const getIcon = (ticker: string, className: string = '') => {
 	else if (ticker === 'near') return <IconNEAR className={className} />;
 	else if (ticker === 'qnt') return <IconQNT className={className} />;
 	else if (ticker === 'trx') return <IconTRX className={className} />;
+	else if (ticker === 'neo') return <IconNEO className={className} />;
 };

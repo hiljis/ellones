@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { capFirst, formatNumberAndExtractUnit, removeHttps } from '../../app/utils/format';
 import { getIcon } from '../../components/icons/Icons';
+import Loader from '../../components/loader/loader';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
 	fetchMarketData,
@@ -27,7 +28,6 @@ const HeroPresentation: React.FC<Props> = ({ ticker }) => {
 	const priceHistory = useAppSelector((state) => selectPriceHistory(state, ticker));
 	const volumeHistory = useAppSelector((state) => selectVolumeHistory(state, ticker));
 	const mCapHistory = useAppSelector((state) => selectMCapHistory(state, ticker));
-	let [message, setMessage] = useState('');
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -37,7 +37,6 @@ const HeroPresentation: React.FC<Props> = ({ ticker }) => {
 		if (profilesStatus === 'idle') {
 			dispatch(fetchProfiles());
 		} else if (!profile) {
-			setMessage('COULD NOT FIND THIS PAGE');
 			setTimeout(() => {
 				navigate('/');
 			}, 2000);
@@ -50,15 +49,14 @@ const HeroPresentation: React.FC<Props> = ({ ticker }) => {
 		} else if (profile && (!priceHistory || !volumeHistory || !mCapHistory)) {
 			dispatch(fetchMarketData({ ticker }));
 		} else if (!profile && marketDataStatus === 'failed') {
-			setMessage('COULD NOT GET ANY MARKET DATA');
 			setTimeout(() => {
 				navigate('/');
 			}, 2000);
 		}
 	}, [profile, priceHistory, volumeHistory, mCapHistory, dispatch]);
 
-	if (profilesStatus !== 'success' || !profile) return <div>LOADING PROFILE {message}</div>;
-	if (marketDataStatus !== 'success') return <div>LOADING MARKET DATA {message}</div>;
+	if (profilesStatus !== 'success' || !profile) return <Loader color="primary"></Loader>;
+	if (marketDataStatus !== 'success') return <Loader color="primary"></Loader>;
 
 	const { number: mCap, unit: mCapUnit } = formatNumberAndExtractUnit(mCapHistory!.slice(-1)[0].y);
 	const { number: price, unit: priceUnit } = formatNumberAndExtractUnit(priceHistory!.slice(-1)[0].y);
@@ -83,7 +81,7 @@ const HeroPresentation: React.FC<Props> = ({ ticker }) => {
 
 			<div className="heroPresentation--right">
 				<div className="heroPresentation__statGrid">
-					<div className="heroPresentation__statBox heroPresentation__statBox--whiteBlack">
+					<div className={`heroPresentation__statBox heroPresentation__statBox--${ticker}`}>
 						<p className="heroPresentation__stat">
 							<span className="heroPresentation__stat--number">{mCap}</span>
 							<span className="heroPresentation__stat--unit">{mCapUnit}</span>
@@ -91,7 +89,7 @@ const HeroPresentation: React.FC<Props> = ({ ticker }) => {
 						<p className="heroPresentation__statTitle">Market Cap</p>
 					</div>
 
-					<div className="heroPresentation__statBox heroPresentation__statBox--whiteBlack">
+					<div className={`heroPresentation__statBox heroPresentation__statBox--${ticker}`}>
 						<p className="heroPresentation__stat">
 							<span className="heroPresentation__stat--number">{price}</span>
 							<span className="heroPresentation__stat--unit">{priceUnit}</span>
@@ -99,7 +97,7 @@ const HeroPresentation: React.FC<Props> = ({ ticker }) => {
 						<p className="heroPresentation__statTitle">Price</p>
 					</div>
 
-					<div className="heroPresentation__statBox heroPresentation__statBox--whiteBlack">
+					<div className={`heroPresentation__statBox heroPresentation__statBox--${ticker}`}>
 						<p className="heroPresentation__stat">
 							<span className="heroPresentation__stat--number">{volume}</span>
 							<span className="heroPresentation__stat--unit">{volumeUnit}</span>
@@ -107,7 +105,7 @@ const HeroPresentation: React.FC<Props> = ({ ticker }) => {
 						<p className="heroPresentation__statTitle">Volume</p>
 					</div>
 
-					<div className="heroPresentation__statBox heroPresentation__statBox--whiteBlack">
+					<div className={`heroPresentation__statBox heroPresentation__statBox--${ticker}`}>
 						<p className="heroPresentation__stat">
 							<span className="heroPresentation__stat--number">{profile.chainType}</span>
 							<span className="heroPresentation__stat--unit"></span>
@@ -115,7 +113,7 @@ const HeroPresentation: React.FC<Props> = ({ ticker }) => {
 						<p className="heroPresentation__statTitle">Security Model</p>
 					</div>
 
-					<div className="heroPresentation__statBox heroPresentation__statBox--whiteBlack">
+					<div className={`heroPresentation__statBox heroPresentation__statBox--${ticker}`}>
 						<p className="heroPresentation__stat">
 							<span className="heroPresentation__stat--number">{circSupply}</span>
 							<span className="heroPresentation__stat--unit">{circSupplyUnit}</span>
@@ -123,15 +121,17 @@ const HeroPresentation: React.FC<Props> = ({ ticker }) => {
 						<p className="heroPresentation__statTitle">Circ. Supply</p>
 					</div>
 
-					<div className="heroPresentation__statBox heroPresentation__statBox--whiteBlack">
+					<div className={`heroPresentation__statBox heroPresentation__statBox--${ticker}`}>
 						<p className="heroPresentation__stat">
-							<span className="heroPresentation__stat--number">{maxSupply}</span>
+							<span className="heroPresentation__stat--number">
+								{maxSupply === 0 ? <>&infin;</> : maxSupply}
+							</span>
 							<span className="heroPresentation__stat--unit">{maxSupplyUnit}</span>
 						</p>
 						<p className="heroPresentation__statTitle">Max Supply</p>
 					</div>
 
-					<div className="heroPresentation__statBox heroPresentation__statBox--whiteBlack">
+					<div className={`heroPresentation__statBox heroPresentation__statBox--${ticker}`}>
 						<p className="heroPresentation__stat">
 							<span className="heroPresentation__stat--number">{genesisYear}</span>
 							<span className="heroPresentation__stat--unit"></span>
@@ -139,7 +139,7 @@ const HeroPresentation: React.FC<Props> = ({ ticker }) => {
 						<p className="heroPresentation__statTitle">Genesis</p>
 					</div>
 
-					<div className="heroPresentation__statBox heroPresentation__statBox--whiteBlack">
+					<div className={`heroPresentation__statBox heroPresentation__statBox--${ticker}`}>
 						<p className="heroPresentation__stat">
 							<span className="heroPresentation__stat--number">{profile.dScore}</span>
 							<span className="heroPresentation__stat--unit">/ 10</span>
