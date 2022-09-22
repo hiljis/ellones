@@ -1,0 +1,35 @@
+.procentDot {
+	width: 5rem;
+	height: 5rem;
+	border-radius: var(--radius--round);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: default;
+	color: var(--color-black);
+	transition: transform 0.2s, box-shadow 0.2s;
+
+	&:hover {
+		transform: scale(1.1);
+		box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.1);
+	}
+
+	&--neu {
+		background-color: var(--color-primary--lightest);
+		color: var(--color-primary);
+	}
+	&--neg {
+		background-color: var(--color-negative);
+		color: var(--color-white);
+	}
+	&--pos {
+		background-color: var(--color-positive);
+		color: var(--color-black);
+	}
+	&--none {
+		&:hover {
+			transform: scale(1);
+			box-shadow: none;
+		}
+	}
+}

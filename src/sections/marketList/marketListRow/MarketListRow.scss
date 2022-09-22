@@ -1,0 +1,32 @@
+.marketList {
+	&__listRow {
+		display: grid;
+		grid-template-columns: 7rem 20rem repeat(8, 1fr) 20rem;
+		align-items: center;
+		justify-items: center;
+		background-color: var(--color-white);
+		cursor: default;
+		transition: background-color 1.2s;
+
+		&:not(:last-child) {
+			margin-bottom: 3rem;
+		}
+
+		&.loading {
+			background-color: var(--color-primary--lightest);
+			height: 5rem;
+			border-radius: var(--radius--md);
+
+			div {
+				grid-column: 2 / -1;
+				grid-row: 1;
+			}
+		}
+	}
+
+	.rowItem {
+		font-size: 1.2rem;
+		font-weight: 600;
+		letter-spacing: 1.2px;
+	}
+}

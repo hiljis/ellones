@@ -1,14 +1,15 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { getProfiles } from '../../app/firebase/firebase';
+import { addTickersToChangeData } from '../changeData/changeData.slice';
 import { fetchProfilesSuccess, fetchProfilesFailed } from './profilesSlice';
 
 function getLocalProfiles() {
-	const tsNow = Date.now();
 	const monthInMillis = 1000 * 60 * 60 * 24 * 30;
 	const profilesObject = JSON.parse(localStorage.getItem('ellones_profiles'));
 
 	if (!profilesObject) return null;
 
+	const tsNow = Date.now();
 	const tsProfilesLastSet = profilesObject.date;
 	if (tsNow - tsProfilesLastSet > monthInMillis) return null;
 
@@ -21,15 +22,15 @@ function setLocalProfiles(profiles) {
 
 function* fetchProfilesAsync() {
 	try {
-		const localProfiles = getLocalProfiles();
-		// const localProfiles = null;
-		if (!localProfiles) {
-			const profiles = yield call(getProfiles);
-			yield put(fetchProfilesSuccess(profiles));
+		let profiles = getLocalProfiles();
+		// const profiles = null;
+		if (!profiles) {
+			profiles = yield call(getProfiles);
 			setLocalProfiles(profiles);
-		} else {
-			yield put(fetchProfilesSuccess(localProfiles));
 		}
+		yield put(fetchProfilesSuccess(profiles));
+		const tickers = profiles.map((profile) => profile.ticker);
+		yield put(addTickersToChangeData(tickers));
 	} catch (err) {
 		yield put(fetchProfilesFailed(err.message));
 	}

@@ -38,14 +38,14 @@ export const profilesSlice = createSlice({
 	name: 'profiles',
 	initialState,
 	reducers: {
-		fetchProfiles: (state) => {
+		fetchProfiles: (state): void => {
 			state.status = 'loading';
 		},
-		fetchProfilesSuccess: (state, action: PayloadAction<Profile[]>) => {
+		fetchProfilesSuccess: (state, action: PayloadAction<Profile[]>): void => {
 			state.status = 'success';
 			state.profiles = action.payload;
 		},
-		fetchProfilesFailed: (state, action: PayloadAction<string>) => {
+		fetchProfilesFailed: (state, action: PayloadAction<string>): void => {
 			state.status = 'failed';
 			state.error = action.payload;
 		},

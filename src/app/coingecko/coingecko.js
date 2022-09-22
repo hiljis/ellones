@@ -1,4 +1,4 @@
-const tickerId = {
+export const tickerId = {
 	btc: 'bitcoin',
 	eth: 'ethereum',
 	bnb: 'binancecoin',
@@ -53,6 +53,7 @@ export const fetchMarketDataHistory = async (
 		const response = await fetch(
 			`https://api.coingecko.com/api/v3/coins/${cgId}/market_chart/range?vs_currency=usd&from=${tStart}&to=${tEnd}`
 		);
+		if (response.status === 429) throw new Error('429');
 		if (response.ok) {
 			const data = await response.json();
 			const formattedMarketData = formatCoinGeckoPriceHistory(data);
@@ -60,7 +61,6 @@ export const fetchMarketDataHistory = async (
 		}
 		throw new Error('No price history could be found');
 	} catch (err) {
-		console.error(err.message);
 		throw err;
 	}
 };

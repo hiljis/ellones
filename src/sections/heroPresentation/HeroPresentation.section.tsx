@@ -1,13 +1,12 @@
-import { useEffect, useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { capFirst, formatNumberAndExtractUnit, removeHttps } from '../../app/utils/format';
 import { getIcon } from '../../components/icons/Icons';
 import Loader from '../../components/loader/loader';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
 	fetchMarketData,
-	selectMarketData,
-	selectMarketDataStatus,
+	selectMarketDataTickerStatus,
 	selectMCapHistory,
 	selectPriceHistory,
 	selectVolumeHistory,
@@ -24,14 +23,10 @@ const HeroPresentation: React.FC<Props> = ({ ticker }) => {
 	const navigate = useNavigate();
 	const profilesStatus = useAppSelector(selectProfilesStatus);
 	const profile = useAppSelector((state) => selectProfile(state, ticker));
-	const marketDataStatus = useAppSelector((state) => selectMarketDataStatus(state, ticker));
+	const marketDataStatus = useAppSelector((state) => selectMarketDataTickerStatus(state, ticker));
 	const priceHistory = useAppSelector((state) => selectPriceHistory(state, ticker));
 	const volumeHistory = useAppSelector((state) => selectVolumeHistory(state, ticker));
 	const mCapHistory = useAppSelector((state) => selectMCapHistory(state, ticker));
-
-	useEffect(() => {
-		window.scrollTo(0, 0);
-	}, [ticker]);
 
 	useEffect(() => {
 		if (profilesStatus === 'idle') {
@@ -53,13 +48,13 @@ const HeroPresentation: React.FC<Props> = ({ ticker }) => {
 				navigate('/');
 			}, 2000);
 		}
-	}, [profile, priceHistory, volumeHistory, mCapHistory, dispatch]);
+	}, [profile, priceHistory, volumeHistory, mCapHistory, dispatch, marketDataStatus, ticker, navigate]);
 
 	if (profilesStatus !== 'success' || !profile) return <Loader color="primary"></Loader>;
-	if (marketDataStatus !== 'success') return <Loader color="primary"></Loader>;
+	if (marketDataStatus !== 'calc-complete') return <Loader color="primary"></Loader>;
 
 	const { number: mCap, unit: mCapUnit } = formatNumberAndExtractUnit(mCapHistory!.slice(-1)[0].y);
-	const { number: price, unit: priceUnit } = formatNumberAndExtractUnit(priceHistory!.slice(-1)[0].y);
+	const price = priceHistory!.slice(-1)[0].y.toFixed(1);
 	const { number: volume, unit: volumeUnit } = formatNumberAndExtractUnit(volumeHistory!.slice(-1)[0].y);
 	const { number: circSupply, unit: circSupplyUnit } = formatNumberAndExtractUnit(profile.circSupply);
 	const { number: maxSupply, unit: maxSupplyUnit } = formatNumberAndExtractUnit(profile.maxSupply);
@@ -91,8 +86,8 @@ const HeroPresentation: React.FC<Props> = ({ ticker }) => {
 
 					<div className={`heroPresentation__statBox heroPresentation__statBox--${ticker}`}>
 						<p className="heroPresentation__stat">
+							<span className="heroPresentation__stat--unit">{'$'}</span>
 							<span className="heroPresentation__stat--number">{price}</span>
-							<span className="heroPresentation__stat--unit">{priceUnit}</span>
 						</p>
 						<p className="heroPresentation__statTitle">Price</p>
 					</div>
@@ -124,7 +119,7 @@ const HeroPresentation: React.FC<Props> = ({ ticker }) => {
 					<div className={`heroPresentation__statBox heroPresentation__statBox--${ticker}`}>
 						<p className="heroPresentation__stat">
 							<span className="heroPresentation__stat--number">
-								{maxSupply === 0 ? <>&infin;</> : maxSupply}
+								{parseInt(maxSupply) === 0 ? <>&infin;</> : maxSupply}
 							</span>
 							<span className="heroPresentation__stat--unit">{maxSupplyUnit}</span>
 						</p>

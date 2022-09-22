@@ -9,8 +9,8 @@ type DropdownListProps = {
 const DropdownList = (props: DropdownListProps) => {
 	return (
 		<ul className={`dropdownList dropdownList--${props.type}`}>
-			{props.children.map((child) => (
-				<li>{child}</li>
+			{props.children.map((child, i) => (
+				<li key={i}>{child}</li>
 			))}
 		</ul>
 	);

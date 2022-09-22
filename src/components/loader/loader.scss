@@ -1,5 +1,5 @@
 .loaderContainer {
-	position: fixed;
+	// position: fixed;
 	width: 100%;
 	height: 100%;
 	display: flex;
@@ -36,5 +36,10 @@
 	&--primary {
 		border-top-color: var(--color-primary);
 		border-right-color: var(--color-primary);
+	}
+
+	&.sm {
+		width: 3rem;
+		height: 3rem;
 	}
 }

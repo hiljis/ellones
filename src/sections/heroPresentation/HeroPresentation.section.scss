@@ -59,38 +59,6 @@
 			color: var(--color-black);
 		}
 	}
-	&--avax {
-	}
-	&--near {
-	}
-	&--ftm {
-	}
-	&--xlm {
-	}
-	&--xtz {
-	}
-	&--rune {
-	}
-	&--flow {
-	}
-	&--dot {
-	}
-	&--matic {
-	}
-	&--trx {
-	}
-	&--algo {
-	}
-	&--eos {
-	}
-	&--icp {
-	}
-	&--hbar {
-	}
-	&--qnt {
-	}
-	&--egld {
-	}
 
 	&--left {
 		flex-grow: 1;
@@ -214,10 +182,6 @@
 		font-size: 3.2rem;
 		font-weight: 500;
 		gap: 0.5rem;
-		&--number {
-		}
-		&--unit {
-		}
 	}
 
 	&__statTitle {

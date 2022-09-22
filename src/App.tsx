@@ -10,8 +10,8 @@ import SignUpPage from './pages/signUp/SignUp.page';
 import UserAccountPage from './pages/userAccount/UserAccount.page';
 import { useAppDispatch, useAppSelector } from './store/hooks';
 import { useEffect } from 'react';
-import { fetchProfiles, selectProfile, selectProfiles } from './store/profiles/profilesSlice';
-import { fetchMarketData, selectPriceHistory } from './store/marketData/marketDataSlice';
+import { fetchProfiles, selectProfiles } from './store/profiles/profilesSlice';
+import { fetchMarketDataForProfiles } from './store/marketData/marketDataSlice';
 
 function App() {
 	const profiles = useAppSelector(selectProfiles);
@@ -20,6 +20,8 @@ function App() {
 	useEffect(() => {
 		if (!profiles.length) {
 			dispatch(fetchProfiles());
+		} else if (profiles.length) {
+			dispatch(fetchMarketDataForProfiles({ tickers: profiles.map((profile) => profile.ticker) }));
 		}
 	}, [dispatch, profiles]);
 

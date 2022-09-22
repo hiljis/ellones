@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import L1sGrid from '../../sections/layer1sGrid/L1sGrid.section';
 import L1sWhat from '../../sections/layer1sWhat/L1sWhat.section';
 import { useAppSelector } from '../../store/hooks';
@@ -7,6 +8,11 @@ import './L1s.page.scss';
 const L1sPage: React.FC = () => {
 	const profiles = useAppSelector(selectProfiles);
 	const tickers = profiles.map((profile) => profile.ticker);
+
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
+
 	return (
 		<main className="layer1sGridPage">
 			<L1sGrid tickers={tickers} />

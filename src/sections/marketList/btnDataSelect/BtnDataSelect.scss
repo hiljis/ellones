@@ -1,0 +1,21 @@
+.marketList {
+	&__btnDataSelect {
+		border: 2px solid var(--color-black);
+		background-color: var(--color-white);
+		color: var(--color-black);
+		font-size: 0.9rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+		height: 2.6rem;
+		border-radius: var(--radius--xs);
+		cursor: pointer;
+
+		&.active,
+		&:hover,
+		&:active {
+			background-color: var(--color-black);
+			color: var(--color-white);
+		}
+	}
+}
