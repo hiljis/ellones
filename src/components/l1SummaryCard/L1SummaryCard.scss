@@ -34,6 +34,13 @@
 	height: auto;
 }
 
+.layer1__logo__btnContainer {
+	position: absolute;
+	left: 50%;
+	bottom: 4rem;
+	transform: translateX(-50%);
+}
+
 .icon--white {
 	path {
 		fill: white;

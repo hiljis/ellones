@@ -2,7 +2,7 @@ import React from 'react';
 import './Forms.scss';
 
 type Props = {
-	imgUrl: string;
+	imgUrl?: string;
 };
 
 const FormChangeAvatar: React.FC<Props> = ({ imgUrl }) => {

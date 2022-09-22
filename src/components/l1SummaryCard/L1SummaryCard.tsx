@@ -30,7 +30,7 @@ const L1SummaryCard: React.FC<Props> = ({ ticker }) => {
 				</div>
 				<p className="layer1__info--description">{profile.shortDescript}</p>
 				<div className="layer1__info__links">
-					<LinkText href={profile.website} type="resource">
+					<LinkText to={profile.website} type="resource">
 						{removeHttps(profile.website)}
 					</LinkText>
 					<div className="layer1__info__socials">
@@ -87,7 +87,11 @@ const L1SummaryCard: React.FC<Props> = ({ ticker }) => {
 
 			<div className="layer1__box layer1__logo">
 				{getIcon(ticker, 'layer1__logo__img icon--white')}
-				<LinkButton text="Learn more" href={`/l1s/${ticker}`} style="invert" />
+				<div className="layer1__logo__btnContainer">
+					<LinkButton to={`/l1s/${ticker}`} type="primary-invert">
+						Learn more
+					</LinkButton>
+				</div>
 			</div>
 		</aside>
 	);

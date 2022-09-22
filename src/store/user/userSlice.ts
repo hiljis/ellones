@@ -1,32 +1,26 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { User } from '../../app/utils/types';
 import { RootState } from '../store';
-
-export interface User {
-	username: string;
-	email: string;
-	gender: string;
-	age: number;
-	occupation: string;
-	password?: string;
-}
 
 export interface UserState {
 	currentUser: User | null;
-	isLoading: boolean;
-	error: string;
+	status:
+		| 'signing-in'
+		| 'signing-out'
+		| 'signing-up'
+		| 'sign-in-success'
+		| 'no-user'
+		| 'sign-up-success'
+		| 'sign-in-failed'
+		| 'sign-out-failed'
+		| 'sign-up-failed';
+	errors: string[];
 }
 
 const initialState: UserState = {
-	currentUser: {
-		username: '',
-		email: '',
-		gender: '',
-		age: 0,
-		occupation: '',
-		password: '',
-	},
-	isLoading: false,
-	error: '',
+	currentUser: null,
+	status: 'no-user',
+	errors: [],
 };
 
 export const userSlice = createSlice({
@@ -35,38 +29,41 @@ export const userSlice = createSlice({
 	// The `reducers` field lets us define reducers and generate associated actions
 	reducers: {
 		checkUserSession: (state) => {},
-		signInEmailStart: (state) => {
-			state.isLoading = true;
+		signInEmailStart: (state, action: PayloadAction<User>) => {
+			state.status = 'signing-in';
 		},
 		signInGoogleStart: (state) => {
-			state.isLoading = true;
+			state.status = 'signing-in';
 		},
 		signInSuccess: (state, action: PayloadAction<User>) => {
-			state.isLoading = false;
+			state.status = 'sign-in-success';
 			state.currentUser = action.payload;
 		},
 		signInFailed: (state, action: PayloadAction<string>) => {
-			state.isLoading = false;
-			state.error = action.payload;
+			state.status = 'sign-in-failed';
+			state.errors.push(action.payload);
 		},
 		signUpStart: (state, action: PayloadAction<User>) => {
-			state.isLoading = true;
+			state.status = 'signing-up';
 		},
-		signUpSuccess: (state, action: PayloadAction<User>) => {},
+		signUpSuccess: (state, action: PayloadAction<User>) => {
+			console.log(action.payload);
+			state.status = 'sign-up-success';
+		},
 		signUpFailed: (state, action: PayloadAction<string>) => {
-			state.isLoading = false;
-			state.error = action.payload;
+			state.status = 'sign-up-failed';
+			state.errors.push(action.payload);
 		},
 		signOutStart: (state) => {
-			state.isLoading = true;
+			state.status = 'signing-out';
 		},
 		signOutSuccess: (state) => {
-			state.isLoading = false;
+			state.status = 'no-user';
 			state.currentUser = null;
 		},
 		signOutFailed: (state, action: PayloadAction<string>) => {
-			state.isLoading = false;
-			state.error = action.payload;
+			state.status = 'sign-out-failed';
+			state.errors.push(action.payload);
 		},
 	},
 });
@@ -89,5 +86,6 @@ export const {
 // the state. Selectors can also be defined inline where they're used instead of
 // in the slice file. For example: `useSelector((state: RootState) => state.counter.value)`
 export const selectCurrentUser = (state: RootState) => state.user.currentUser;
+export const selectUserStatus = (state: RootState) => state.user.status;
 
 export default userSlice.reducer;

@@ -2,15 +2,15 @@ import { Link } from 'react-router-dom';
 import './LinkButton.scss';
 
 type Props = {
-	text: string;
-	href: string;
-	style: string;
+	children: string;
+	to: string;
+	type?: string;
 };
 
-const LinkButton: React.FC<Props> = (props) => {
+const LinkButton: React.FC<Props> = ({ children, to, type }) => {
 	return (
-		<Link className={`linkButton linkButton--${props.style}`} to={props.href}>
-			{props.text}
+		<Link className={`linkButton linkButton--${type}`} to={to}>
+			{children}
 		</Link>
 	);
 };

@@ -24,3 +24,23 @@ export type ChangeData = {
 	'3y': number;
 	range: number;
 };
+
+export interface User {
+	uid?: string;
+	username?: string;
+	email: string;
+	gender?: string;
+	age?: string;
+	occupation?: string;
+	password?: string;
+	createdAt?: number;
+}
+
+export interface UserSignUp {
+	username: string;
+	email: string;
+	gender: string;
+	age: number;
+	occupation: string;
+	password: string;
+}

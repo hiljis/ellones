@@ -1,15 +1,53 @@
 import { useFormik } from 'formik';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
+import { User, UserSignUp } from '../../../app/utils/types';
+import Loader from '../../../components/loader/loader';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { selectCurrentUser, selectUserStatus, signUpStart } from '../../../store/user/userSlice';
 import './SignUpForm.scss';
 
-interface User {
-	username: string;
-	email: string;
-	password: string;
-	gender: string;
-	age: string;
-	occupation: string;
-}
+// const validate = (values: UserSignUp) => {
+// 	let errors: Partial<UserSignUp> = {};
+// 	if (!values.username) {
+// 		errors.username = 'Required';
+// 	} else if (!/^[a-zA-Z0-9]+$/i.test(values.username)) {
+// 		errors.username = 'Invalid username. Can only consist of letters and numbers';
+// 	}
+
+// 	if (!values.email) {
+// 		errors.email = 'Required';
+// 	} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
+// 		errors.email = 'Invalid email address';
+// 	}
+
+// 	if (!values.password) {
+// 		errors.password = 'Required';
+// 	} else if (!/^[a-zA-Z0-9]+$/i.test(values.password)) {
+// 		errors.password = 'Invalid password. Can only consist of letters and numbers';
+// 	}
+
+// 	if (values.age === '-') {
+// 		errors.age = 'Required';
+// 	} else if (!/^[0-9]+$/i.test(values.age)) {
+// 		errors.age = 'Age must be an integer';
+// 	} else if (parseInt(values.age) < 5) {
+// 		errors.age = 'This is most likely not your age. Please try again.';
+// 	} else if (parseInt(values.age) > 122) {
+// 		errors.age = "Congrats your are the oldest person in history! You can't fool us ;)";
+// 	}
+
+// 	if (!values.gender) {
+// 		errors.gender = 'Required';
+// 	}
+
+// 	if (!values.occupation) {
+// 		errors.occupation = 'Required';
+// 	}
+
+// 	return errors;
+// };
 
 const initialValues: User = {
 	username: '',
@@ -20,48 +58,26 @@ const initialValues: User = {
 	occupation: '',
 };
 
-const validate = (values: User) => {
-	let errors: Partial<User> = {};
-	if (!values.username) {
-		errors.username = 'Required';
-	} else if (!/^[a-zA-Z0-9]+$/i.test(values.username)) {
-		errors.username = 'Invalid username. Can only consist of letters and numbers';
-	}
-
-	if (!values.email) {
-		errors.email = 'Required';
-	} else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)) {
-		errors.email = 'Invalid email address';
-	}
-
-	if (!values.password) {
-		errors.password = 'Required';
-	} else if (!/^[a-zA-Z0-9]+$/i.test(values.password)) {
-		errors.password = 'Invalid password. Can only consist of letters and numbers';
-	}
-
-	if (values.age === '-') {
-		errors.age = 'Required';
-	} else if (!/^[0-9]+$/i.test(values.age)) {
-		errors.age = 'Age must be an integer';
-	} else if (parseInt(values.age) < 5) {
-		errors.age = 'This is most likely not your age. Please try again.';
-	} else if (parseInt(values.age) > 122) {
-		errors.age = "Congrats your are the oldest person in history! You can't fool us ;)";
-	}
-
-	if (!values.gender) {
-		errors.gender = 'Required';
-	}
-
-	if (!values.occupation) {
-		errors.occupation = 'Required';
-	}
-
-	return errors;
-};
-
 const SignUpForm: React.FC = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const dispatch = useAppDispatch();
+	const userStatus = useAppSelector(selectUserStatus);
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (userStatus === 'sign-in-success') {
+			setTimeout(() => {
+				navigate('/account');
+				setIsLoading(false);
+			}, 1000);
+		} else if (userStatus === 'sign-up-success') {
+			console.log('SHOW SIGN UP SUCCESS BANNER');
+		} else if (userStatus === 'sign-up-failed') {
+			setIsLoading(false);
+			console.warn('SHOW SIGN UP FAILED BANNER');
+		}
+	}, [userStatus, navigate]);
+
 	const formik = useFormik({
 		initialValues,
 		// validate,
@@ -72,6 +88,7 @@ const SignUpForm: React.FC = () => {
 				.required('Required'),
 			email: Yup.string().email('Invalid email address').required('Required'),
 			password: Yup.string()
+				.min(8, 'Must be at least 8 characters')
 				.max(20, 'Must be 20 characters or less')
 				.matches(/^[a-zA-Z0-9]+$/, 'Password can only consist of letters A-Z and numbers')
 				.required('Required'),
@@ -84,15 +101,8 @@ const SignUpForm: React.FC = () => {
 			occupation: Yup.string().required('Required'),
 		}),
 		onSubmit: (values, actions) => {
-			console.log({ values });
-			try {
-				// DISPATCH signUpStart
-				console.log('SIGN UP SUCCESS');
-			} catch (err) {
-				console.error('SIGN UP FAILED');
-			} finally {
-				actions.setSubmitting(false);
-			}
+			setIsLoading(true);
+			dispatch(signUpStart(values));
 		},
 	});
 
@@ -207,7 +217,7 @@ const SignUpForm: React.FC = () => {
 				</div>
 
 				<button className="btn--submit" type="submit">
-					Sign Up
+					{isLoading ? <Loader color="white" size="sm" /> : 'Sign up'}
 				</button>
 			</form>
 		</div>

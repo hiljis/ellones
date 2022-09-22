@@ -44,19 +44,23 @@ export function* signUp({ payload }) {
 	const { email, password, username, gender, age, occupation } = payload;
 	try {
 		const { user } = yield call(createAuthUserWithEmailAndPassword, email, password);
-		user.username = username;
-		user.gender = gender;
-		user.age = age;
-		user.occupation = occupation;
-		yield put(signUpSuccess(user));
+		const signedUpUser = {
+			uid: user.uid,
+			username: username,
+			email: email,
+			gender: gender,
+			age: age,
+			occupation: occupation,
+			createdAt: user.reloadUserInfo.createdAt,
+		};
+		yield put(signUpSuccess(signedUpUser));
 	} catch (error) {
 		yield put(signUpFailed(error));
 	}
 }
 
 export function* signInAfterSignUp({ payload }) {
-	const { user } = payload;
-	yield call(getSnapShotFromUserAuth, user);
+	yield call(getSnapShotFromUserAuth, payload);
 }
 
 export function* isUserAuthenticated() {
@@ -79,12 +83,10 @@ export function* signOut() {
 }
 
 export function* userSagas() {
-	// yield all([
-	// 	call(yield takeLatest('user/checkUserSession', isUserAuthenticated)),
-	// 	call(yield takeLatest('user/signUpStart', signUp)),
-	// 	call(yield takeLatest('user/signUpSuccess', signInAfterSignUp)),
-	// 	call(yield takeLatest('user/signInEmailStart', signInWithEmail)),
-	// 	call(yield takeLatest('user/signInGoogleStart', signInWithGoogle)),
-	// 	call(yield takeLatest('user/signOutStart', signOut)),
-	// ]);
+	yield takeLatest('user/checkUserSession', isUserAuthenticated);
+	yield takeLatest('user/signUpStart', signUp);
+	yield takeLatest('user/signUpSuccess', signInAfterSignUp);
+	yield takeLatest('user/signInEmailStart', signInWithEmail);
+	yield takeLatest('user/signInGoogleStart', signInWithGoogle);
+	yield takeLatest('user/signOutStart', signOut);
 }

@@ -18,7 +18,6 @@ const MarketListRow: React.FC<Props> = ({ data, activeData }) => {
 			</li>
 		);
 	}
-	console.log('MarketListRow - start');
 
 	const { number: mCap, unit: mCapUnit } = formatNumberAndExtractUnit(data.currentMCap);
 	return (

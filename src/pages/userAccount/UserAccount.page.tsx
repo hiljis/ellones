@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import StatBox from '../../components/statBox/StatBox';
 import './UserAccount.page.scss';
-import ButtonSignOut from '../../components/buttonSignOut/ButtonSignOut';
 import UserAvatar from '../../components/userAvatar/UserAvatar';
 import L1Modal from '../../sections/layer1Modal/L1Modal';
 import ButtonSelectEdit from '../../components/buttonEdit/ButtonEdit';
@@ -11,6 +10,10 @@ import FormChangeEmail from '../../components/forms/FormChangeEmail';
 import FormConfirmPassword from '../../components/forms/FormConfirmPassword';
 import FormChangeAvatar from '../../components/forms/FormChangeAvatar';
 import StatBoxDropDown from '../../components/statBoxDropdown/StatBoxDropdown';
+import LinkButton from '../../components/linkButton/LinkButton';
+import { useAppSelector } from '../../store/hooks';
+import { selectCurrentUser, selectUserStatus } from '../../store/user/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 export interface IUser {
 	username: string;
@@ -19,17 +22,22 @@ export interface IUser {
 	password: string;
 }
 
-const user: IUser = {
-	username: 'Henke',
-	email: 'henric.hiljanen@gmail.com',
-	imgUrl: '',
-	password: '',
-};
-
 const UserAccountPage: React.FC = () => {
 	const [modalOpen, setModalOpen] = useState(false);
 	const [selectedForm, setSelectedForm] = useState<string>('');
 	const [passwordConfirmed, setPasswordConfirmed] = useState(false);
+
+	const currentUser = useAppSelector(selectCurrentUser);
+	const userStatus = useAppSelector(selectUserStatus);
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (!currentUser || userStatus === 'no-user') {
+			navigate('/');
+		}
+	}, [currentUser, userStatus, navigate]);
+
+	if (!currentUser || userStatus === 'no-user') return <></>;
 
 	const handleSelect = (selected: string) => {
 		setModalOpen(true);
@@ -41,11 +49,11 @@ const UserAccountPage: React.FC = () => {
 	};
 
 	let form;
-	if (selectedForm === 'username') form = <FormChangeUsername username={user.username} />;
+	if (selectedForm === 'username') form = <FormChangeUsername username={currentUser.username!} />;
 	if (selectedForm === 'password') form = <FormConfirmPassword />;
 	if (selectedForm === 'password' && passwordConfirmed) form = <FormChangePassword />;
-	if (selectedForm === 'email') form = <FormChangeEmail email={user.email} />;
-	if (selectedForm === 'avatar') form = <FormChangeAvatar imgUrl={user.imgUrl} />;
+	if (selectedForm === 'email') form = <FormChangeEmail email={currentUser.email} />;
+	if (selectedForm === 'avatar') form = <FormChangeAvatar />;
 
 	return (
 		<main className="userAccountPage">
@@ -58,7 +66,7 @@ const UserAccountPage: React.FC = () => {
 				<div className="userInfo">
 					<h3 className="userInfo__title">Email</h3>
 					<p className="userInfo__currentValue userInfo__currentValue--left">
-						{user.email}
+						{currentUser.email}
 						<span className="userInfo__selectBtn">
 							<ButtonSelectEdit title="Edit Password" clickHandler={() => handleSelect('email')} />
 						</span>
@@ -76,21 +84,17 @@ const UserAccountPage: React.FC = () => {
 			</section>
 			<section className="userAccountPage--right">
 				<div className="user__selectAvatar" onClick={() => handleSelect('avatar')}>
-					<UserAvatar
-						username={user.username}
-						imgUrl={user.imgUrl}
-						clickHandler={() => handleSelect('avatar')}
-					/>
+					<UserAvatar username={currentUser.username!} clickHandler={() => handleSelect('avatar')} />
 				</div>
 				<div className="userInfo">
 					<p className="userInfo__currentValue">
-						{user.username}
+						{currentUser.username!}
 						<span className="userInfo__selectBtn">
 							<ButtonSelectEdit title="Edit Username" clickHandler={() => handleSelect('username')} />
 						</span>
 					</p>
 				</div>
-				<ButtonSignOut />
+				<LinkButton to="/signout">Sign out</LinkButton>
 			</section>
 			{modalOpen && <L1Modal closeHandler={closeModalHandler}>{form}</L1Modal>}
 		</main>

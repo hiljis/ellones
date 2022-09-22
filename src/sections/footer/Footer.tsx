@@ -13,18 +13,18 @@ const Footer = () => {
 						<LogoFull />
 					</div>
 					<div className="footer__col--item">
-						<LinkText href="henric.hiljanen@gmail.com" type="email">
+						<LinkText to="henric.hiljanen@gmail.com" type="email">
 							support@ellones.com
 						</LinkText>
 					</div>
 					<h5 className="footer__col--subHeader">DATA PROVIDERS</h5>
 					<div className="footer__col--item">
-						<LinkText href="https://www.coingecko.com/" type="resource">
+						<LinkText to="https://www.coingecko.com/" type="resource">
 							coingecko
 						</LinkText>
 					</div>
 					<div className="footer__col--item">
-						<LinkText href="https://defillama.com/" type="resource">
+						<LinkText to="https://defillama.com/" type="resource">
 							defilama
 						</LinkText>
 					</div>
@@ -32,27 +32,27 @@ const Footer = () => {
 				<div className="footer__col">
 					<h4 className="footer__col--header">LINKS</h4>
 					<div className="footer__col--item">
-						<LinkText href="/compare" type="compare">
+						<LinkText to="/compare" type="compare">
 							compare
 						</LinkText>
 					</div>
 					<div className="footer__col--item">
-						<LinkText href="/l1s" type="l1s">
+						<LinkText to="/l1s" type="l1s">
 							layer 1s
 						</LinkText>
 					</div>
 					<div className="footer__col--item">
-						<LinkText href="/change" type="market">
+						<LinkText to="/change" type="market">
 							change
 						</LinkText>
 					</div>
 					<div className="footer__col--item">
-						<LinkText href="/dominance" type="market">
+						<LinkText to="/dominance" type="market">
 							dominance
 						</LinkText>
 					</div>
 					<div className="footer__col--item">
-						<LinkText href="/pairs" type="market">
+						<LinkText to="/pairs" type="market">
 							pairs
 						</LinkText>
 					</div>
@@ -60,22 +60,22 @@ const Footer = () => {
 				<div className="footer__col">
 					<h4 className="footer__col--header">RESOUCES</h4>
 					<div className="footer__col--item">
-						<LinkText href="#" type="resource">
+						<LinkText to="#" type="resource">
 							resource 1
 						</LinkText>
 					</div>
 					<div className="footer__col--item">
-						<LinkText href="#" type="resource">
+						<LinkText to="#" type="resource">
 							resource 2
 						</LinkText>
 					</div>
 					<div className="footer__col--item">
-						<LinkText href="#" type="resource">
+						<LinkText to="#" type="resource">
 							resource 3
 						</LinkText>
 					</div>
 					<div className="footer__col--item">
-						<LinkText href="#" type="resource">
+						<LinkText to="#" type="resource">
 							resource 4
 						</LinkText>
 					</div>

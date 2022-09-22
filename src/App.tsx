@@ -12,10 +12,17 @@ import { useAppDispatch, useAppSelector } from './store/hooks';
 import { useEffect } from 'react';
 import { fetchProfiles, selectProfiles } from './store/profiles/profilesSlice';
 import { fetchMarketDataForProfiles } from './store/marketData/marketDataSlice';
+import SignOutPage from './pages/signOut/SignOut.page';
+import SignInPage from './pages/signIn/SignIn.page';
+import { checkUserSession } from './store/user/userSlice';
 
 function App() {
 	const profiles = useAppSelector(selectProfiles);
 	const dispatch = useAppDispatch();
+
+	useEffect(() => {
+		dispatch(checkUserSession());
+	});
 
 	useEffect(() => {
 		if (!profiles.length) {
@@ -31,7 +38,9 @@ function App() {
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/change" element={<MarketPage />} />
+				<Route path="/signin" element={<SignInPage />} />
 				<Route path="/signup" element={<SignUpPage />} />
+				<Route path="/signout" element={<SignOutPage />} />
 				<Route path="/account" element={<UserAccountPage />} />
 				<Route path="/l1s" element={<L1sPage />} />
 				<Route path="/l1s/:ticker" element={<L1PresentationPage />} />

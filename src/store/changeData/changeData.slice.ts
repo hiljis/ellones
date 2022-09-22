@@ -49,7 +49,6 @@ export const changeDataSlice = createSlice({
 		},
 		addChangeData: (state, action: PayloadAction<MarketListRowModel>) => {
 			const { ticker } = action.payload;
-			console.log(action.payload);
 			state.data = state.data.map((dataItem) => {
 				if (dataItem.ticker === ticker) return action.payload;
 				return dataItem;

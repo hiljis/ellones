@@ -5,10 +5,10 @@ import MarketDropdown from './marketDropdown/MarketDropdown';
 const HeaderNav = () => {
 	return (
 		<nav className="headerNav">
-			<LinkText href="/compare" type="compare">
+			<LinkText to="/compare" type="compare">
 				compare
 			</LinkText>
-			<LinkText href="/l1s" type="l1s">
+			<LinkText to="/l1s" type="l1s">
 				layer 1s
 			</LinkText>
 			<MarketDropdown />

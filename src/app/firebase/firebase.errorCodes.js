@@ -11,6 +11,7 @@ export const firebaseErrorCodeMessages = {
 		'The provided phoneNumber is already in use by an existing user. Each user must have a unique phoneNumber.',
 	'auth/user-not-found': 'There is no existing user record corresponding to the provided identifier.',
 	'auth/wrong-password': 'The provided password is not corresponding to the provided email.',
+	'invalid-argument': '',
 	'auth/invalid-id-token': 'INTERNAL',
 	'auth/invalid-provider-id': 'INTERNAL',
 	'auth/invalid-uid': 'INTERNAL',

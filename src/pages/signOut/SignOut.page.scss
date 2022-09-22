@@ -1,0 +1,58 @@
+@keyframes fade {
+	to {
+		opacity: 0;
+	}
+}
+
+.signOutPage {
+	grid-column: content-start / content-end;
+	grid-row: main-start / main-end;
+	min-height: calc(100vh - 10rem);
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 5rem;
+
+	.colorSpectrum-animated {
+		width: 50%;
+		height: 3rem;
+		display: flex;
+		flex-wrap: nowrap;
+		border-radius: var(--radius--round);
+		overflow: hidden;
+		margin-bottom: 3rem;
+
+		.purple {
+			animation: fade 0.2s 1.4s forwards;
+		}
+
+		.blue {
+			animation: fade 0.2s 1.2s forwards;
+		}
+
+		.green {
+			animation: fade 0.2s 1s forwards;
+		}
+
+		.yellow {
+			animation: fade 0.2s 0.8s forwards;
+		}
+
+		.orange {
+			animation: fade 0.2s 0.6s forwards;
+		}
+
+		.red {
+			animation: fade 0.2s 0.4s forwards;
+		}
+	}
+}
+
+.signOutHeader {
+	font-size: 8rem;
+	font-weight: 600;
+	line-height: 1;
+	animation: fade 0.8s 1.6s forwards;
+}
