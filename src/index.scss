@@ -31,6 +31,7 @@
 	--color-primary--25: rgba(0, 0, 255, 0.25);
 	--color-primary--50: rgba(0, 0, 255, 0.5);
 	--color-primary--75: rgba(0, 0, 255, 0.75);
+	--color-primary--90: rgba(0, 0, 255, 0.75);
 	--color-primary--light: rgb(125, 125, 255);
 	--color-primary--lighter: rgb(200, 200, 255);
 	--color-primary--lightest: rgb(245, 245, 255);
@@ -234,4 +235,18 @@ a {
 /* Optional: Customize .focus-visible */
 .focus-visible {
 	outline: 3px solid var(--color-primary);
+}
+
+$pageheader-height: 4.6rem;
+.pageHeader {
+	background-color: #f2f2f2;
+	text-align: center;
+	&--text {
+		font-size: 1.4rem;
+		font-weight: 400;
+		letter-spacing: 0.4rem;
+		text-transform: uppercase;
+		color: var(--color-primary);
+		padding: 1.6rem;
+	}
 }

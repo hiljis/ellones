@@ -1,0 +1,18 @@
+.overlay {
+	// display: none;
+	z-index: 10;
+	left: 0;
+	top: 0;
+	overflow: auto;
+	background-color: var(--color-primary--75);
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	&--full {
+		position: fixed;
+		width: 100vw;
+		height: 100vh;
+	}
+}

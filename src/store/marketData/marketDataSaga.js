@@ -10,6 +10,8 @@ import {
 	DAYS_6M_BACK,
 } from '../../app/utils/consts';
 import { addChangeData } from '../changeData/changeData.slice';
+import { calcHistoryData } from '../historyMatrix/historyMatrix.saga';
+import { calcHistoryDataStart } from '../historyMatrix/historyMatrix.slice';
 import {
 	calcChangeDataAfterFetchSuccess,
 	calcChangeDataFailed,
@@ -90,9 +92,11 @@ export function* calculateChangeData({ payload }) {
 export function* fetchMarketDataAsync({ payload }) {
 	const { ticker } = payload;
 	try {
+		console.log(ticker);
 		const marketData = yield call(getCoinGeckoMarketDataHistory, ticker);
 		yield put(fetchMarketDataSuccess({ ticker: ticker, data: marketData }));
 		yield put(calcChangeDataAfterFetchSuccess({ ticker: ticker, data: marketData }));
+		yield put(calcHistoryDataStart({ ticker: ticker, data: marketData }));
 	} catch (err) {
 		yield put(fetchMarketDataFailed({ ticker: ticker, error: err.message }));
 	}
@@ -108,6 +112,7 @@ export function* fetchMarketDataForProfilesAsync({ payload }) {
 			marketData.push({ ticker: tickers[i], data: data });
 			yield put(fetchMarketDataSuccess({ ticker: tickers[i], data: data }));
 			yield put(calcChangeDataAfterFetchSuccess({ ticker: tickers[i], data: data }));
+			yield put(calcHistoryDataStart({ ticker: tickers[i], data: data }));
 			yield call(delay, 3000);
 		} catch (err) {
 			const error = { ticker: tickers[i], error: err.message };

@@ -15,6 +15,9 @@ import { fetchMarketDataForProfiles } from './store/marketData/marketDataSlice';
 import SignOutPage from './pages/signOut/SignOut.page';
 import SignInPage from './pages/signIn/SignIn.page';
 import { checkUserSession } from './store/user/userSlice';
+import HistoryPage from './pages/history/History.page';
+import { testData } from './store/historyMatrix/testData';
+import { calcHistoryDataStart } from './store/historyMatrix/historyMatrix.slice';
 
 function App() {
 	const profiles = useAppSelector(selectProfiles);
@@ -28,7 +31,7 @@ function App() {
 		if (!profiles.length) {
 			dispatch(fetchProfiles());
 		} else if (profiles.length) {
-			dispatch(fetchMarketDataForProfiles({ tickers: profiles.map((profile) => profile.ticker) }));
+			// dispatch(fetchMarketDataForProfiles({ tickers: profiles.map((profile) => profile.ticker) }));
 		}
 	}, [dispatch, profiles]);
 
@@ -44,6 +47,7 @@ function App() {
 				<Route path="/account" element={<UserAccountPage />} />
 				<Route path="/l1s" element={<L1sPage />} />
 				<Route path="/l1s/:ticker" element={<L1PresentationPage />} />
+				<Route path="/history" element={<HistoryPage />} />
 			</Routes>
 			<Footer />
 		</div>

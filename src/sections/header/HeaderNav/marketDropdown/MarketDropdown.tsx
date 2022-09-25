@@ -19,6 +19,7 @@ const MarketDropdown = () => {
 			{isOpen && (
 				<DropdownList type="market">
 					<Link to="/change">Change</Link>
+					<Link to="/history">History</Link>
 					<Link to="/dominance">Dominance</Link>
 					<Link to="/pairs">Pairs</Link>
 				</DropdownList>

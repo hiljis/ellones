@@ -68,4 +68,8 @@ export const selectProfilesStatus = (state: RootState) => {
 	return state.profiles.status;
 };
 
+export const selectTickers = (state: RootState) => {
+	return state.profiles.profiles.map((profile) => profile.ticker);
+};
+
 export default profilesSlice.reducer;

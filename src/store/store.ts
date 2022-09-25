@@ -6,6 +6,7 @@ import marketDataReducer from './marketData/marketDataSlice';
 import userReducer from './user/userSlice';
 import marketListReducer from './marketList/marketListSlice';
 import changeDataReducer from './changeData/changeData.slice';
+import historyMatrixReducer from './historyMatrix/historyMatrix.slice';
 import counterReducer from './counter/counterSlice';
 
 const saga = createSagaMiddleware();
@@ -16,6 +17,7 @@ export const store = configureStore({
 		user: userReducer,
 		marketList: marketListReducer,
 		changeData: changeDataReducer,
+		historyMatrix: historyMatrixReducer,
 		counter: counterReducer,
 	},
 	middleware: [saga],

@@ -1,0 +1,10 @@
+.historyMatrix__row {
+	height: calc((100vw - 20rem) / 14);
+
+	&--head {
+		font-size: 1.4rem;
+		font-weight: 400;
+		letter-spacing: 0.2rem;
+		color: var(--color-primary);
+	}
+}
