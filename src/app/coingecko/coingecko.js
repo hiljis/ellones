@@ -29,13 +29,13 @@ export const formatCoinGeckoPriceHistory = (data) => {
 	const volumes = data.total_volumes.map((volumePoint) => {
 		return { x: volumePoint[0], y: volumePoint[1] };
 	});
-	const marketCaps = data.market_caps.map((marketCapPoint) => {
+	const mCaps = data.market_caps.map((marketCapPoint) => {
 		return { x: marketCapPoint[0], y: marketCapPoint[1] };
 	});
 	const formattedPriceHistory = {
 		priceHistory: [...prices],
 		volumeHistory: [...volumes],
-		marketCapHistory: [...marketCaps],
+		mCapHistory: [...mCaps],
 	};
 	return formattedPriceHistory;
 };
@@ -67,5 +67,5 @@ export const fetchMarketDataHistory = async (
 
 export const getCoinGeckoMarketDataHistory = async (ticker) => {
 	const marketData = await fetchMarketDataHistory(tickerId[ticker]);
-	return marketData;
+	return { ticker, ...marketData };
 };

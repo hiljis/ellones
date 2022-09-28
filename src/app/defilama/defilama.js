@@ -13,7 +13,7 @@ export const formatCoinGeckoPriceHistory = (data) => {
 	const formattedPriceHistory = {
 		priceHistory: [...prices],
 		volumeHistory: [...volumes],
-		marketCapHistory: [...marketCaps],
+		mCapHistory: [...marketCaps],
 	};
 	return formattedPriceHistory;
 };

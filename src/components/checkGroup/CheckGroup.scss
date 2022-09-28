@@ -1,0 +1,48 @@
+.checkGroup {
+	overflow: hidden;
+	height: 2.4rem;
+	background-color: var(--color-black);
+	border: 2px solid var(--color-black);
+	border-radius: var(--radius--round);
+	display: flex;
+	align-items: center;
+	gap: 2px;
+
+	&--label {
+		height: 100%;
+		background-color: white;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		cursor: pointer;
+
+		color: var(--color-black);
+		font-size: 0.9rem;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 2px;
+
+		&:hover {
+			background-color: var(--color-black);
+			color: var(--color-white);
+		}
+
+		&.sm {
+			padding: 0 1rem;
+		}
+
+		&.md {
+			padding: 0 1rem;
+			min-width: 10rem;
+		}
+	}
+
+	&--input {
+		display: none;
+
+		&:checked + label {
+			background-color: var(--color-black);
+			color: var(--color-white);
+		}
+	}
+}

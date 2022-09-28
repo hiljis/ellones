@@ -73,7 +73,7 @@ export const historyMatrixSlice = createSlice({
 		addTickers: (state, action: PayloadAction<string[]>): void => {
 			state.tickers = action.payload;
 		},
-		calcHistoryDataStart: (state, action: PayloadAction<{ ticker: string; data: MarketData }>): void => {
+		calcHistoryDataStart: (state, action: PayloadAction<MarketData>): void => {
 			state.status = 'loading';
 		},
 		calcHistoryDataSuccess: (state, action: PayloadAction<HistoryData>): void => {

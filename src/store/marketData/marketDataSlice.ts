@@ -1,10 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { MarketData, TickerError } from '../../app/utils/types';
+import { MarketData, MarketDataPoint, TickerError } from '../../app/utils/types';
 import { MarketListRowModel } from '../marketList/marketListSlice';
 import { RootState } from '../store';
 
 export interface MarketDataWithState {
-	data: MarketData;
+	ticker: string;
+	priceHistory: MarketDataPoint[];
+	mCapHistory: MarketDataPoint[];
+	volumeHistory: MarketDataPoint[];
 	change: MarketListRowModel | null;
 	status: 'idle' | 'loading' | 'failed' | 'success' | 'calc-failed' | 'calc-complete';
 	error: string;
@@ -13,13 +16,16 @@ export interface MarketDataWithState {
 export type MarketDataStatus = 'idle' | 'loading' | 'failed' | 'loadComplete';
 
 export type MarketDataState = {
-	[index: string]: MarketDataWithState | MarketDataStatus | TickerError[];
+	data: MarketDataWithState[];
 	status: MarketDataStatus;
+	numOfProfiles: number;
 	errors: TickerError[];
 };
 
 const initialState: MarketDataState = {
+	data: [],
 	status: 'idle',
+	numOfProfiles: 0,
 	errors: [],
 };
 
@@ -27,41 +33,92 @@ export const marketDataSlice = createSlice({
 	name: 'marketData',
 	initialState,
 	reducers: {
+		setNumOfProfiles: (state, action: PayloadAction<number>) => {
+			state.numOfProfiles = action.payload;
+		},
 		fetchMarketData: (state, action: PayloadAction<{ ticker: string }>) => {
 			const { ticker } = action.payload;
-			state[ticker] = {
-				data: { priceHistory: [], marketCapHistory: [], volumeHistory: [] },
-				status: 'loading',
-				error: '',
-				change: null,
-			};
+
+			if (state.data.find((element) => element.ticker === ticker)) {
+				state.data = state.data.map((element) => {
+					if (element.ticker === ticker)
+						return {
+							ticker,
+							priceHistory: [],
+							mCapHistory: [],
+							volumeHistory: [],
+							status: 'loading',
+							error: '',
+							change: null,
+						};
+					return element;
+				});
+			} else {
+				state.data.push({
+					ticker,
+					priceHistory: [],
+					mCapHistory: [],
+					volumeHistory: [],
+					status: 'loading',
+					error: '',
+					change: null,
+				});
+			}
 			state.status = 'loading';
 		},
-		fetchMarketDataSuccess: (state, action: PayloadAction<{ ticker: string; data: MarketData }>) => {
-			state.status = 'idle';
-			const { ticker, data } = action.payload;
-			state[ticker] = { data: data, status: 'success', error: '', change: null };
+		fetchMarketDataSuccess: (state, action: PayloadAction<MarketData>) => {
+			const { ticker, priceHistory, mCapHistory, volumeHistory } = action.payload;
+
+			if (state.data.find((element) => element.ticker === ticker)) {
+				state.data = state.data.map((element) => {
+					if (element.ticker === ticker)
+						return {
+							ticker,
+							priceHistory,
+							mCapHistory,
+							volumeHistory,
+							status: 'success',
+							error: '',
+							change: null,
+						};
+					return element;
+				});
+			} else {
+				state.data.push({
+					ticker: ticker,
+					priceHistory,
+					mCapHistory,
+					volumeHistory,
+					status: 'success',
+					error: '',
+					change: null,
+				});
+			}
+			state.status = state.data.length === state.numOfProfiles ? 'loadComplete' : 'idle';
 		},
 		fetchMarketDataFailed: (state, action: PayloadAction<TickerError>) => {
-			const { ticker, error } = action.payload;
-			state.status = 'idle';
+			state.status = 'failed';
 			state.errors.push(action.payload);
-			state[ticker] = {
-				data: { priceHistory: [], marketCapHistory: [], volumeHistory: [] },
-				status: 'failed',
-				error: error,
-				change: null,
-			};
 		},
 		fetchMarketDataForProfiles: (state, action: PayloadAction<{ tickers: string[] }>) => {
+			state.numOfProfiles = action.payload.tickers.length;
 			state.status = 'loading';
 		},
-		fetchMarketDataForProfilesSuccess: (state, action: PayloadAction<{ ticker: string; data: MarketData }[]>) => {
+		fetchMarketDataForProfilesSuccess: (state, action: PayloadAction<MarketData[]>) => {
 			const marketDataArr = action.payload;
-			marketDataArr.forEach((marketData) => {
-				state[marketData.ticker] = { data: marketData.data, status: 'success', error: '', change: null };
+			state.data = [];
+			marketDataArr.forEach(({ ticker, priceHistory, mCapHistory, volumeHistory }) => {
+				state.data.push({
+					ticker,
+					priceHistory,
+					mCapHistory,
+					volumeHistory,
+					status: 'success',
+					error: '',
+					change: null,
+				});
 			});
-			state.status = 'loadComplete';
+			state.status = state.data.length === state.numOfProfiles ? 'loadComplete' : 'idle';
 		},
 		fetchMarketDataForProfilesFailed: (state, action: PayloadAction<TickerError[]>) => {
 			state.status = 'failed';
@@ -70,16 +127,18 @@ export const marketDataSlice = createSlice({
 		calcChangeDataAfterFetchSuccess: (state, action: PayloadAction<{ ticker: string; data: MarketData }[]>) => {},
 		calcChangeDataSuccess: (state, action: PayloadAction<MarketListRowModel>) => {
 			const { ticker } = action.payload;
-			const tickerState = state[ticker] as MarketDataWithState;
-			tickerState.change = { ...action.payload };
-			tickerState.status = 'calc-complete';
-			// state[ticker] = {...state[ticker], change: {...action.payload}, status: 'calc-complete' };
+			state.data = state.data.map((element) => {
+				if (element.ticker === ticker)
+					return { ...element, change: { ...action.payload }, status: 'calc-complete' };
+				return element;
+			});
 		},
 		calcChangeDataFailed: (state, action: PayloadAction<{ ticker: string; error: string }>) => {
 			const { ticker, error } = action.payload;
-			const tickerState = state[ticker] as MarketDataWithState;
-			tickerState.status = 'calc-failed';
-			tickerState.error = error;
+			state.data = state.data.map((element) => {
+				if (element.ticker === ticker) return { ...element, status: 'calc-failed', error };
+				return element;
+			});
 		},
 	},
 });
@@ -97,47 +156,61 @@ export const {
 } = marketDataSlice.actions;
 
 export const selectMarketData = (state: RootState, ticker: string) => {
-	if (!state.marketData[ticker]) return null;
-	const marketData = state.marketData[ticker] as MarketDataWithState;
-	return marketData.data;
+	const marketData = state.marketData.data.filter((element) => element.ticker === ticker)[0];
+	if (!marketData) return null;
+	return marketData;
 };
 
 export const selectPriceHistory = (state: RootState, ticker: string) => {
-	if (!state.marketData[ticker]) return null;
-	const marketData = state.marketData[ticker] as MarketDataWithState;
-	if (!marketData.data.priceHistory.length) return null;
-	return marketData.data.priceHistory;
+	const marketData = state.marketData.data.filter((element) => element.ticker === ticker)[0];
+	if (!marketData) return null;
+	if (!marketData.priceHistory.length) return null;
+	return marketData.priceHistory;
 };
 export const selectVolumeHistory = (state: RootState, ticker: string) => {
-	if (!state.marketData[ticker]) return null;
-	const marketData = state.marketData[ticker] as MarketDataWithState;
-	if (!marketData.data.volumeHistory.length) return null;
-	return marketData.data.volumeHistory;
+	const marketData = state.marketData.data.filter((element) => element.ticker === ticker)[0];
+	if (!marketData) return null;
+	if (!marketData.volumeHistory.length) return null;
+	return marketData.volumeHistory;
 };
 export const selectMCapHistory = (state: RootState, ticker: string) => {
-	if (!state.marketData[ticker]) return null;
-	const marketData = state.marketData[ticker] as MarketDataWithState;
-	if (!marketData.data.marketCapHistory.length) return null;
-	return marketData.data.marketCapHistory;
+	const marketData = state.marketData.data.filter((element) => element.ticker === ticker)[0];
+	if (!marketData) return null;
+	if (!marketData.mCapHistory.length) return null;
+	return marketData.mCapHistory;
 };
 export const selectMarketDataStatus = (state: RootState) => {
 	return state.marketData.status;
 };
 export const selectMarketDataTickerStatus = (state: RootState, ticker: string) => {
-	if (!state.marketData[ticker]) return null;
-	const marketData = state.marketData[ticker] as MarketDataWithState;
+	const marketData = state.marketData.data.filter((element) => element.ticker === ticker)[0];
+	if (!marketData) return null;
 	return marketData.status;
 };
-export const selectUnloadedTickers = (state: RootState): string[] => {
-	const profileTickers = state.profiles.profiles.map((profile) => profile.ticker);
-	const unloadedTickers = profileTickers.filter((ticker) => !state.marketData[ticker]);
-	return unloadedTickers;
-};
 export const selectChangeDataByTicker = (state: RootState, ticker: string) => {
-	const marketData = state.marketData[ticker] as MarketDataWithState;
+	const marketData = state.marketData.data.filter((element) => element.ticker === ticker)[0];
 	if (!marketData) return null;
 	if (marketData.status !== 'calc-complete') return null;
 	return marketData.change;
+};
+export const selectMarketDataByIndex = (state: RootState, dataTarget: string, index: number) => {
+	if (!state.marketData.data.length) return null;
+	return state.marketData.data.map((element) => {
+		let data = { x: -1, y: 0 };
+		if (dataTarget === 'price') {
+			const length = element.priceHistory.length;
+			data = length - 1 >= index ? element.priceHistory[length - (1 + index)] : { x: -1, y: 0 };
+		}
+		if (dataTarget === 'mCap') {
+			const length = element.mCapHistory.length;
+			data = length - 1 >= index ? element.mCapHistory[length - (1 + index)] : { x: -1, y: 0 };
+		}
+		if (dataTarget === 'volume') {
+			const length = element.volumeHistory.length;
+			data = length - 1 >= index ? element.volumeHistory[length - (1 + index)] : { x: -1, y: 0 };
+		}
+		return { ticker: element.ticker, data: data };
+	});
 };
 
 export default marketDataSlice.reducer;

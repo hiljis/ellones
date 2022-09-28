@@ -49,18 +49,15 @@ export function calcChangeData(history) {
 	};
 }
 
-const delay = (time) => new Promise((resolve) => setTimeout(resolve, time));
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export function* calculateChangeData({ payload }) {
-	const {
-		ticker,
-		data: { priceHistory, marketCapHistory, volumeHistory },
-	} = payload;
+	const { ticker, priceHistory, mCapHistory, volumeHistory } = payload;
 	try {
 		const currentPrice = priceHistory[priceHistory.length - 1].y;
-		const currentMCap = marketCapHistory[marketCapHistory.length - 1].y;
+		const currentMCap = mCapHistory[mCapHistory.length - 1].y;
 		const changeDataPrice = calcChangeData(priceHistory);
-		const changeDataMCap = calcChangeData(marketCapHistory);
+		const changeDataMCap = calcChangeData(mCapHistory);
 		const changeDataVolume = calcChangeData(volumeHistory);
 		yield put(
 			calcChangeDataSuccess({
@@ -92,11 +89,10 @@ export function* calculateChangeData({ payload }) {
 export function* fetchMarketDataAsync({ payload }) {
 	const { ticker } = payload;
 	try {
-		console.log(ticker);
-		const marketData = yield call(getCoinGeckoMarketDataHistory, ticker);
-		yield put(fetchMarketDataSuccess({ ticker: ticker, data: marketData }));
-		yield put(calcChangeDataAfterFetchSuccess({ ticker: ticker, data: marketData }));
-		yield put(calcHistoryDataStart({ ticker: ticker, data: marketData }));
+		const data = yield call(getCoinGeckoMarketDataHistory, ticker);
+		yield put(fetchMarketDataSuccess(data));
+		yield put(calcChangeDataAfterFetchSuccess(data));
+		yield put(calcHistoryDataStart(data));
 	} catch (err) {
 		yield put(fetchMarketDataFailed({ ticker: ticker, error: err.message }));
 	}
@@ -104,28 +100,18 @@ export function* fetchMarketDataAsync({ payload }) {
 
 export function* fetchMarketDataForProfilesAsync({ payload }) {
 	const { tickers } = payload;
-	let marketData = [];
-	let errors = [];
 	for (let i = 0; i < tickers.length; i++) {
 		try {
 			const data = yield call(getCoinGeckoMarketDataHistory, tickers[i]);
-			marketData.push({ ticker: tickers[i], data: data });
-			yield put(fetchMarketDataSuccess({ ticker: tickers[i], data: data }));
-			yield put(calcChangeDataAfterFetchSuccess({ ticker: tickers[i], data: data }));
-			yield put(calcHistoryDataStart({ ticker: tickers[i], data: data }));
+			yield put(fetchMarketDataSuccess(data));
+			yield put(calcChangeDataAfterFetchSuccess(data));
+			yield put(calcHistoryDataStart(data));
 			yield call(delay, 3000);
 		} catch (err) {
-			const error = { ticker: tickers[i], error: err.message };
-			errors.push(error);
 			yield put(fetchMarketDataFailed({ ticker: tickers[i], error: err.message }));
 			yield call(delay, 5000);
 		}
 	}
-	// if (errors.length) {
-	// 	yield put(fetchMarketDataForProfilesFailed(errors));
-	// } else {
-	// 	yield put(fetchMarketDataForProfilesSuccess(marketData));
-	// }
 }
 
 export function* marketDataSaga() {

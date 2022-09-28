@@ -1,0 +1,12 @@
+.pageHeader {
+	background-color: #f2f2f2;
+	text-align: center;
+	&--text {
+		font-size: 1.4rem;
+		font-weight: 400;
+		letter-spacing: 0.4rem;
+		text-transform: uppercase;
+		color: var(--color-primary);
+		padding: 1.6rem;
+	}
+}

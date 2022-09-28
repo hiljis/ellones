@@ -12,3 +12,7 @@ export const daysSince = (sinceNum: number, sinceUnit: TimeUnit) => {
 	else if (sinceUnit === 'y') startDate = sub(endDate, { years: sinceNum });
 	return differenceInDays(endDate, startDate);
 };
+
+export const daysSinceDate = (date: Date) => {
+	return differenceInDays(new Date(), date);
+};

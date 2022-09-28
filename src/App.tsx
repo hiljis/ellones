@@ -18,6 +18,7 @@ import { checkUserSession } from './store/user/userSlice';
 import HistoryPage from './pages/history/History.page';
 import { testData } from './store/historyMatrix/testData';
 import { calcHistoryDataStart } from './store/historyMatrix/historyMatrix.slice';
+import DominancePage from './pages/dominance/Dominance.page';
 
 function App() {
 	const profiles = useAppSelector(selectProfiles);
@@ -31,7 +32,7 @@ function App() {
 		if (!profiles.length) {
 			dispatch(fetchProfiles());
 		} else if (profiles.length) {
-			// dispatch(fetchMarketDataForProfiles({ tickers: profiles.map((profile) => profile.ticker) }));
+			dispatch(fetchMarketDataForProfiles({ tickers: profiles.map((profile) => profile.ticker) }));
 		}
 	}, [dispatch, profiles]);
 
@@ -41,6 +42,7 @@ function App() {
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/change" element={<MarketPage />} />
+				<Route path="/dominance" element={<DominancePage />} />
 				<Route path="/signin" element={<SignInPage />} />
 				<Route path="/signup" element={<SignUpPage />} />
 				<Route path="/signout" element={<SignOutPage />} />

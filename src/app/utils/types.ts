@@ -4,9 +4,10 @@ export interface MarketDataPoint {
 }
 
 export interface MarketData {
+	ticker: string;
 	priceHistory: MarketDataPoint[];
 	volumeHistory: MarketDataPoint[];
-	marketCapHistory: MarketDataPoint[];
+	mCapHistory: MarketDataPoint[];
 }
 
 export interface TickerError {
@@ -44,3 +45,5 @@ export interface UserSignUp {
 	occupation: string;
 	password: string;
 }
+
+export type ChartType = 'line' | 'bar' | 'doughnut';

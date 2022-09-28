@@ -1,0 +1,54 @@
+.dominancePage {
+	grid-column: content-start / content-end;
+	grid-row: main-start / main-end;
+	display: flex;
+	flex-direction: column;
+}
+
+.section__dominanceCharts {
+	width: 100%;
+	flex-grow: 1;
+	padding: 5rem 10rem;
+
+	display: grid;
+	grid-template-columns: 3fr 1fr;
+	grid-template-rows: min-content 30rem min-content;
+	justify-content: center;
+	align-items: center;
+	row-gap: 5rem;
+	// column-gap: 5rem;
+
+	div:nth-child(3) {
+		justify-self: end;
+	}
+
+	&.loading {
+		display: flex;
+		height: 100%;
+	}
+
+	.dataFilterOptions {
+		grid-column: 1 / -1;
+		grid-row: 1 / span 1;
+		display: flex;
+		justify-content: space-between;
+	}
+
+	&__iconToggleRow {
+		grid-column: 1 / -1;
+		grid-row: 3 / span 1;
+		display: flex;
+		justify-content: space-between;
+		border: none;
+	}
+}
+
+.bar {
+	background-color: blue;
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 5rem;
+	transition: height 1s;
+}

@@ -119,22 +119,17 @@ const convertToHistoryData = async (marketData) => {
 		const sortedData = data.map((year) => {
 			return { ...year, months: year.months.sort((a, b) => a.month - b.month) };
 		});
-		console.log('sortedData', sortedData);
 		return sortedData;
 	} catch (err) {
-		console.log(err);
 		throw err;
 	}
 };
 
 export function* calcHistoryData({ payload }) {
-	const {
-		ticker,
-		data: { priceHistory, marketCapHistory, volumeHistory },
-	} = payload;
+	const { ticker, priceHistory, mCapHistory, volumeHistory } = payload;
 	try {
 		const priceData = yield call(convertToHistoryData, priceHistory);
-		const mCapData = yield call(convertToHistoryData, marketCapHistory);
+		const mCapData = yield call(convertToHistoryData, mCapHistory);
 		const volumeData = yield call(convertToHistoryData, volumeHistory);
 		yield put(calcHistoryDataSuccess({ ticker: ticker, price: priceData, mCap: mCapData, volume: volumeData }));
 	} catch (err) {
