@@ -1,0 +1,71 @@
+.pairTickerPicker {
+}
+
+.pairTickerPickerButton {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: none;
+	width: 10rem;
+	height: 10rem;
+	border-radius: var(--radius--round);
+	background-color: var(--color-primary);
+	color: var(--color-white);
+	font-size: 1.4rem;
+	font-weight: 600;
+	cursor: pointer;
+	position: relative;
+
+	&:hover {
+		background-color: var(--color-primary--dark);
+	}
+
+	&::after {
+		position: absolute;
+		bottom: -3rem;
+		left: 50%;
+		font-size: 1rem;
+		font-weight: 400;
+		letter-spacing: 3px;
+		color: var(--color-black);
+		transform: translateX(-50%);
+	}
+
+	&.numerator {
+		background-color: var(--color-primary);
+		&:hover {
+			background-color: var(--color-primary--dark);
+		}
+		&::after {
+			content: 'NUMERATOR';
+		}
+	}
+
+	&.denominator {
+		background-color: var(--color-tertiary);
+		&:hover {
+			background-color: var(--color-tertiary--dark);
+		}
+		&::after {
+			content: 'DENOMINATOR';
+		}
+	}
+
+	&.empty {
+		background-color: var(--color-grey--lightest);
+		border: 3px solid transparent;
+		gap: 5px;
+
+		&:hover {
+			border-color: var(--color-black);
+			background-color: var(--color-grey--lightest);
+		}
+
+		.empty__dot {
+			width: 5px;
+			height: 5px;
+			border-radius: var(--radius--round);
+			background-color: var(--color-black);
+		}
+	}
+}

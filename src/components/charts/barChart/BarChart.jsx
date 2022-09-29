@@ -21,18 +21,15 @@ const BarChart = ({ tickerData, dataCategory }) => {
 				labels: tickerData.map((data) => data.ticker.toUpperCase()),
 				datasets: [
 					{
-						label: 'hej',
 						data: tickerData.map((data) => data.data.y),
 						backgroundColor: tickerData.map((data) => getBarBgColor(data.ticker)),
 					},
 				],
 			};
-			console.log('joinedData: ', joinedData);
 			setData(joinedData);
 		}
 	}, [tickerData]);
 
-	console.log(data);
 	const options = getBarChartOptions(data, dataCategory);
 	// const options = {};
 

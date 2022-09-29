@@ -16,7 +16,6 @@ export const getBarChartOptions = (chartData, dataCategory) => {
 				beginAtZero: true,
 				ticks: {
 					callback: (value, i, t) => {
-						console.log(chartData);
 						if (dataCategory === 'mCap') return getMCapTick(value);
 						if (dataCategory === 'volume') return getVolumeTick(value);
 						if (dataCategory === 'price') return getPriceTick(value);

@@ -1,0 +1,30 @@
+.pairAdderBtn {
+	width: 90%;
+	height: 5rem;
+	background-color: var(--color-grey--lightest);
+	border: none;
+	border-radius: var(--radius--md);
+	cursor: pointer;
+	position: relative;
+
+	&::after,
+	&::before {
+		content: '';
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+
+		width: 2rem;
+		height: 2px;
+		background-color: var(--color-primary);
+	}
+
+	&::before {
+		transform: translate(-50%, -50%) rotate(90deg);
+	}
+
+	&:hover {
+		background-color: var(--color-primary--10);
+	}
+}

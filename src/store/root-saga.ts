@@ -5,6 +5,7 @@ import { profilesSaga } from './profiles/profilesSaga';
 import { userSagas } from './user/userSaga';
 import { marketListSaga } from './marketList/marketListSaga';
 import { historyMatrixSaga } from './historyMatrix/historyMatrix.saga';
+import { pairsSaga } from './pairs/pairs.saga';
 
 export function* rootSaga() {
 	yield all([
@@ -13,5 +14,6 @@ export function* rootSaga() {
 		call(userSagas),
 		call(marketListSaga),
 		call(historyMatrixSaga),
+		call(pairsSaga),
 	]);
 }

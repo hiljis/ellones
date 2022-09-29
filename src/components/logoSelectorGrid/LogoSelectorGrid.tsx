@@ -7,16 +7,17 @@ import './LogoSelectorGrid.scss';
 type Props = {
 	selectorHandler: React.MouseEventHandler<HTMLElement>;
 	selected: string;
+	color?: string;
 };
 
-const LogoSelectorGrid: React.FC<Props> = ({ selectorHandler, selected }) => {
+const LogoSelectorGrid: React.FC<Props> = ({ selectorHandler, selected, color }) => {
 	const tickers = useAppSelector(selectTickers);
 	return (
-		<div className="logoSelectorGrid">
+		<div className={`logoSelectorGrid`}>
 			{tickers.map((ticker, i) => {
 				return (
 					<div
-						className={`logoSelect ${ticker === selected ? 'selected' : ''}`}
+						className={`logoSelect ${color} ${ticker === selected ? 'selected' : ''}`}
 						data-ticker={ticker}
 						onClick={selectorHandler}
 						key={i}

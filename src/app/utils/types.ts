@@ -15,6 +15,11 @@ export interface TickerError {
 	error: string;
 }
 
+export interface IndexError {
+	index: number;
+	error: string;
+}
+
 export type ChangeData = {
 	'24h': number;
 	'1w': number;

@@ -1,10 +1,10 @@
-export const getlineChartOptions = (chartData, type, resolution) => {
+export const getlineChartOptions = (chartData, dataCategory, type, resolution) => {
 	return {
 		// indexAxis: 'xAxis',
 		responsive: true,
 		maintainAspectRatio: false,
 		parsing: false,
-		animation: false,
+		animation: true,
 		scales: {
 			'y-axis-1': {
 				indexAxis: 'xAxis',
@@ -52,16 +52,16 @@ export const getlineChartOptions = (chartData, type, resolution) => {
 					padding: 10,
 					display: true,
 					font: {
-						family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-						size: 12,
-						weight: 700,
+						family: "'Poppins','Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+						size: 10,
+						weight: 600,
 						lineHeight: 1,
 						style: 'normal',
 					},
 					crossAlign: 'far',
 				},
 				grid: {
-					display: false,
+					display: true,
 					color: 'rgba(0, 0, 0, 0.05)',
 					lineWidth: 1,
 					drawBorder: false,
@@ -94,9 +94,9 @@ export const getlineChartOptions = (chartData, type, resolution) => {
 					minRotation: 45,
 					color: 'rgba(0, 0, 0, 1)',
 					font: {
-						family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
-						size: 12,
-						weight: 700,
+						family: "'Poppins','Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+						size: 10,
+						weight: 600,
 						lineHeight: 1,
 						style: 'normal',
 					},
@@ -146,6 +146,15 @@ export const getlineChartOptions = (chartData, type, resolution) => {
 						return `${date}, ${year}`;
 					},
 					label: (data) => {
+						if (dataCategory === 'price') {
+							return 'PRICE';
+						} else if (dataCategory === 'mCap') {
+							return 'MCAP';
+						} else if (dataCategory === 'volume') {
+							return 'VOLUME';
+						} else if (dataCategory === 'tvl') {
+							return 'TVL';
+						}
 						const floatVal = parseFloat(data.formattedValue.replace(',', ''));
 						const numOfDecimals = floatVal < 1 ? 3 : 2;
 						const currencyStr = floatVal.toLocaleString('en-US', {
@@ -160,8 +169,10 @@ export const getlineChartOptions = (chartData, type, resolution) => {
 			decimation: {
 				enabled: true,
 				algorithm: 'lttb',
-				samples: Math.floor(chartData.length / resolution),
-				threshold: 1,
+				// algorithm: 'min-max',
+				// samples: Math.floor(chartData.length / resolution),
+				samples: 500,
+				threshold: 365,
 			},
 			zoom: {
 				pan: {
@@ -176,8 +187,8 @@ export const getlineChartOptions = (chartData, type, resolution) => {
 					},
 					drag: {
 						enabled: true,
-						backgroundColor: 'rgba(0, 0, 0, 0.1)',
-						borderColor: 'rgba(0, 0, 0, 1)',
+						backgroundColor: 'rgba(0, 0, 255, 0.1)',
+						borderColor: 'rgba(0, 0, 255, 1)',
 						borderWidth: 1,
 						threshold: 10,
 					},

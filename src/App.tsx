@@ -19,6 +19,7 @@ import HistoryPage from './pages/history/History.page';
 import { testData } from './store/historyMatrix/testData';
 import { calcHistoryDataStart } from './store/historyMatrix/historyMatrix.slice';
 import DominancePage from './pages/dominance/Dominance.page';
+import PairsPage from './pages/pairs/Pairs.page';
 
 function App() {
 	const profiles = useAppSelector(selectProfiles);
@@ -43,6 +44,7 @@ function App() {
 				<Route path="/" element={<Home />} />
 				<Route path="/change" element={<MarketPage />} />
 				<Route path="/dominance" element={<DominancePage />} />
+				<Route path="/pairs" element={<PairsPage />} />
 				<Route path="/signin" element={<SignInPage />} />
 				<Route path="/signup" element={<SignUpPage />} />
 				<Route path="/signout" element={<SignOutPage />} />

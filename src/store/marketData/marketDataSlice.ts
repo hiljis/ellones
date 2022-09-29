@@ -158,6 +158,7 @@ export const {
 export const selectMarketData = (state: RootState, ticker: string) => {
 	const marketData = state.marketData.data.filter((element) => element.ticker === ticker)[0];
 	if (!marketData) return null;
+	if (!marketData.priceHistory.length) return null;
 	return marketData;
 };
 

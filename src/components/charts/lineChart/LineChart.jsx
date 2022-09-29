@@ -10,6 +10,10 @@ import {
 	Decimation,
 	Tooltip,
 	Filler,
+	PointElement,
+	LineElement,
+	Title,
+	Legend,
 } from 'chart.js';
 import 'chartjs-adapter-date-fns';
 import zoomPlugin from 'chartjs-plugin-zoom';
@@ -17,7 +21,7 @@ import { enGB } from 'date-fns/locale';
 import './LineChart.scss';
 import { useEffect, useRef, useState } from 'react';
 import { getlineChartOptions } from './LineChartOptions';
-import { getGradientColors } from '../../utils/colors';
+import { getGradientColors } from '../chartUtils/colors';
 
 ChartJS.register(
 	BarElement,
@@ -29,6 +33,10 @@ ChartJS.register(
 	Decimation,
 	Tooltip,
 	Filler,
+	PointElement,
+	LineElement,
+	Title,
+	Legend,
 	zoomPlugin
 );
 
@@ -53,7 +61,17 @@ const initData = {
 	],
 };
 
-const LineChart = ({ chartData, datasetLabel, type, resolution }) => {
+// type Props = {
+// 	chartData: MarketDataPoint[],
+// 	dataCategory: 'price' | 'mCap' | 'volume' | 'tvl',
+// 	dataSetLabel?: string,
+// 	type?: 'logarithmic' | 'linear',
+// 	daysToDisplay?: number,
+// 	resolution?: number,
+// };
+
+// const LineChart = ({ chartData, dataCategory, datasetLabel, type, resolution }) => {
+const LineChart = ({ chartData }) => {
 	const chartRef = useRef(null);
 	const [data, setData] = useState({ datasets: [] });
 
@@ -64,18 +82,23 @@ const LineChart = ({ chartData, datasetLabel, type, resolution }) => {
 
 		const joinedData = {
 			...initData,
+			labels: chartData.map((data) => data.x),
 			datasets: initData.datasets.map((dataset) => ({
 				...dataset,
-				label: datasetLabel,
+				label: 'hej',
 				data: chartData,
-				backgroundColor: createGradient(chart.ctx, chart.chartArea, datasetLabel),
+				fill: false,
+				// backgroundColor: createGradient(chart.ctx, chart.chartArea, datasetLabel),
+				// backgroundColor: 'black',
+				borderColor: 'blue',
+				borderWidth: 3,
 			})),
 		};
 
 		setData(joinedData);
-	}, [chartData, datasetLabel]);
+	}, [chartData]);
 
-	const options = getlineChartOptions(chartData, type, resolution);
+	const options = getlineChartOptions(chartData, 'mCap', 'linear', 10);
 
 	const resetZoom = () => {
 		chartRef.current.resetZoom();
