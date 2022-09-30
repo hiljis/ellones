@@ -1,4 +1,4 @@
-export const getlineChartOptions = (chartData, dataCategory, type, resolution) => {
+export const getPairlineChartOptions = (chartData, dataCategory, type, resolution) => {
 	return {
 		// indexAxis: 'xAxis',
 		responsive: true,
@@ -50,7 +50,7 @@ export const getlineChartOptions = (chartData, dataCategory, type, resolution) =
 					// maxRotation: 0,
 					color: 'rgba(0, 0, 0, 1)',
 					padding: 10,
-					display: true,
+					display: false,
 					font: {
 						family: "'Poppins','Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
 						size: 10,
@@ -170,9 +170,9 @@ export const getlineChartOptions = (chartData, dataCategory, type, resolution) =
 				enabled: true,
 				algorithm: 'lttb',
 				// algorithm: 'min-max',
-				// samples: Math.floor(chartData.length / resolution),
-				samples: 500,
-				threshold: 365,
+				samples: Math.floor(chartData.length / resolution),
+				// samples: 365,
+				threshold: 1,
 			},
 			zoom: {
 				pan: {
@@ -181,7 +181,7 @@ export const getlineChartOptions = (chartData, dataCategory, type, resolution) =
 				},
 				zoom: {
 					wheel: {
-						enabled: true,
+						enabled: false,
 						modifierKey: 'shift',
 						speed: 0.1,
 					},
@@ -207,16 +207,19 @@ export const getlineChartOptions = (chartData, dataCategory, type, resolution) =
 		},
 		elements: {
 			line: {
-				fill: 'origin',
-				borderWidth: 2,
+				borderColor: 'rgba(0,0,255,1)',
+				// fill: 'origin',
+				fill: false,
+				borderWidth: 3,
 				tension: 0.4,
 			},
 			point: {
 				pointStyle: 'circle',
 				pointBackgroundColor: 'transparent',
 				pointBorderColor: 'transparent',
+				pointRadius: 5,
 
-				pointHoverRadius: 8,
+				pointHoverRadius: 5,
 				pointHoverBorderWidth: 2,
 				pointHitRadius: 20,
 			},

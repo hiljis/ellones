@@ -1,14 +1,19 @@
 .pairCard {
-	width: 90%;
+	width: calc(100vw - 20rem);
 	min-height: 30rem;
-	padding: 3rem;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+	padding: 4rem 6rem;
 	border-radius: var(--radius--lg);
 	border: 2px solid var(--color-grey--light);
 	margin: 5rem 0;
 	position: relative;
+
+	display: grid;
+	grid-template-columns: [numerator-start] 1fr [numerator-end chart-start] 70% [chart-end denominator-start] 1fr [denominator-end];
+	grid-template-rows: [settings-start] min-content [settings-end content-start] 40rem [content-end];
+
+	@media only screen and (max-width: 1000px) {
+		background-color: green;
+	}
 
 	&__btnClose {
 		width: 3rem;
@@ -54,38 +59,44 @@
 		}
 	}
 
+	&__settings {
+		grid-column: numerator-start / chart-end;
+		grid-row: settings-start / settings-end;
+
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 4rem;
+	}
+
+	&__numerator {
+		grid-column: numerator-start / numerator-end;
+		grid-row: content-start / content-end;
+		justify-self: self-start;
+	}
+
+	&__denominator {
+		grid-column: denominator-start / denominator-end;
+		grid-row: content-start / content-end;
+		justify-self: self-end;
+	}
+
+	&__chartArea {
+		grid-column: chart-start / chart-end;
+		grid-row: content-start / content-end;
+		justify-self: center;
+		width: 100%;
+	}
+
+	&__numerator,
+	&__denominator,
+	&__chartArea {
+		align-self: center;
+	}
+
 	&__message {
 		width: 100%;
 		font-size: 1.4rem;
 		letter-spacing: 2px;
 		color: var(--color-grey--light);
-
-		// font-size: 1.4rem;
-	}
-
-	&__numerators {
-		background-color: #ccc;
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 1rem;
-		justify-items: center;
-		flex-basis: 20%;
-	}
-
-	&__quotient {
-		background-color: blue;
-		margin: 0 auto;
-		height: 50rem;
-		width: 100%;
-		margin: 0 3rem;
-	}
-
-	&__denominators {
-		background-color: #ccc;
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 1rem;
-		justify-items: center;
-		flex-basis: 20%;
 	}
 }

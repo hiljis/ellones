@@ -5,26 +5,27 @@ type Props = {
 	children: { string: string; value: string | number }[];
 	selectHandler?: Function;
 	initSelected: string | number;
-	width: string;
+	widthSize: string;
+	disabled?: boolean;
 };
 
-const CheckGroup: React.FC<Props> = ({ children, selectHandler, initSelected, width }) => {
+const CheckGroup: React.FC<Props> = ({ children, selectHandler, initSelected, widthSize, disabled }) => {
 	const id = useId();
 	const [selected, setSelected] = useState(initSelected);
 
 	const handleOnSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const value = typeof initSelected === 'number' ? parseInt(e.currentTarget.value) : e.currentTarget.value;
 		setSelected(value);
-		if (selectHandler) selectHandler(e.currentTarget.value);
+		if (selectHandler) selectHandler(value);
 	};
 
 	return (
-		<form className="checkGroup">
+		<form className={`checkGroup ${disabled && 'disabled'}`}>
 			{children.map(({ string, value }, i) => {
 				return (
-					<>
+					<div className={`checkContainer ${value === -1 ? 'disabled' : ''}`} key={i}>
 						<input
-							className="checkGroup--input"
+							className={`checkGroup--input ${value === -1 ? 'disabled' : ''}`}
 							type="radio"
 							id={`${id}-${i}`}
 							value={value}
@@ -32,10 +33,13 @@ const CheckGroup: React.FC<Props> = ({ children, selectHandler, initSelected, wi
 							onChange={handleOnSelect}
 							name={`checkGroup-${id}`}
 						/>
-						<label className={`checkGroup--label ${width}`} htmlFor={`${id}-${i}`}>
+						<label
+							className={`checkGroup--label ${widthSize} ${value === -1 ? 'disabled' : ''}`}
+							htmlFor={`${id}-${i}`}
+						>
 							{string}
 						</label>
-					</>
+					</div>
 				);
 			})}
 		</form>

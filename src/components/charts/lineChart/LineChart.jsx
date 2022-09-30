@@ -20,7 +20,7 @@ import zoomPlugin from 'chartjs-plugin-zoom';
 import { enGB } from 'date-fns/locale';
 import './LineChart.scss';
 import { useEffect, useRef, useState } from 'react';
-import { getlineChartOptions } from './LineChartOptions';
+import { getPairlineChartOptions } from './LineChartOptions';
 import { getGradientColors } from '../chartUtils/colors';
 
 ChartJS.register(
@@ -87,18 +87,14 @@ const LineChart = ({ chartData }) => {
 				...dataset,
 				label: 'hej',
 				data: chartData,
-				fill: false,
-				// backgroundColor: createGradient(chart.ctx, chart.chartArea, datasetLabel),
-				// backgroundColor: 'black',
-				borderColor: 'blue',
-				borderWidth: 3,
+				borderColor: 'rgba(0,0,255,1)',
 			})),
 		};
 
 		setData(joinedData);
 	}, [chartData]);
 
-	const options = getlineChartOptions(chartData, 'mCap', 'linear', 10);
+	const options = getPairlineChartOptions(chartData, 'mCap', 'linear', 1);
 
 	const resetZoom = () => {
 		chartRef.current.resetZoom();

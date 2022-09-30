@@ -81,13 +81,13 @@ const DominancePage: React.FC = () => {
 			<PageHeader>Dominance</PageHeader>
 			<section className="section__dominanceCharts">
 				<div className="dataFilterOptions">
-					<CheckGroup initSelected={'mCap'} width="md" selectHandler={handleOnDataCategoryChange}>
+					<CheckGroup initSelected={'mCap'} widthSize="md" selectHandler={handleOnDataCategoryChange}>
 						{[
 							{ string: 'Market Cap', value: 'mCap' },
 							{ string: 'Volume', value: 'volume' },
 						]}
 					</CheckGroup>
-					<CheckGroup initSelected={DAYS_1M_BACK} width="sm" selectHandler={handleOnTimeChange}>
+					<CheckGroup initSelected={DAYS_1M_BACK} widthSize="sm" selectHandler={handleOnTimeChange}>
 						{[
 							{ string: '1m', value: DAYS_1M_BACK },
 							{ string: '3m', value: DAYS_3M_BACK },

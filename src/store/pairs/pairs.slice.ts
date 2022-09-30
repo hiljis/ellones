@@ -1,9 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { DAYS_1M_BACK } from '../../app/utils/consts';
 import { IndexError, MarketDataPoint } from '../../app/utils/types';
 import { RootState } from '../store';
 
+export type PairDataCategory = 'price' | 'mCap' | 'volume' | 'tvl';
+
 export interface Pair {
-	dataCategory: 'price' | 'mMap' | 'volume' | 'tvl';
+	dataCategory: PairDataCategory;
+	timeSpan: number;
 	numerator: string;
 	denominator: string;
 	data: MarketDataPoint[];
@@ -17,7 +21,16 @@ export type PairsState = {
 };
 
 const initialState: PairsState = {
-	pairs: [{ dataCategory: 'mMap', numerator: '', denominator: '', data: [], status: 'idle' }],
+	pairs: [
+		{
+			dataCategory: 'mCap',
+			numerator: 'btc',
+			denominator: 'eth',
+			data: [],
+			status: 'idle',
+			timeSpan: DAYS_1M_BACK,
+		},
+	],
 	status: 'idle',
 	error: [],
 };
@@ -47,7 +60,14 @@ export const pairsSlice = createSlice({
 			state.error.push(error);
 		},
 		addNewInitPair: (state): void => {
-			const pair: Pair = { numerator: '', denominator: '', status: 'idle', dataCategory: 'mMap', data: [] };
+			const pair: Pair = {
+				numerator: '',
+				denominator: '',
+				status: 'idle',
+				dataCategory: 'mCap',
+				data: [],
+				timeSpan: DAYS_1M_BACK,
+			};
 			state.pairs.push(pair);
 		},
 		deletePair: (state, action: PayloadAction<number>): void => {
@@ -64,13 +84,15 @@ export const pairsSlice = createSlice({
 			const pair = state.pairs[index];
 			state.pairs[index] = { ...pair, denominator: ticker, status: 'idle' };
 		},
-		changeDataCategory: (
-			state,
-			action: PayloadAction<{ index: number; dataCategory: 'price' | 'mMap' | 'volume' | 'tvl' }>
-		): void => {
+		changeDataCategory: (state, action: PayloadAction<{ index: number; dataCategory: PairDataCategory }>): void => {
 			const { index, dataCategory } = action.payload;
 			const pair = state.pairs[index];
-			state.pairs[index] = { ...pair, dataCategory: dataCategory };
+			state.pairs[index] = { ...pair, dataCategory: dataCategory, status: 'idle' };
+		},
+		changeTimeSpan: (state, action: PayloadAction<{ index: number; timeSpan: number }>): void => {
+			const { index, timeSpan } = action.payload;
+			const pair = state.pairs[index];
+			state.pairs[index] = { ...pair, timeSpan: timeSpan };
 		},
 	},
 });
@@ -80,6 +102,8 @@ export const {
 	deletePair,
 	changeNumerator,
 	changeDenominator,
+	changeDataCategory,
+	changeTimeSpan,
 	calcPairDataStart,
 	calcPairDataSuccess,
 	calcPairDataFailed,
@@ -89,5 +113,7 @@ export const selectPairs = (state: RootState) => state.pairs.pairs;
 export const selectPair = (state: RootState, index: number) => state.pairs.pairs[index];
 export const selectPairData = (state: RootState, index: number) => state.pairs.pairs[index].data;
 export const selectPairStatus = (state: RootState, index: number) => state.pairs.pairs[index].status;
+export const selectPairDataCategory = (state: RootState, index: number) => state.pairs.pairs[index].dataCategory;
+export const selectPairTimeSpan = (state: RootState, index: number) => state.pairs.pairs[index].timeSpan;
 
 export default pairsSlice.reducer;
