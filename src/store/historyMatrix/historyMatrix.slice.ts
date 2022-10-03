@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { MarketData, TickerError } from '../../app/utils/types';
+import { Data } from '../../app/Data/Data';
+import { MarketData, TickerError, TickerStatus } from '../../app/utils/types';
 import { RootState } from '../store';
 
 export type CalcAlgo = 'avg' | 'median' | 'max' | 'min';
@@ -13,7 +14,7 @@ export interface HistoryMonthData {
 	change: number;
 }
 
-export type HistoryData = {
+export interface HistoryData {
 	ticker: string;
 	price: {
 		year: string;
@@ -30,16 +31,18 @@ export type HistoryData = {
 		complete: boolean;
 		months: HistoryMonthData[];
 	}[];
-};
+}
 
 export interface HistoryMatrixState {
 	ticker: string;
 	tickers: string[];
 	data: HistoryData[];
+	tickerStatus: { [ticker: string]: TickerStatus };
 	dataTarget: DataTarget;
 	algoMonth: CalcAlgo;
 	algoYear: CalcAlgo;
-	status: 'idle' | 'loading' | 'failed' | 'data-complete' | 'data-incomplete';
+	status: 'idle' | 'calculating' | 'calc-complete' | 'calc-incomplete' | 'calc-failed';
+	size: number;
 	errors: TickerError[];
 }
 
@@ -47,10 +50,12 @@ const initialState: HistoryMatrixState = {
 	ticker: 'btc',
 	tickers: [],
 	data: [],
+	tickerStatus: {},
 	dataTarget: 'price',
 	algoMonth: 'avg',
 	algoYear: 'avg',
 	status: 'idle',
+	size: 0,
 	errors: [],
 };
 
@@ -58,6 +63,13 @@ export const historyMatrixSlice = createSlice({
 	name: 'historyMatrix',
 	initialState,
 	reducers: {
+		initHistoryTickers: (state, action: PayloadAction<string[]>) => {
+			const tickers = action.payload;
+			tickers.forEach((ticker) => {
+				state.tickerStatus[ticker] = 'idle';
+			});
+			state.size = tickers.length;
+		},
 		changeTicker: (state, action: PayloadAction<string>): void => {
 			state.ticker = action.payload;
 		},
@@ -70,30 +82,36 @@ export const historyMatrixSlice = createSlice({
 		changeDataTarget: (state, action: PayloadAction<'price' | 'mCap' | 'volume' | 'tvl'>): void => {
 			state.dataTarget = action.payload;
 		},
-		addTickers: (state, action: PayloadAction<string[]>): void => {
-			state.tickers = action.payload;
-		},
 		calcHistoryDataStart: (state, action: PayloadAction<MarketData>): void => {
-			state.status = 'loading';
+			const marketData = action.payload;
+			state.tickerStatus[marketData.ticker] = 'calculating';
+			state.status = 'calculating';
 		},
 		calcHistoryDataSuccess: (state, action: PayloadAction<HistoryData>): void => {
-			state.data.push(action.payload);
-			if (state.data.length === state.ticker.length) state.status = 'data-complete';
-			else state.status = 'data-incomplete';
+			const historyData = action.payload;
+			state.tickerStatus[historyData.ticker] = 'calc-success';
+			Data.historyData.set(historyData.ticker, historyData);
+			// state.data.push(action.payload);
+
+			const values = Object.values(state.tickerStatus);
+			state.status =
+				values.filter((value) => value !== 'calc-success').length === 0 ? 'calc-complete' : 'calc-incomplete';
 		},
 		calcHistoryDataFailed: (state, action: PayloadAction<TickerError>): void => {
-			state.status = 'failed';
+			const error = action.payload;
+			state.status = 'calc-failed';
+			state.tickerStatus[error.ticker] = 'calc-failed';
 			state.errors.push(action.payload);
 		},
 	},
 });
 
 export const {
+	initHistoryTickers,
 	changeTicker,
 	changeAlgoMonth,
 	changeAlgoYear,
 	changeDataTarget,
-	addTickers,
 	calcHistoryDataStart,
 	calcHistoryDataSuccess,
 	calcHistoryDataFailed,
@@ -110,7 +128,7 @@ export const selectDataTarget = (state: RootState) => state.historyMatrix.dataTa
 export const selectHistoryData = (state: RootState) => {
 	const activeTicker = state.historyMatrix.ticker;
 	const activeDataTarget = state.historyMatrix.dataTarget;
-	const historyData = state.historyMatrix.data.filter((d) => d.ticker === activeTicker)[0];
+	const historyData = Data.historyData.get(activeTicker);
 	if (!historyData) return null;
 
 	if (activeDataTarget === 'price') return historyData.price;

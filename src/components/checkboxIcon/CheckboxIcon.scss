@@ -1,3 +1,9 @@
+@keyframes checkboxIcon_spin {
+	to {
+		transform: translate(-50%, -50%) rotate(365deg);
+	}
+}
+
 .checkboxIcon {
 	&--label {
 		width: 4rem;

@@ -5,7 +5,6 @@ import profilesReducer from './profiles/profilesSlice';
 import marketDataReducer from './marketData/marketDataSlice';
 import userReducer from './user/userSlice';
 import marketListReducer from './marketList/marketListSlice';
-import changeDataReducer from './changeData/changeData.slice';
 import historyMatrixReducer from './historyMatrix/historyMatrix.slice';
 import dominanceReducer from './dominance/dominance.slice';
 import pairsReducer from './pairs/pairs.slice';
@@ -18,7 +17,6 @@ export const store = configureStore({
 		marketData: marketDataReducer,
 		user: userReducer,
 		marketList: marketListReducer,
-		changeData: changeDataReducer,
 		historyMatrix: historyMatrixReducer,
 		dominance: dominanceReducer,
 		pairs: pairsReducer,

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Data } from '../../app/Data/Data';
 import { DAYS_1M_BACK } from '../../app/utils/consts';
 import { IndexError, MarketDataPoint } from '../../app/utils/types';
 import { RootState } from '../store';
@@ -10,7 +11,6 @@ export interface Pair {
 	timeSpan: number;
 	numerator: string;
 	denominator: string;
-	data: MarketDataPoint[];
 	status: 'idle' | 'loading' | 'load-complete' | 'load-failed' | 'calculating' | 'calc-complete' | 'calc-failed';
 }
 
@@ -26,7 +26,6 @@ const initialState: PairsState = {
 			dataCategory: 'mCap',
 			numerator: 'btc',
 			denominator: 'eth',
-			data: [],
 			status: 'idle',
 			timeSpan: DAYS_1M_BACK,
 		},
@@ -50,9 +49,9 @@ export const pairsSlice = createSlice({
 			const { index } = action.payload;
 			state.pairs[index] = { ...state.pairs[index], status: 'calculating' };
 		},
-		calcPairDataSuccess: (state, action: PayloadAction<{ index: number; data: MarketDataPoint[] }>): void => {
-			const { index, data } = action.payload;
-			state.pairs[index] = { ...state.pairs[index], data: data, status: 'calc-complete' };
+		calcPairDataSuccess: (state, action: PayloadAction<{ index: number }>): void => {
+			const { index } = action.payload;
+			state.pairs[index] = { ...state.pairs[index], status: 'calc-complete' };
 		},
 		calcPairDataFailed: (state, action: PayloadAction<{ index: number; error: IndexError }>): void => {
 			const { index, error } = action.payload;
@@ -65,14 +64,17 @@ export const pairsSlice = createSlice({
 				denominator: '',
 				status: 'idle',
 				dataCategory: 'mCap',
-				data: [],
 				timeSpan: DAYS_1M_BACK,
 			};
 			state.pairs.push(pair);
+			Data.pairs.push([]);
 		},
 		deletePair: (state, action: PayloadAction<number>): void => {
 			const index = action.payload;
-			state.pairs = state.pairs.filter((_, i) => i !== index);
+			console.log('BEFORE DELETE: ', Data.pairs);
+			state.pairs = [...state.pairs.filter((_, i) => i !== index)];
+			Data.pairs = [...Data.pairs.filter((_, i) => i !== index)];
+			console.log('AFTER DELETE: ', Data.pairs);
 		},
 		changeNumerator: (state, action: PayloadAction<{ index: number; ticker: string }>): void => {
 			const { ticker, index } = action.payload;
@@ -111,7 +113,7 @@ export const {
 
 export const selectPairs = (state: RootState) => state.pairs.pairs;
 export const selectPair = (state: RootState, index: number) => state.pairs.pairs[index];
-export const selectPairData = (state: RootState, index: number) => state.pairs.pairs[index].data;
+export const selectPairData = (state: RootState, index: number) => Data.pairs[index];
 export const selectPairStatus = (state: RootState, index: number) => state.pairs.pairs[index].status;
 export const selectPairDataCategory = (state: RootState, index: number) => state.pairs.pairs[index].dataCategory;
 export const selectPairTimeSpan = (state: RootState, index: number) => state.pairs.pairs[index].timeSpan;

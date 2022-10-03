@@ -16,7 +16,7 @@ import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import {
 	fetchMarketData,
 	selectMarketData,
-	selectMarketDataTickerStatus,
+	selectMarketDataStatusByTicker,
 } from '../../../store/marketData/marketDataSlice';
 import {
 	calcPairDataStart,
@@ -43,8 +43,8 @@ type Props = {
 const PairCard: React.FC<Props> = ({ index }) => {
 	const dispatch = useAppDispatch();
 	const { numerator, denominator } = useAppSelector((state) => selectPair(state, index));
-	const marketDataStatusNumerator = useAppSelector((state) => selectMarketDataTickerStatus(state, numerator));
-	const marketDataStatusDenominator = useAppSelector((state) => selectMarketDataTickerStatus(state, denominator));
+	const marketDataStatusNumerator = useAppSelector((state) => selectMarketDataStatusByTicker(state, numerator));
+	const marketDataStatusDenominator = useAppSelector((state) => selectMarketDataStatusByTicker(state, denominator));
 	const marketDataNumerator = useAppSelector((state) => selectMarketData(state, numerator));
 	const marketDataDenominator = useAppSelector((state) => selectMarketData(state, denominator));
 	const pairStatus = useAppSelector((state) => selectPairStatus(state, index));
@@ -58,20 +58,20 @@ const PairCard: React.FC<Props> = ({ index }) => {
 
 	useEffect(() => {
 		if (numerator && denominator) {
-			if (marketDataStatusNumerator === 'idle' || marketDataStatusNumerator === null) {
+			if (!marketDataStatusNumerator || marketDataStatusNumerator === 'idle') {
 				dispatch(fetchMarketData({ ticker: numerator }));
-			} else if (marketDataStatusDenominator === 'idle' || marketDataStatusDenominator === null) {
+			} else if (!marketDataStatusDenominator || marketDataStatusDenominator === 'idle') {
 				dispatch(fetchMarketData({ ticker: denominator }));
-			} else if (marketDataStatusNumerator === 'failed') {
+			} else if (marketDataStatusNumerator === 'load-failed') {
 				setNumeratorFailed(true);
 				setIsLoading(false);
-			} else if (marketDataStatusDenominator === 'failed') {
+			} else if (marketDataStatusDenominator === 'load-failed') {
 				setDenominatorFailed(true);
 				setIsLoading(false);
 			} else if (
 				pairStatus === 'idle' &&
-				marketDataStatusNumerator === 'calc-complete' &&
-				marketDataStatusDenominator === 'calc-complete' &&
+				marketDataStatusNumerator === 'load-success' &&
+				marketDataStatusDenominator === 'load-success' &&
 				marketDataNumerator &&
 				marketDataDenominator
 			) {
@@ -120,7 +120,7 @@ const PairCard: React.FC<Props> = ({ index }) => {
 
 	useEffect(() => {
 		setIsLoading(true);
-		if (pairData.length > 0) {
+		if (pairData && pairData.length > 0) {
 			setTrimmedPairData(pairData.slice(pairData.length - pairTimeSpan));
 			setTimeout(() => {
 				setIsLoading(false);
@@ -168,6 +168,7 @@ const PairCard: React.FC<Props> = ({ index }) => {
 		content = <PairChart data={trimmedPairData} />;
 	}
 
+	console.log(marketDataStatusNumerator, marketDataStatusDenominator, pairStatus);
 	return (
 		<article className="pairCard">
 			<button className="pairCard__btnClose" type="button" title="Close" onClick={handleDeletePair} />
@@ -184,24 +185,26 @@ const PairCard: React.FC<Props> = ({ index }) => {
 						{ string: 'Price', value: 'price' },
 					]}
 				</CheckGroup>
-				<CheckGroup
-					initSelected={pairTimeSpan}
-					widthSize="sm"
-					selectHandler={handleOnTimeSpanChange}
-					disabled={isLoading}
-				>
-					{[
-						{ string: '1m', value: DAYS_1M_BACK <= pairData.length ? DAYS_1M_BACK : -1 },
-						{ string: '3m', value: DAYS_3M_BACK <= pairData.length ? DAYS_3M_BACK : -1 },
-						{ string: '6m', value: DAYS_6M_BACK <= pairData.length ? DAYS_6M_BACK : -1 },
-						{ string: '1y', value: DAYS_1Y_BACK <= pairData.length ? DAYS_1Y_BACK : -1 },
-						{ string: '2y', value: DAYS_2Y_BACK <= pairData.length ? DAYS_2Y_BACK : -1 },
-						{ string: '3y', value: DAYS_3Y_BACK <= pairData.length ? DAYS_3Y_BACK : -1 },
-						{ string: '4y', value: DAYS_4Y_BACK <= pairData.length ? DAYS_4Y_BACK : -1 },
-						{ string: '5y', value: DAYS_5Y_BACK <= pairData.length ? DAYS_5Y_BACK : -1 },
-						{ string: 'all', value: pairData.length },
-					]}
-				</CheckGroup>
+				{!isLoading && (
+					<CheckGroup
+						initSelected={pairTimeSpan}
+						widthSize="sm"
+						selectHandler={handleOnTimeSpanChange}
+						disabled={isLoading}
+					>
+						{[
+							{ string: '1m', value: DAYS_1M_BACK <= pairData.length ? DAYS_1M_BACK : -1 },
+							{ string: '3m', value: DAYS_3M_BACK <= pairData.length ? DAYS_3M_BACK : -1 },
+							{ string: '6m', value: DAYS_6M_BACK <= pairData.length ? DAYS_6M_BACK : -1 },
+							{ string: '1y', value: DAYS_1Y_BACK <= pairData.length ? DAYS_1Y_BACK : -1 },
+							{ string: '2y', value: DAYS_2Y_BACK <= pairData.length ? DAYS_2Y_BACK : -1 },
+							{ string: '3y', value: DAYS_3Y_BACK <= pairData.length ? DAYS_3Y_BACK : -1 },
+							{ string: '4y', value: DAYS_4Y_BACK <= pairData.length ? DAYS_4Y_BACK : -1 },
+							{ string: '5y', value: DAYS_5Y_BACK <= pairData.length ? DAYS_5Y_BACK : -1 },
+							{ string: 'all', value: pairData.length },
+						]}
+					</CheckGroup>
+				)}
 			</div>
 			<div className="pairCard__numerator">
 				<PairTickerPicker isNumerator={true} selectedTicker={numerator} selectHandler={handleNumeratorSelect} />

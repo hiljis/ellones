@@ -16,7 +16,6 @@ import SignOutPage from './pages/signOut/SignOut.page';
 import SignInPage from './pages/signIn/SignIn.page';
 import { checkUserSession } from './store/user/userSlice';
 import HistoryPage from './pages/history/History.page';
-import { testData } from './store/historyMatrix/testData';
 import { calcHistoryDataStart } from './store/historyMatrix/historyMatrix.slice';
 import DominancePage from './pages/dominance/Dominance.page';
 import PairsPage from './pages/pairs/Pairs.page';

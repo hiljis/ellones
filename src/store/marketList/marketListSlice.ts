@@ -1,8 +1,31 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ChangeData, TickerError } from '../../app/utils/types';
+import { Data } from '../../app/Data/Data';
+import { MarketData, TickerError, TickerStatus } from '../../app/utils/types';
 import { RootState } from '../store';
 
 export type ActiveData = 'price' | 'volume' | 'mCap';
+
+export type ChangeData = {
+	'24h': number;
+	'1w': number;
+	'1m': number;
+	'3m': number;
+	'6m': number;
+	'1y': number;
+	'3y': number;
+	range: number;
+};
+
+const initChangeData: ChangeData = {
+	'24h': -100,
+	'1w': -100,
+	'1m': -100,
+	'3m': -100,
+	'6m': -100,
+	'1y': -100,
+	'3y': -100,
+	range: -100,
+};
 
 export interface MarketListRowModel {
 	ticker: string;
@@ -11,7 +34,6 @@ export interface MarketListRowModel {
 	price: ChangeData;
 	volume: ChangeData;
 	mCap: ChangeData;
-	status: 'complete' | 'idle';
 }
 
 export type SortTarget =
@@ -26,25 +48,29 @@ export type SortTarget =
 	| '3y'
 	| 'range'
 	| 'currentMCap';
-export type MarketListStatus = 'idle' | 'loading-profiles' | 'loading-marketData' | 'failed' | 'success';
+export type MarketListStatus = 'idle' | 'calc-failed' | 'calc-complete' | 'calc-incomplete';
 
 export type MarketListState = {
+	tickerStatus: { [ticker: string]: TickerStatus };
+	size: number;
 	activeData: ActiveData;
 	sortTarget: SortTarget;
 	sortAsc: boolean;
 	rangeStart: string | number;
 	rangeEnd: string | number;
-	error: TickerError[];
+	errors: TickerError[];
 	status: MarketListStatus;
 };
 
 const initialState: MarketListState = {
+	tickerStatus: {},
+	size: 0,
 	activeData: 'price',
 	sortTarget: 'currentMCap',
 	sortAsc: true,
 	rangeStart: '',
 	rangeEnd: '',
-	error: [],
+	errors: [],
 	status: 'idle',
 };
 
@@ -52,15 +78,33 @@ export const marketListSlice = createSlice({
 	name: 'marketList',
 	initialState,
 	reducers: {
-		fetchMarketDataFor: (state, action: PayloadAction<{ tickers: string[] }>) => {
-			state.status = 'loading-marketData';
+		initMarketList: (state, action: PayloadAction<string[]>) => {
+			const tickers = action.payload;
+			tickers.forEach((ticker) => {
+				state.tickerStatus[ticker] = 'idle';
+				const initMarketListData = {
+					ticker: ticker,
+					currentPrice: 0,
+					currentMCap: 0,
+					price: { ...initChangeData },
+					mCap: { ...initChangeData },
+					volume: { ...initChangeData },
+				};
+				Data.marketListData.set(ticker, initMarketListData);
+			});
+			state.size = tickers.length;
 		},
-		fetchMarketDataForSuccess: (state) => {
-			state.status = 'success';
+		calculateRowDataStart: (state, action: PayloadAction<MarketData>) => {
+			const ticker = action.payload.ticker;
+			state.tickerStatus[ticker] = 'calculating';
 		},
-		fetchMarketDataForFailed: (state, action: PayloadAction<string>) => {
-			state.error.push({ ticker: '', error: action.payload });
-			state.status = 'failed';
+		calculateRowDataSuccess: (state, action: PayloadAction<string>) => {
+			const ticker = action.payload;
+			state.tickerStatus[ticker] = 'calc-success';
+		},
+		calculateRowDataFailed: (state, action: PayloadAction<string>) => {
+			const ticker = action.payload;
+			state.tickerStatus[ticker] = 'calc-failed';
 		},
 		changeActiveData: (state, action: PayloadAction<ActiveData>) => {
 			state.activeData = action.payload;
@@ -80,32 +124,24 @@ export const marketListSlice = createSlice({
 		calcRangeChange: (state) => {
 			console.log('Calculate range change and update market list');
 		},
-		addData: (state) => {
-			// state.status = 'loading';
-		},
 		changeStatus: (state, action: PayloadAction<MarketListStatus>) => {
 			state.status = action.payload;
-		},
-		addError: (state, action: PayloadAction<TickerError>) => {
-			state.error.push(action.payload);
-			state.status = 'failed';
 		},
 	},
 });
 
 export const {
-	fetchMarketDataFor,
-	fetchMarketDataForSuccess,
-	fetchMarketDataForFailed,
+	initMarketList,
+	calculateRowDataStart,
+	calculateRowDataSuccess,
+	calculateRowDataFailed,
 	changeActiveData,
 	changeSortTarget,
 	toggleSortAsc,
 	changeRangeStart,
 	changeRangeEnd,
 	calcRangeChange,
-	addData,
 	changeStatus,
-	addError,
 } = marketListSlice.actions;
 
 export const selectMarketListStatus = (state: RootState) => state.marketList.status;
@@ -114,5 +150,17 @@ export const selectMarketListSortTarget = (state: RootState) => state.marketList
 export const selectMarketListSortAsc = (state: RootState) => state.marketList.sortAsc;
 export const selectMarketListRangeStart = (state: RootState) => state.marketList.rangeStart;
 export const selectMarketListRangeEnd = (state: RootState) => state.marketList.rangeEnd;
+export const selectMarketListData = (state: RootState) => {
+	return Array.from(Data.marketListData.values());
+};
+export const selectRowDataByTicker = (state: RootState, ticker: string) => {
+	return Data.marketListData.get(ticker);
+};
+export const selectMarketListDataStatus = (state: RootState) => {
+	return state.marketList.status;
+};
+export const selectRowDataStatusByTicker = (state: RootState, ticker: string) => {
+	return state.marketList.tickerStatus[ticker];
+};
 
 export default marketListSlice.reducer;

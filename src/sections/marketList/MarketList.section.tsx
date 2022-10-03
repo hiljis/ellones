@@ -4,6 +4,7 @@ import {
 	ActiveData,
 	MarketListRowModel,
 	selectMarketListActiveData,
+	selectMarketListData,
 	selectMarketListSortAsc,
 	selectMarketListSortTarget,
 	SortTarget,
@@ -13,9 +14,11 @@ import MarketListRow from './marketListRow/MarketListRow';
 import BtnColSort from './btnColSort/BtnColSort';
 import BtnDataSelect from './btnDataSelect/BtnDataSelector';
 import MarketListRange from './marketListRange/MarketListRange';
-import { selectChangeData } from '../../store/changeData/changeData.slice';
+import { Data } from '../../app/Data/Data';
 
 const sort = (data: MarketListRowModel[], activeData: ActiveData, sortBy: SortTarget, asc: boolean) => {
+	console.log(data);
+	console.log(Data.marketListData);
 	if (asc) {
 		if (sortBy === 'ticker') {
 			return data.sort((a, b) => b.ticker[0].localeCompare(a.ticker[0]));
@@ -46,13 +49,12 @@ const MarketList: React.FC = () => {
 	const sortedBy = useAppSelector(selectMarketListSortTarget);
 	const sortAsc = useAppSelector(selectMarketListSortAsc);
 
-	const changeData = useAppSelector(selectChangeData);
+	const marketListData = useAppSelector(selectMarketListData);
 	const [sortedList, setSortedList] = useState<MarketListRowModel[]>([]);
 
 	useEffect(() => {
-		console.log('sort');
-		setSortedList(sort([...changeData], activeData, sortedBy, sortAsc));
-	}, [sortedBy, sortAsc, activeData, changeData]);
+		setSortedList(sort([...marketListData], activeData, sortedBy, sortAsc));
+	}, [sortedBy, sortAsc, activeData, marketListData]);
 
 	let rows = sortedList?.map((data, i) => {
 		return <MarketListRow data={data} activeData={activeData} key={i} />;

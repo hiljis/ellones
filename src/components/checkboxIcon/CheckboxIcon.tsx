@@ -1,4 +1,6 @@
 import React, { useEffect, useId, useState } from 'react';
+import { useAppSelector } from '../../store/hooks';
+import { selectMarketDataStatusByTicker } from '../../store/marketData/marketDataSlice';
 import { getIcon } from '../icons/Icons';
 import './CheckboxIcon.scss';
 
@@ -33,7 +35,7 @@ const CheckboxIcon: React.FC<Props> = ({ ticker, checkHandler, name, parentCheck
 	const icon = checked ? getIcon(ticker, 'icon--white icon--sm') : getIcon(ticker, 'icon--black icon--sm');
 
 	return (
-		<div className="checkboxIcon">
+		<div className={`checkboxIcon`}>
 			<input
 				className="checkboxIcon--input"
 				type="checkbox"

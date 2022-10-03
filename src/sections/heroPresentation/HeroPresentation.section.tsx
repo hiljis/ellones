@@ -6,7 +6,7 @@ import Loader from '../../components/loader/loader';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
 	fetchMarketData,
-	selectMarketDataTickerStatus,
+	selectMarketDataStatusByTicker,
 	selectMCapHistory,
 	selectPriceHistory,
 	selectVolumeHistory,
@@ -23,7 +23,7 @@ const HeroPresentation: React.FC<Props> = ({ ticker }) => {
 	const navigate = useNavigate();
 	const profilesStatus = useAppSelector(selectProfilesStatus);
 	const profile = useAppSelector((state) => selectProfile(state, ticker));
-	const marketDataStatus = useAppSelector((state) => selectMarketDataTickerStatus(state, ticker));
+	const marketDataStatus = useAppSelector((state) => selectMarketDataStatusByTicker(state, ticker));
 	const priceHistory = useAppSelector((state) => selectPriceHistory(state, ticker));
 	const volumeHistory = useAppSelector((state) => selectVolumeHistory(state, ticker));
 	const mCapHistory = useAppSelector((state) => selectMCapHistory(state, ticker));
@@ -39,11 +39,11 @@ const HeroPresentation: React.FC<Props> = ({ ticker }) => {
 	}, [profile, profilesStatus, dispatch, navigate]);
 
 	useEffect(() => {
-		if (profile && marketDataStatus === 'failed') {
+		if (profile && marketDataStatus === 'load-failed') {
 			dispatch(fetchMarketData({ ticker }));
 		} else if (profile && (!priceHistory || !volumeHistory || !mCapHistory)) {
 			dispatch(fetchMarketData({ ticker }));
-		} else if (!profile && marketDataStatus === 'failed') {
+		} else if (!profile && marketDataStatus === 'load-failed') {
 			setTimeout(() => {
 				navigate('/');
 			}, 2000);
@@ -51,7 +51,7 @@ const HeroPresentation: React.FC<Props> = ({ ticker }) => {
 	}, [profile, priceHistory, volumeHistory, mCapHistory, dispatch, marketDataStatus, ticker, navigate]);
 
 	if (profilesStatus !== 'success' || !profile) return <Loader color="primary"></Loader>;
-	if (marketDataStatus !== 'calc-complete') return <Loader color="primary"></Loader>;
+	if (marketDataStatus !== 'load-success') return <Loader color="primary"></Loader>;
 
 	const { number: mCap, unit: mCapUnit } = formatNumberAndExtractUnit(mCapHistory!.slice(-1)[0].y);
 	const price = priceHistory!.slice(-1)[0].y.toFixed(1);

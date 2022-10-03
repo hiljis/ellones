@@ -9,7 +9,6 @@ import {
 	DAYS_6M_BACK,
 } from '../../app/utils/consts';
 import { calcHistoryDataFailed, calcHistoryDataSuccess } from './historyMatrix.slice';
-import { testData } from './testData';
 
 const delay = (time) => new Promise((resolve) => setTimeout(resolve, time));
 

@@ -5,9 +5,12 @@ import AlgoYearPicker from './pickers/AlgoYearPicker';
 import DataPicker from './pickers/DataPicker';
 import TickerPicker from './pickers/tickerPicker/TickerPicker';
 import './HistoryMatrix.scss';
-import { useAppSelector } from '../../../store/hooks';
-import { selectHistoryData } from '../../../store/historyMatrix/historyMatrix.slice';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { selectHistoryData, selectTicker } from '../../../store/historyMatrix/historyMatrix.slice';
 import Loader from '../../../components/loader/loader';
+import { fetchMarketData, selectMarketDataStatusByTicker } from '../../../store/marketData/marketDataSlice';
+import { useEffect, useState } from 'react';
+import { selectProfile } from '../../../store/profiles/profilesSlice';
 
 const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 const convertYearDataToMonthData = (data: number[][]): number[][] => {
@@ -42,7 +45,18 @@ const convertYearDataToMonthData = (data: number[][]): number[][] => {
 const emptyTfootData = [[], [], [], [], [], [], [], [], [], [], [], []];
 
 const HistoryMatrix: React.FC = () => {
+	const dispatch = useAppDispatch();
+	const ticker = useAppSelector(selectTicker);
+	const marketDataStatus = useAppSelector((state) => selectMarketDataStatusByTicker(state, ticker));
 	const historyData = useAppSelector(selectHistoryData);
+
+	useEffect(() => {
+		if (marketDataStatus === 'idle') {
+			dispatch(fetchMarketData({ ticker }));
+		} else if (marketDataStatus === 'load-failed') {
+			dispatch(fetchMarketData({ ticker }));
+		}
+	}, [dispatch, marketDataStatus, ticker]);
 
 	if (!historyData) {
 		return (
@@ -60,9 +74,7 @@ const HistoryMatrix: React.FC = () => {
 				</thead>
 				<tbody className="historyMatrix__body historyMatrix__body--loading">
 					<tr>
-						<td>
-							<Loader color="primary" size="md" />
-						</td>
+						<td>{marketDataStatus === 'load-failed' ? 'FAILED' : <Loader color="primary" size="md" />}</td>
 					</tr>
 				</tbody>
 				<tfoot className="historyMatrix__footer">

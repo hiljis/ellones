@@ -25,7 +25,8 @@ export type DominanceState = {
 	snapShotChartState: SnapShotChartState;
 	historicChartState: HistoricChartState;
 	dataCategory: DominanceDataCategory;
-	tickers: TickerIncluded[];
+	tickers: string[];
+	excludedTickers: string[];
 	status: DominanceStatus;
 	errors: string[];
 };
@@ -36,6 +37,7 @@ const initialState: DominanceState = {
 	historicChartState: { timeStart: 0, timeEnd: 0, chartType: 'stacked' },
 	dataCategory: 'mCap',
 	tickers: [],
+	excludedTickers: [],
 	status: 'idle',
 	errors: [],
 };
@@ -44,6 +46,10 @@ export const dominanceSlice = createSlice({
 	name: 'dominance',
 	initialState,
 	reducers: {
+		initDominance: (state, action: PayloadAction<string[]>): void => {
+			const tickers = action.payload;
+			state.tickers = [...tickers];
+		},
 		toggleActiveChart: (state): void => {
 			state.activeChart = state.activeChart === 'snapShot' ? 'historic' : 'snapShot';
 		},
@@ -52,21 +58,22 @@ export const dominanceSlice = createSlice({
 		},
 		toggleTicker: (state, action: PayloadAction<string>): void => {
 			const toggleTicker = action.payload;
-			state.tickers = state.tickers.map((ticker) => {
-				if (ticker.ticker === toggleTicker) return { ...ticker, included: !ticker.included };
-				return ticker;
-			});
+			if (state.excludedTickers.includes(toggleTicker)) {
+				state.excludedTickers = state.excludedTickers.filter(
+					(excludedTicker) => excludedTicker !== toggleTicker
+				);
+			} else {
+				state.excludedTickers.push(toggleTicker);
+			}
 		},
-		loadTickers: (state, action: PayloadAction<string[]>): void => {
-			const tickers = action.payload;
-			state.tickers = tickers.map((ticker) => {
-				return { ticker: ticker, included: true };
-			});
+		changeSnapShotTime: (state, action: PayloadAction<number>): void => {
+			state.snapShotChartState = { ...state.snapShotChartState, timeAgo: action.payload };
 		},
 	},
 });
 
-export const { toggleActiveChart, changeDataCategory, toggleTicker } = dominanceSlice.actions;
+export const { initDominance, toggleActiveChart, changeDataCategory, toggleTicker, changeSnapShotTime } =
+	dominanceSlice.actions;
 
 export const selectActiveChart = (state: RootState) => {
 	return state.dominance.activeChart;
@@ -81,8 +88,14 @@ export const selectActiveChartState = (state: RootState) => {
 	if (state.dominance.activeChart === 'snapShot') return state.dominance.snapShotChartState;
 	return state.dominance.historicChartState;
 };
-export const selectIncludedTickers = (state: RootState) => {
+export const selectDominanceExcludedTickers = (state: RootState) => {
+	return state.dominance.excludedTickers;
+};
+export const selectDominanceTickers = (state: RootState) => {
 	return state.dominance.tickers;
+};
+export const selectDominanceIsActiveTicker = (state: RootState, ticker: string) => {
+	return !state.dominance.excludedTickers.includes(ticker);
 };
 
 export default dominanceSlice.reducer;

@@ -15,21 +15,20 @@ export interface TickerError {
 	error: string;
 }
 
+export type TickerStatus =
+	| 'idle'
+	| 'load-waiting'
+	| 'loading'
+	| 'load-failed'
+	| 'load-success'
+	| 'calculating'
+	| 'calc-failed'
+	| 'calc-success';
+
 export interface IndexError {
 	index: number;
 	error: string;
 }
-
-export type ChangeData = {
-	'24h': number;
-	'1w': number;
-	'1m': number;
-	'3m': number;
-	'6m': number;
-	'1y': number;
-	'3y': number;
-	range: number;
-};
 
 export interface User {
 	uid?: string;

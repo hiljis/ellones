@@ -1,6 +1,9 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { getProfiles } from '../../app/firebase/firebase';
-import { addTickersToChangeData } from '../changeData/changeData.slice';
+import { initDominance } from '../dominance/dominance.slice';
+import { initHistoryTickers } from '../historyMatrix/historyMatrix.slice';
+import { initMarketDataTickers } from '../marketData/marketDataSlice';
+import { initMarketList } from '../marketList/marketListSlice';
 import { fetchProfilesSuccess, fetchProfilesFailed } from './profilesSlice';
 
 function getLocalProfiles() {
@@ -29,8 +32,12 @@ function* fetchProfilesAsync() {
 			setLocalProfiles(profiles);
 		}
 		yield put(fetchProfilesSuccess(profiles));
+
 		const tickers = profiles.map((profile) => profile.ticker);
-		yield put(addTickersToChangeData(tickers));
+		yield put(initMarketDataTickers(tickers));
+		yield put(initMarketList(tickers));
+		yield put(initHistoryTickers(tickers));
+		yield put(initDominance(tickers));
 	} catch (err) {
 		yield put(fetchProfilesFailed(err.message));
 	}

@@ -20,51 +20,31 @@ import {
 	changeDataCategory,
 	DominanceDataCategory,
 	selectDataCategory,
-	selectIncludedTickers,
+	selectDominanceExcludedTickers,
+	selectDominanceTickers,
 } from '../../store/dominance/dominance.slice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { selectMarketDataByIndex, selectMarketDataStatus } from '../../store/marketData/marketDataSlice';
-import { selectTickers } from '../../store/profiles/profilesSlice';
+import { selectMarketDataByIndex } from '../../store/marketData/marketDataSlice';
 import './Dominance.page.scss';
+import DominanceCheckboxIcon from './dominanceCheckboxIcon/DominanceCheckboxIcon';
 
 const DominancePage: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const dataCategory = useAppSelector(selectDataCategory);
-	const marketDataStatus = useAppSelector(selectMarketDataStatus);
 	const [index, setIndex] = useState(0);
 	const marketData = useAppSelector((state) => selectMarketDataByIndex(state, dataCategory, index));
-	const includedTickers = useAppSelector(selectIncludedTickers);
-	const tickers = useAppSelector(selectTickers);
-	const [excluded, setExcluded] = useState<string[]>([]);
+	const excludedTickers = useAppSelector(selectDominanceExcludedTickers);
+	const tickers = useAppSelector(selectDominanceTickers);
 
-	if (marketDataStatus !== 'loadComplete' || !marketData) {
-		return (
-			<main className="dominancePage">
-				<PageHeader>Dominance</PageHeader>
-				<section className="section__dominanceCharts loading">
-					<Loader color="black" size="md" />
-				</section>
-			</main>
-		);
-	}
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
 
 	const filteredMarketData = marketData.map((element) => {
-		if (excluded.includes(element.ticker)) return { ticker: element.ticker, data: { ...element.data, y: 0 } };
+		if (excludedTickers.includes(element.ticker))
+			return { ticker: element.ticker, data: { ...element.data, y: 0 } };
 		return element;
 	});
-
-	const total = filteredMarketData.reduce((acc, prev) => {
-		if (typeof prev.data!.y !== 'number') return acc;
-		return acc + prev.data!.y;
-	}, 0);
-
-	const handleOnTickerCheck = (checkedTicker: string, isChecked: boolean) => {
-		if (excluded.includes(checkedTicker)) {
-			setExcluded(excluded.filter((ticker) => ticker !== checkedTicker));
-		} else {
-			setExcluded([...excluded, checkedTicker]);
-		}
-	};
 
 	const handleOnDataCategoryChange = (selectedDataCategory: DominanceDataCategory) => {
 		dispatch(changeDataCategory(selectedDataCategory));
@@ -73,7 +53,6 @@ const DominancePage: React.FC = () => {
 	const handleOnTimeChange = (selectedTime: string) => {
 		const value = parseInt(selectedTime);
 		setIndex(value);
-		console.log(selectedTime);
 	};
 
 	return (
@@ -87,8 +66,9 @@ const DominancePage: React.FC = () => {
 							{ string: 'Volume', value: 'volume' },
 						]}
 					</CheckGroup>
-					<CheckGroup initSelected={DAYS_1M_BACK} widthSize="sm" selectHandler={handleOnTimeChange}>
+					<CheckGroup initSelected={0} widthSize="sm" selectHandler={handleOnTimeChange}>
 						{[
+							{ string: 'now', value: 0 },
 							{ string: '1m', value: DAYS_1M_BACK },
 							{ string: '3m', value: DAYS_3M_BACK },
 							{ string: '6m', value: DAYS_6M_BACK },
@@ -103,8 +83,9 @@ const DominancePage: React.FC = () => {
 				<BarChart tickerData={filteredMarketData} dataCategory={dataCategory} />
 				<DoughnutChart tickerData={filteredMarketData} dataCategory={dataCategory} />
 				<form className="section__dominanceCharts__iconToggleRow">
-					{tickers.map((ticker) => (
-						<CheckboxIcon ticker={ticker} checkHandler={handleOnTickerCheck} />
+					{tickers.map((ticker, i) => (
+						<DominanceCheckboxIcon ticker={ticker} key={i} />
+						// <CheckboxIcon ticker={ticker} checkHandler={handleOnTickerCheck} key={i} />
 					))}
 				</form>
 			</section>

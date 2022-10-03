@@ -88,4 +88,8 @@
 	.col--mCap {
 		grid-column: 11 / span 1;
 	}
+	.col--all {
+		grid-column: 1 / -1;
+		position: absolute;
+	}
 }

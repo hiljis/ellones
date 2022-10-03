@@ -191,6 +191,21 @@ a {
 	}
 }
 
+.icon--primary {
+	path {
+		fill: var(--color-primary);
+	}
+	circle {
+		fill: var(--color-primary);
+	}
+}
+
+.icon--primaryStroke {
+	path {
+		stroke: var(--color-primary);
+	}
+}
+
 .btn {
 	padding: 1rem 2rem;
 	font-size: 1.6rem;

@@ -1,4 +1,5 @@
 import { put, takeEvery } from 'redux-saga/effects';
+import { Data } from '../../app/Data/Data';
 
 import { calcPairDataFailed, calcPairDataSuccess } from './pairs.slice';
 
@@ -21,7 +22,8 @@ export function* calcPairData({ payload }) {
 			});
 		}
 
-		yield put(calcPairDataSuccess({ index: index, data: pairData }));
+		Data.pairs[index] = pairData;
+		yield put(calcPairDataSuccess({ index: index }));
 	} catch (err) {
 		yield put(calcPairDataFailed({ index: index, error: { index: index, error: err.message } }));
 	}
