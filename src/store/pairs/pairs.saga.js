@@ -1,7 +1,7 @@
 import { put, takeEvery } from 'redux-saga/effects';
 import { Data } from '../../app/Data/Data';
 
-import { calcPairDataFailed, calcPairDataSuccess } from './pairs.slice';
+import { calcPairDataFailed, calcPairDataSuccess, changeTimeSpan } from './pairs.slice';
 
 export function* calcPairData({ payload }) {
 	const { index, numeratorData, denominatorData } = payload;
@@ -21,9 +21,7 @@ export function* calcPairData({ payload }) {
 				return { x: nData.x, y: nData.y / denominatorData[i].y };
 			});
 		}
-
-		Data.pairs[index] = pairData;
-		yield put(calcPairDataSuccess({ index: index }));
+		yield put(calcPairDataSuccess({ index: index, data: pairData }));
 	} catch (err) {
 		yield put(calcPairDataFailed({ index: index, error: { index: index, error: err.message } }));
 	}

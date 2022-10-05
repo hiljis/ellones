@@ -19,7 +19,7 @@ const TickerPicker: React.FC = () => {
 		if (ticker) dispatch(changeTicker(ticker));
 		setModalOpen(false);
 	};
-
+	console.log(selectedTicker);
 	return (
 		<td className="tickerPicker">
 			<button className="tickerPickerButton" type="button" onClick={handleOnClick}>

@@ -1,11 +1,11 @@
-import './PercentDot.scss';
+import './PercentBox.scss';
 
 type Props = {
 	children: number;
 	className?: string;
 };
 
-const PercentDot: React.FC<Props> = ({ children, className }) => {
+const PercentBox: React.FC<Props> = ({ children, className }) => {
 	if (children === -100) {
 		return <span className={`${className} procentDot procentDot--none`}>{'-'}</span>;
 	}
@@ -17,4 +17,4 @@ const PercentDot: React.FC<Props> = ({ children, className }) => {
 	return <span className={`${className} procentDot ${colorClass}`}>{children}%</span>;
 };
 
-export default PercentDot;
+export default PercentBox;

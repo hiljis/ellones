@@ -14,11 +14,8 @@ import MarketListRow from './marketListRow/MarketListRow';
 import BtnColSort from './btnColSort/BtnColSort';
 import BtnDataSelect from './btnDataSelect/BtnDataSelector';
 import MarketListRange from './marketListRange/MarketListRange';
-import { Data } from '../../app/Data/Data';
 
 const sort = (data: MarketListRowModel[], activeData: ActiveData, sortBy: SortTarget, asc: boolean) => {
-	console.log(data);
-	console.log(Data.marketListData);
 	if (asc) {
 		if (sortBy === 'ticker') {
 			return data.sort((a, b) => b.ticker[0].localeCompare(a.ticker[0]));

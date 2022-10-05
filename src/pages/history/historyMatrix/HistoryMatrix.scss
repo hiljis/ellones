@@ -4,9 +4,10 @@
 	table-layout: fixed;
 	padding: 0 10rem;
 	border-spacing: 5px;
+	position: relative;
 
 	&--loading {
-		height: calc(100% - 4.6rem);
+		min-height: calc(100% - 4.6rem);
 	}
 
 	&__header {
@@ -14,12 +15,6 @@
 	}
 
 	&__body--loading {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-
-		width: calc(100vw - 20rem);
-		height: 100%;
 	}
 
 	&__colHead {

@@ -5,7 +5,7 @@ import { getIcon } from '../../components/icons/Icons';
 import Loader from '../../components/loader/loader';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import {
-	fetchMarketData,
+	fetchTickerStart,
 	selectMarketDataStatusByTicker,
 	selectMCapHistory,
 	selectPriceHistory,
@@ -40,9 +40,9 @@ const HeroPresentation: React.FC<Props> = ({ ticker }) => {
 
 	useEffect(() => {
 		if (profile && marketDataStatus === 'load-failed') {
-			dispatch(fetchMarketData({ ticker }));
+			dispatch(fetchTickerStart(ticker));
 		} else if (profile && (!priceHistory || !volumeHistory || !mCapHistory)) {
-			dispatch(fetchMarketData({ ticker }));
+			dispatch(fetchTickerStart(ticker));
 		} else if (!profile && marketDataStatus === 'load-failed') {
 			setTimeout(() => {
 				navigate('/');
@@ -50,8 +50,8 @@ const HeroPresentation: React.FC<Props> = ({ ticker }) => {
 		}
 	}, [profile, priceHistory, volumeHistory, mCapHistory, dispatch, marketDataStatus, ticker, navigate]);
 
-	if (profilesStatus !== 'success' || !profile) return <Loader color="primary"></Loader>;
-	if (marketDataStatus !== 'load-success') return <Loader color="primary"></Loader>;
+	if (profilesStatus !== 'success' || !profile) return <Loader color="primary" />;
+	if (marketDataStatus !== 'load-success') return <Loader color="primary" />;
 
 	const { number: mCap, unit: mCapUnit } = formatNumberAndExtractUnit(mCapHistory!.slice(-1)[0].y);
 	const price = priceHistory!.slice(-1)[0].y.toFixed(1);

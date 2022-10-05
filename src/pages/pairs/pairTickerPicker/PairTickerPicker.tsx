@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { getIcon } from '../../../components/icons/Icons';
 import LogoSelectorGrid from '../../../components/logoSelectorGrid/LogoSelectorGrid';
 import OverlayFull from '../../../components/overlayFull/OverlayFull';
+import { useAppSelector } from '../../../store/hooks';
+import { selectMarketDataStatusByTicker } from '../../../store/marketData/marketDataSlice';
 import './PairTickerPicker.scss';
 
 type Props = {
@@ -12,6 +14,7 @@ type Props = {
 
 const PairTickerPicker: React.FC<Props> = ({ selectedTicker, selectHandler, isNumerator }) => {
 	const [modalOpen, setModalOpen] = useState(false);
+	const loadStatus = useAppSelector((state) => selectMarketDataStatusByTicker(state, selectedTicker));
 
 	function handleOnClick() {
 		setModalOpen(true);
@@ -24,17 +27,7 @@ const PairTickerPicker: React.FC<Props> = ({ selectedTicker, selectHandler, isNu
 	};
 
 	let button;
-	if (selectedTicker) {
-		button = (
-			<button
-				className={`pairTickerPickerButton ${isNumerator ? 'numerator' : 'denominator'}`}
-				type="button"
-				onClick={handleOnClick}
-			>
-				{getIcon(selectedTicker, 'icon--sm icon--white')}
-			</button>
-		);
-	} else {
+	if (!selectedTicker) {
 		button = (
 			<button
 				className={`pairTickerPickerButton empty ${isNumerator ? 'numerator' : 'denominator'}`}
@@ -45,6 +38,21 @@ const PairTickerPicker: React.FC<Props> = ({ selectedTicker, selectHandler, isNu
 				<span className="empty__dot" />
 				<span className="empty__dot" />
 				<span className="empty__dot" />
+			</button>
+		);
+	} else {
+		button = (
+			<button
+				className={`pairTickerPickerButton ${isNumerator ? 'numerator' : 'denominator'} ${loadStatus}`}
+				type="button"
+				onClick={handleOnClick}
+			>
+				{getIcon(selectedTicker, `icon--sm icon--${loadStatus === 'load-failed' ? 'warning' : 'white'}`)}
+				{/* {loadStatus !== 'load-success' && loadStatus !== 'load-failed' ? (
+					<span className="pairTickerPickerButton__loader" />
+				) : (
+					''
+				)} */}
 			</button>
 		);
 	}

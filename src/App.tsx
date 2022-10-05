@@ -11,14 +11,13 @@ import UserAccountPage from './pages/userAccount/UserAccount.page';
 import { useAppDispatch, useAppSelector } from './store/hooks';
 import { useEffect } from 'react';
 import { fetchProfiles, selectProfiles } from './store/profiles/profilesSlice';
-import { fetchMarketDataForProfiles } from './store/marketData/marketDataSlice';
 import SignOutPage from './pages/signOut/SignOut.page';
 import SignInPage from './pages/signIn/SignIn.page';
 import { checkUserSession } from './store/user/userSlice';
 import HistoryPage from './pages/history/History.page';
-import { calcHistoryDataStart } from './store/historyMatrix/historyMatrix.slice';
 import DominancePage from './pages/dominance/Dominance.page';
 import PairsPage from './pages/pairs/Pairs.page';
+import { fetchAllStart } from './store/marketData/marketDataSlice';
 
 function App() {
 	const profiles = useAppSelector(selectProfiles);
@@ -32,7 +31,7 @@ function App() {
 		if (!profiles.length) {
 			dispatch(fetchProfiles());
 		} else if (profiles.length) {
-			dispatch(fetchMarketDataForProfiles({ tickers: profiles.map((profile) => profile.ticker) }));
+			// dispatch(fetchAllStart());
 		}
 	}, [dispatch, profiles]);
 

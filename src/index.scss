@@ -166,6 +166,11 @@ a {
 	margin-bottom: 5rem;
 }
 
+.icon--xxs {
+	width: 1.8rem;
+	height: auto;
+}
+
 .icon--xs {
 	width: 3rem;
 	height: auto;
@@ -177,32 +182,44 @@ a {
 }
 
 .icon--white {
-	path {
-		fill: white;
-	}
+	path,
 	circle {
 		fill: white;
 	}
 }
 
 .icon--whiteStroke {
-	path {
+	path,
+	rect {
 		stroke: white;
 	}
 }
 
 .icon--primary {
-	path {
-		fill: var(--color-primary);
-	}
+	path,
 	circle {
 		fill: var(--color-primary);
 	}
 }
 
 .icon--primaryStroke {
-	path {
+	path,
+	rect {
 		stroke: var(--color-primary);
+	}
+}
+
+.icon--warning {
+	path,
+	circle {
+		fill: var(--color-warning);
+	}
+}
+
+.icon--warningStroke {
+	path,
+	rect {
+		stroke: var(--color-warning);
 	}
 }
 

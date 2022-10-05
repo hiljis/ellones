@@ -1,0 +1,30 @@
+.historyStateMessage {
+	font-size: 1.4rem;
+	letter-spacing: 2px;
+	color: var(--color-grey--light);
+	padding: 2rem 4rem;
+	border-radius: var(--radius--sm);
+	display: flex;
+	align-items: center;
+	gap: 1.2rem;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	&.idle {
+		color: var(--color-primary);
+		cursor: pointer;
+		&:hover {
+			background-color: var(--color-primary--10);
+		}
+	}
+
+	&.load-failed {
+		color: var(--color-warning);
+		cursor: pointer;
+		&:hover {
+			background-color: var(--color-warning--10);
+		}
+	}
+}

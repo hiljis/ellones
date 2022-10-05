@@ -15,10 +15,17 @@ export interface MarketDataWithState {
 	error: string;
 }
 
-export type MarketDataStatus = 'idle' | 'loading' | 'load-failed' | 'load-complete' | 'load-incomplete';
+export type MarketDataStatus =
+	| 'idle'
+	| 'loading'
+	| 'load-failed'
+	| 'load-complete'
+	| 'load-incomplete'
+	| 'load-failed-still-loading';
 
 export type MarketDataState = {
 	tickerStatus: { [ticker: string]: TickerStatus };
+	fetchQueue: string[];
 	status: MarketDataStatus;
 	size: number;
 	errors: TickerError[];
@@ -26,6 +33,7 @@ export type MarketDataState = {
 
 const initialState: MarketDataState = {
 	tickerStatus: {},
+	fetchQueue: [],
 	status: 'idle',
 	size: 0,
 	errors: [],
@@ -43,71 +51,119 @@ export const marketDataSlice = createSlice({
 			});
 			state.size = tickers.length;
 		},
-		fetchMarketData: (state, action: PayloadAction<{ ticker: string }>) => {
-			const { ticker } = action.payload;
+		fetchTickerStart: (state, action: PayloadAction<string>) => {
+			const ticker = action.payload;
 
-			state.tickerStatus[ticker] = 'loading';
+			if (!state.fetchQueue.includes(ticker) && state.tickerStatus[ticker] !== 'load-success') {
+				state.fetchQueue.unshift(ticker);
+				state.tickerStatus[ticker] = 'load-waiting';
+				if (state.fetchQueue.length === 1) {
+					state.tickerStatus[ticker] = 'loading';
+				}
+			}
 			state.status = 'loading';
 		},
-		fetchMarketDataSuccess: (state, action: PayloadAction<MarketData>) => {
+		fetchTickerStop: (state, action: PayloadAction<string>) => {
+			const ticker = action.payload;
+			state.tickerStatus[ticker] = 'idle';
+			state.fetchQueue = state.fetchQueue.filter((tickerInQueue) => tickerInQueue !== ticker);
+			if (state.fetchQueue.length === 0) state.status = 'load-incomplete';
+		},
+		fetchTickerFailed: (state, action: PayloadAction<TickerError>) => {
+			const { ticker } = action.payload;
+			state.tickerStatus[ticker] = 'load-failed';
+			state.fetchQueue = state.fetchQueue.filter((tickerInQueue) => tickerInQueue !== ticker);
+			state.errors.push(action.payload);
+			state.status = 'load-failed-still-loading';
+			if (state.fetchQueue.length > 0) {
+				const nextTicker = state.fetchQueue[state.fetchQueue.length - 1];
+				state.tickerStatus[nextTicker] = 'loading';
+			}
+		},
+		fetchTickerSuccess: (state, action: PayloadAction<MarketData>) => {
 			const { ticker } = action.payload;
 			Data.marketData.set(ticker, action.payload);
 			state.tickerStatus[ticker] = 'load-success';
+			state.fetchQueue = state.fetchQueue.filter((queueTicker) => queueTicker !== ticker);
+			if (state.fetchQueue.length > 0) {
+				const nextTicker = state.fetchQueue[state.fetchQueue.length - 1];
+				state.tickerStatus[nextTicker] = 'loading';
+			}
 
 			const values = Object.values(state.tickerStatus);
 			state.status =
-				values.filter((value) => value !== 'load-success').length === 0 ? 'load-complete' : 'load-incomplete';
+				values.filter((value) => value !== 'load-success').length === 0 ? 'load-complete' : state.status;
+			if (state.status === 'load-complete') state.fetchQueue = [];
 		},
-		fetchMarketDataFailed: (state, action: PayloadAction<TickerError>) => {
-			state.errors.push(action.payload);
-			const { ticker, error } = action.payload;
-			state.tickerStatus[ticker] = 'load-failed';
-			Object.keys(state.tickerStatus).forEach((ticker) => {
-				if (state.tickerStatus[ticker] !== 'load-success') state.tickerStatus[ticker] = 'load-failed';
+		fetchTickerReset: (state, action: PayloadAction<string>) => {
+			const ticker = action.payload;
+			state.tickerStatus[ticker] = 'idle';
+			state.fetchQueue = state.fetchQueue.filter((tickerInQueue) => tickerInQueue !== ticker);
+			state.status = 'load-incomplete';
+		},
+		fetchAllStart: (state) => {
+			const tickersToFetch = Object.keys(state.tickerStatus).filter((ticker) => {
+				if (state.tickerStatus[ticker] !== 'load-success' && state.tickerStatus[ticker] !== 'loading') {
+					state.tickerStatus[ticker] = 'load-waiting';
+					return true;
+				}
+				return false;
 			});
-			state.status = 'load-failed';
-		},
-		fetchMarketDataForProfiles: (state, action: PayloadAction<{ tickers: string[] }>) => {
-			const { tickers } = action.payload;
-			tickers.forEach((ticker) => (state.tickerStatus[ticker] = 'load-waiting'));
+			state.fetchQueue.unshift(...tickersToFetch);
+			const nextTicker = state.fetchQueue[state.fetchQueue.length - 1];
+			state.tickerStatus[nextTicker] = 'loading';
+
 			state.status = 'loading';
 		},
-		fetchMarketDataForProfilesSuccess: (state, action: PayloadAction<MarketData[]>) => {
-			action.payload.forEach(({ ticker, priceHistory, mCapHistory, volumeHistory }) => {
-				state.tickerStatus[ticker] = 'load-success';
-				Data.marketData.set(ticker, { ticker, priceHistory, mCapHistory, volumeHistory });
+		fetchAllStop: (state) => {
+			state.fetchQueue = [];
+			Object.keys(state.tickerStatus).forEach((ticker) => {
+				if (state.tickerStatus[ticker] === 'loading' || state.tickerStatus[ticker] === 'load-waiting') {
+					state.tickerStatus[ticker] = 'idle';
+				}
 			});
 			const values = Object.values(state.tickerStatus);
 			state.status =
 				values.filter((value) => value !== 'load-success').length === 0 ? 'load-complete' : 'load-incomplete';
 		},
-		fetchMarketDataForProfilesFailed: (
-			state,
-			action: PayloadAction<{ failedTickers: string[]; error: TickerError }>
-		) => {
-			const { failedTickers, error } = action.payload;
-			console.log('FAILED!', failedTickers);
-			state.status = 'load-failed';
-			state.errors.push(error);
-			failedTickers.forEach((ticker) => {
-				if (state.tickerStatus[ticker] === 'idle') state.tickerStatus[ticker] = 'load-failed';
+		fetchAllReset: (state) => {
+			state.fetchQueue = [];
+			Object.keys(state.tickerStatus).forEach((ticker) => {
+				if (state.tickerStatus[ticker] !== 'load-success') {
+					state.tickerStatus[ticker] = 'idle';
+				}
 			});
-		},
-		setStatusToIncomplete: (state) => {
 			state.status = 'load-incomplete';
-		}
+		},
+		fetchAllSuccess: (state) => {
+			const values = Object.values(state.tickerStatus);
+			state.status =
+				values.filter((value) => value !== 'load-success').length === 0 ? 'load-complete' : 'load-incomplete';
+		},
+		fetchAllFailed: (state, action: PayloadAction<string>) => {
+			Object.keys(state.tickerStatus).forEach((ticker) => {
+				if (state.tickerStatus[ticker] === 'loading') state.tickerStatus[ticker] = 'load-failed';
+			});
+			state.fetchQueue = [];
+			state.errors.push({ ticker: '', error: action.payload });
+
+			state.status = 'load-failed';
+		},
 	},
 });
 
 export const {
 	initMarketDataTickers,
-	fetchMarketData,
-	fetchMarketDataSuccess,
-	fetchMarketDataFailed,
-	fetchMarketDataForProfiles,
-	fetchMarketDataForProfilesSuccess,
-	fetchMarketDataForProfilesFailed,
-	setStatusToIncomplete,
+	fetchTickerStart,
+	fetchTickerStop,
+	fetchTickerFailed,
+	fetchTickerSuccess,
+	fetchTickerReset,
+	fetchAllStart,
+	fetchAllStop,
+	fetchAllSuccess,
+	fetchAllFailed,
+	fetchAllReset,
 } = marketDataSlice.actions;
 
 export const selectMarketData = (state: RootState, ticker: string) => {
@@ -118,30 +174,18 @@ export const selectMarketData = (state: RootState, ticker: string) => {
 };
 
 export const selectPriceHistory = (state: RootState, ticker: string) => {
-	// const marketData = state.marketData.data.filter((element) => element.ticker === ticker)[0];
-	// if (!marketData) return null;
-	// if (!marketData.priceHistory.length) return null;
-	// return marketData.priceHistory;
 	const marketData = Data.marketData.get(ticker);
 	if (!marketData) return null;
 	if (!marketData.priceHistory.length) return null;
 	return marketData.priceHistory;
 };
 export const selectVolumeHistory = (state: RootState, ticker: string) => {
-	// const marketData = state.marketData.data.filter((element) => element.ticker === ticker)[0];
-	// if (!marketData) return null;
-	// if (!marketData.volumeHistory.length) return null;
-	// return marketData.volumeHistory;
 	const marketData = Data.marketData.get(ticker);
 	if (!marketData) return null;
 	if (!marketData.volumeHistory.length) return null;
 	return marketData.volumeHistory;
 };
 export const selectMCapHistory = (state: RootState, ticker: string) => {
-	// const marketData = state.marketData.data.filter((element) => element.ticker === ticker)[0];
-	// if (!marketData) return null;
-	// if (!marketData.mCapHistory.length) return null;
-	// return marketData.mCapHistory;
 	const marketData = Data.marketData.get(ticker);
 	if (!marketData) return null;
 	if (!marketData.mCapHistory.length) return null;
@@ -151,10 +195,6 @@ export const selectMarketDataStatus = (state: RootState) => {
 	return state.marketData.status;
 };
 export const selectMarketDataStatusByTicker = (state: RootState, ticker: string) => {
-	// const marketData = state.marketData.data.filter((element) => element.ticker === ticker)[0];
-	// if (!marketData) return null;
-	// if (!marketData) return null;
-	// return marketData.status;
 	const status = state.marketData.tickerStatus[ticker];
 	return status;
 };
@@ -176,6 +216,9 @@ export const selectMarketDataByIndex = (state: RootState, dataTarget: string, in
 		}
 		return { ticker: element.ticker, data: data };
 	});
+};
+export const selectFetchQueue = (state: RootState) => {
+	return state.marketData.fetchQueue;
 };
 
 export default marketDataSlice.reducer;

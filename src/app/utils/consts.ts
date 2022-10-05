@@ -14,3 +14,9 @@ export const DAYS_2Y_BACK = daysSince(2, 'y');
 export const DAYS_3Y_BACK = daysSince(3, 'y');
 export const DAYS_4Y_BACK = daysSince(4, 'y');
 export const DAYS_5Y_BACK = daysSince(5, 'y');
+
+export const ERROR_CODE_TIME_LIMIT = -1;
+export const CG_ERROR_STATUS_OVERLOAD = 429;
+export const CG_ERROR_STATUS_UNAVAILABLE = 503;
+
+export const FETCH_TIME_LIMIT_MS = 10000;

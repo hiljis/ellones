@@ -1,15 +1,18 @@
-import { formatNumberAndExtractUnit } from '../../../app/utils/format';
+import { ReactComponent as IconReload } from '../../../assets/svg/icon_reload.svg';
+import { ReactComponent as IconDownload } from '../../../assets/svg/icon_download.svg';
 import Loader from '../../../components/loader/loader';
+import PercentBox from './percentBox/PercentBox';
+import { formatNumberAndExtractUnit } from '../../../app/utils/format';
 import { ActiveData, MarketListRowModel, selectRowDataStatusByTicker } from '../../../store/marketList/marketListSlice';
-import PercentDot from './percentDot/PercentDot';
-import './MarketListRow.scss';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import {
-	fetchMarketData,
 	selectMarketDataStatus,
 	selectMarketDataStatusByTicker,
+	fetchTickerStart,
+	fetchTickerStop,
+	fetchTickerReset,
 } from '../../../store/marketData/marketDataSlice';
-import { ReactComponent as IconReload } from '../../../assets/svg/icon_reload.svg';
+import './MarketListRow.scss';
 
 type Props = {
 	data: MarketListRowModel;
@@ -23,37 +26,53 @@ const MarketListRow: React.FC<Props> = ({ data, activeData }) => {
 	const loadStatus = useAppSelector((state) => selectMarketDataStatusByTicker(state, ticker));
 	const overallMarketDataStatus = useAppSelector(selectMarketDataStatus);
 
-	const handleOnReload = () => {
-		dispatch(fetchMarketData({ ticker }));
+	const handleOnClick = () => {
+		if (loadStatus === 'idle') dispatch(fetchTickerStart(ticker));
+		if (loadStatus === 'load-waiting') dispatch(fetchTickerStop(ticker));
+		if (loadStatus === 'load-failed') dispatch(fetchTickerReset(ticker));
 	};
 
-	if (overallMarketDataStatus === 'loading' || overallMarketDataStatus === 'load-failed') {
-		if (loadStatus !== 'load-success' && loadStatus !== 'loading') {
-			return (
-				<li className="marketList__listRow waiting">
-					<span className="rowItem col--ticker">{data.ticker.toUpperCase()}</span>
-				</li>
-			);
-		}
-	}
-	if (loadStatus === 'idle' || loadStatus === 'load-failed') {
+	// console.log(ticker, data);
+
+	// if (overallMarketDataStatus === 'loading' || overallMarketDataStatus === 'load-failed') {
+	// 	if (loadStatus !== 'load-success' && loadStatus !== 'loading') {
+	// 		return (
+	// 			<li className="marketList__listRow waiting">
+	// 				<span className="rowItem col--ticker">{data.ticker.toUpperCase()}</span>
+	// 			</li>
+	// 		);
+	// 	}
+	// }
+	if (loadStatus === 'idle') {
 		return (
-			<li className="marketList__listRow reload" onClick={handleOnReload}>
+			<li className="marketList__listRow idle" onClick={handleOnClick}>
 				<span className="rowItem col--ticker">{data.ticker.toUpperCase()}</span>
-				<IconReload className="icon--xs icon--primaryStroke col--all" />
+				<IconDownload className="icon--xs icon--primaryStroke col--all" />
+			</li>
+		);
+	} else if (loadStatus === 'loading') {
+		return (
+			<li className="marketList__listRow loading">
+				<span className="rowItem col--ticker">{data.ticker.toUpperCase()}</span>
+				<Loader color="primary" size="xs" thickness="thin" className="col--all" />
 			</li>
 		);
 	} else if (loadStatus === 'load-waiting') {
 		return (
-			<li className="marketList__listRow waiting">
+			<li className="marketList__listRow waiting" onClick={handleOnClick}>
 				<span className="rowItem col--ticker">{data.ticker.toUpperCase()}</span>
+				<div className="waitDots col--all">
+					<span className="waitDot waitDot--1"></span>
+					<span className="waitDot waitDot--2"></span>
+					<span className="waitDot waitDot--3"></span>
+				</div>
 			</li>
 		);
-	} else if (loadStatus === 'loading' || calcStatus !== 'calc-success') {
+	} else if (loadStatus === 'load-failed') {
 		return (
-			<li className="marketList__listRow loading">
+			<li className="marketList__listRow failed" onClick={handleOnClick}>
 				<span className="rowItem col--ticker">{data.ticker.toUpperCase()}</span>
-				<Loader color="primary" size="sm" className="col--all" />
+				<IconReload className="icon--xs icon--blackStroke col--all" />
 			</li>
 		);
 	}
@@ -63,14 +82,14 @@ const MarketListRow: React.FC<Props> = ({ data, activeData }) => {
 		<li className="marketList__listRow">
 			<span className="rowItem col--ticker">{data.ticker.toUpperCase()}</span>
 			<span className="rowItem col--price">${data.currentPrice.toFixed(2)}</span>
-			<PercentDot className="rowItem col--24h">{data[activeData]['24h']}</PercentDot>
-			<PercentDot className="rowItem col--1w">{data[activeData]['1w']}</PercentDot>
-			<PercentDot className="rowItem col--1m">{data[activeData]['1m']}</PercentDot>
-			<PercentDot className="rowItem col--3m">{data[activeData]['3m']}</PercentDot>
-			<PercentDot className="rowItem col--6m">{data[activeData]['6m']}</PercentDot>
-			<PercentDot className="rowItem col--1y">{data[activeData]['1y']}</PercentDot>
-			<PercentDot className="rowItem col--3y">{data[activeData]['3y']}</PercentDot>
-			<PercentDot className="rowItem col--range">{data[activeData]['range']}</PercentDot>
+			<PercentBox className="rowItem col--24h">{data[activeData]['24h']}</PercentBox>
+			<PercentBox className="rowItem col--1w">{data[activeData]['1w']}</PercentBox>
+			<PercentBox className="rowItem col--1m">{data[activeData]['1m']}</PercentBox>
+			<PercentBox className="rowItem col--3m">{data[activeData]['3m']}</PercentBox>
+			<PercentBox className="rowItem col--6m">{data[activeData]['6m']}</PercentBox>
+			<PercentBox className="rowItem col--1y">{data[activeData]['1y']}</PercentBox>
+			<PercentBox className="rowItem col--3y">{data[activeData]['3y']}</PercentBox>
+			<PercentBox className="rowItem col--range">{data[activeData]['range']}</PercentBox>
 			<span className="rowItem col--mCap">{`${mCap} ${mCapUnit}`}</span>
 		</li>
 	);

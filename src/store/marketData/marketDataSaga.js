@@ -1,67 +1,57 @@
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
-import { getCoinGeckoMarketDataHistory } from '../../app/coingecko/coingecko';
-import {
-	DAYS_1M_BACK,
-	DAYS_1W_BACK,
-	DAYS_1Y_BACK,
-	DAYS_24H_BACK,
-	DAYS_3M_BACK,
-	DAYS_3Y_BACK,
-	DAYS_6M_BACK,
-} from '../../app/utils/consts';
+import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
+import { getTestData } from '../../app/Data/TestData';
+import { CG_ERROR_STATUS_OVERLOAD, CG_ERROR_STATUS_UNAVAILABLE, ERROR_CODE_TIME_LIMIT } from '../../app/utils/consts';
 import { calcHistoryDataStart } from '../historyMatrix/historyMatrix.slice';
 import { calculateRowDataStart } from '../marketList/marketListSlice';
 import {
-	fetchMarketData,
-	fetchMarketDataFailed,
-	fetchMarketDataForProfilesFailed,
-	fetchMarketDataSuccess,
-	setStatusToIncomplete,
+	fetchAllFailed,
+	fetchAllSuccess,
+	fetchTickerFailed,
+	fetchTickerSuccess,
+	selectFetchQueue,
 } from './marketDataSlice';
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export function* wait60sec() {
-	yield call(delay, 10000);
-	yield put(setStatusToIncomplete());
+	yield call(delay, 60000);
 }
 
-export function* fetchMarketDataAsync({ payload }) {
-	const { ticker } = payload;
-	try {
-		const data = yield call(getCoinGeckoMarketDataHistory, ticker);
-		yield put(fetchMarketDataSuccess(data));
-		yield put(calculateRowDataStart(data));
-		yield put(calcHistoryDataStart(data));
-	} catch (err) {
-		yield put(fetchMarketDataFailed({ ticker: ticker, error: err.message }));
-		yield call(wait60sec);
-	}
-}
-
-export function* fetchMarketDataForProfilesAsync({ payload }) {
-	const { tickers } = payload;
-	for (let i = 0; i < tickers.length; i++) {
-		yield call(delay, 3000);
+export function* fetchFromQueueAsync() {
+	let queueIsEmpty = false;
+	while (!queueIsEmpty) {
+		const fetchQueue = [...(yield select(selectFetchQueue))];
+		console.log(fetchQueue);
+		const ticker = fetchQueue.pop();
+		if (!ticker) break;
 		try {
-			yield put(fetchMarketData({ ticker: tickers[i] }));
+			yield call(delay, 3000);
+			// const data = yield call(fetchMarketDataHistory, ticker);
+			const data = getTestData(ticker);
+			yield put(fetchTickerSuccess(data));
+			yield put(calculateRowDataStart(data));
+			yield put(calcHistoryDataStart(data));
+			if (fetchQueue.length === 0) yield put(fetchAllSuccess());
 		} catch (err) {
-			const tickerError = { ticker: tickers[i], error: err.message };
-			const failedTickers = [];
-			while (i < tickers.length) {
-				failedTickers.push(tickers[i]);
-				i++;
+			yield put(fetchTickerFailed({ ticker: ticker, error: err }));
+			if (fetchQueue.length === 0) yield put(fetchAllFailed({ ticker: ticker, error: err }));
+			else if (err === CG_ERROR_STATUS_OVERLOAD) {
+				yield put(fetchAllFailed({ ticker: ticker, error: err }));
+				queueIsEmpty = true;
+			} else if (err === CG_ERROR_STATUS_UNAVAILABLE) {
+				yield put(fetchAllFailed({ ticker: ticker, error: err }));
+				queueIsEmpty = true;
+			} else if (err === ERROR_CODE_TIME_LIMIT) {
+				yield put(fetchTickerFailed({ ticker: ticker, error: err }));
 			}
-			console.log('IN SAGA FAILED TICKERS: ', failedTickers);
-			yield put(fetchMarketDataForProfilesFailed({ failedTickers: failedTickers, error: tickerError }));
-			break;
 		}
+		if (fetchQueue.length === 0) queueIsEmpty = true;
 	}
 }
 
 export function* marketDataSaga() {
-	yield takeEvery('marketData/fetchMarketData', fetchMarketDataAsync);
-	yield takeLatest('marketData/fetchMarketDataForProfiles', fetchMarketDataForProfilesAsync);
+	yield takeLatest('marketData/fetchTickerStart', fetchFromQueueAsync);
+	yield takeLatest('marketData/fetchAllStart', fetchFromQueueAsync);
 }
 
 export default marketDataSaga;

@@ -47,7 +47,7 @@ export interface HistoryMatrixState {
 }
 
 const initialState: HistoryMatrixState = {
-	ticker: 'btc',
+	ticker: '---',
 	tickers: [],
 	data: [],
 	tickerStatus: {},

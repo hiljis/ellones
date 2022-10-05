@@ -9,8 +9,9 @@ type Props = {
 	checkHandler?: Function;
 	name?: string;
 	parentChecked?: boolean;
+	color?: 'primary' | 'warning' | 'success';
 };
-const CheckboxIcon: React.FC<Props> = ({ ticker, checkHandler, name, parentChecked }) => {
+const CheckboxIcon: React.FC<Props> = ({ ticker, checkHandler, name, parentChecked, color }) => {
 	const id = useId();
 	const [checked, setChecked] = useState(true);
 
@@ -32,7 +33,9 @@ const CheckboxIcon: React.FC<Props> = ({ ticker, checkHandler, name, parentCheck
 		}
 	};
 
-	const icon = checked ? getIcon(ticker, 'icon--white icon--sm') : getIcon(ticker, 'icon--black icon--sm');
+	let icon = checked
+		? getIcon(ticker, `icon--${color ? color : 'white'} icon--sm`)
+		: getIcon(ticker, `icon--${color ? color : 'black'} icon--sm`);
 
 	return (
 		<div className={`checkboxIcon`}>

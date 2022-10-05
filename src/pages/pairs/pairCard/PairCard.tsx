@@ -14,7 +14,7 @@ import CheckGroup from '../../../components/checkGroup/CheckGroup';
 import Loader from '../../../components/loader/loader';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import {
-	fetchMarketData,
+	fetchTickerStart,
 	selectMarketData,
 	selectMarketDataStatusByTicker,
 } from '../../../store/marketData/marketDataSlice';
@@ -57,18 +57,32 @@ const PairCard: React.FC<Props> = ({ index }) => {
 	const [trimmedPairData, setTrimmedPairData] = useState<MarketDataPoint[]>([]);
 
 	useEffect(() => {
-		if (numerator && denominator) {
+		if (numerator) {
 			if (!marketDataStatusNumerator || marketDataStatusNumerator === 'idle') {
-				dispatch(fetchMarketData({ ticker: numerator }));
-			} else if (!marketDataStatusDenominator || marketDataStatusDenominator === 'idle') {
-				dispatch(fetchMarketData({ ticker: denominator }));
+				dispatch(fetchTickerStart(numerator));
+				setIsLoading(true);
 			} else if (marketDataStatusNumerator === 'load-failed') {
 				setNumeratorFailed(true);
 				setIsLoading(false);
+			}
+		}
+		if (denominator) {
+			if (!marketDataStatusDenominator || marketDataStatusDenominator === 'idle') {
+				dispatch(fetchTickerStart(denominator));
+				setIsLoading(true);
 			} else if (marketDataStatusDenominator === 'load-failed') {
 				setDenominatorFailed(true);
 				setIsLoading(false);
-			} else if (
+			}
+		}
+		if (pairStatus === 'calc-complete') {
+			setNumeratorFailed(false);
+			setDenominatorFailed(false);
+			setTimeout(() => {
+				setIsLoading(false);
+			}, 100);
+		} else if (numerator && denominator) {
+			if (
 				pairStatus === 'idle' &&
 				marketDataStatusNumerator === 'load-success' &&
 				marketDataStatusDenominator === 'load-success' &&
@@ -99,10 +113,6 @@ const PairCard: React.FC<Props> = ({ index }) => {
 				}
 				setIsLoading(true);
 				dispatch(calcPairDataStart({ index, ...data }));
-			} else if (pairStatus === 'calc-complete') {
-				setTimeout(() => {
-					setIsLoading(false);
-				}, 200);
 			}
 		}
 	}, [
@@ -124,16 +134,16 @@ const PairCard: React.FC<Props> = ({ index }) => {
 			setTrimmedPairData(pairData.slice(pairData.length - pairTimeSpan));
 			setTimeout(() => {
 				setIsLoading(false);
-			}, 500);
+			}, 200);
 		}
 	}, [pairTimeSpan, pairData]);
 
 	const handleNumeratorSelect = (ticker: string) => {
-		dispatch(changeNumerator({ index: index, ticker: ticker }));
+		if (ticker !== numerator) dispatch(changeNumerator({ index: index, ticker: ticker }));
 	};
 
 	const handleDenominatorSelect = (ticker: string) => {
-		dispatch(changeDenominator({ index: index, ticker: ticker }));
+		if (ticker !== denominator) dispatch(changeDenominator({ index: index, ticker: ticker }));
 	};
 
 	const handleDeletePair = () => {
@@ -141,12 +151,10 @@ const PairCard: React.FC<Props> = ({ index }) => {
 	};
 
 	const handleOnDataCategoryChange = (dataCategory: PairDataCategory) => {
-		setIsLoading(true);
 		dispatch(changeDataCategory({ index: index, dataCategory: dataCategory }));
 	};
 
 	const handleOnTimeSpanChange = (timeSpan: number) => {
-		setIsLoading(true);
 		dispatch(changeTimeSpan({ index: index, timeSpan: timeSpan }));
 	};
 
@@ -185,7 +193,8 @@ const PairCard: React.FC<Props> = ({ index }) => {
 						{ string: 'Price', value: 'price' },
 					]}
 				</CheckGroup>
-				{!isLoading && (
+
+				{pairData?.length ? (
 					<CheckGroup
 						initSelected={pairTimeSpan}
 						widthSize="sm"
@@ -204,6 +213,8 @@ const PairCard: React.FC<Props> = ({ index }) => {
 							{ string: 'all', value: pairData.length },
 						]}
 					</CheckGroup>
+				) : (
+					''
 				)}
 			</div>
 			<div className="pairCard__numerator">

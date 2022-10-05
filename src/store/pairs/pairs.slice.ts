@@ -24,8 +24,8 @@ const initialState: PairsState = {
 	pairs: [
 		{
 			dataCategory: 'mCap',
-			numerator: 'btc',
-			denominator: 'eth',
+			numerator: '',
+			denominator: '',
 			status: 'idle',
 			timeSpan: DAYS_1M_BACK,
 		},
@@ -47,15 +47,17 @@ export const pairsSlice = createSlice({
 			}>
 		): void => {
 			const { index } = action.payload;
-			state.pairs[index] = { ...state.pairs[index], status: 'calculating' };
+			state.pairs[index].status = 'calculating';
 		},
-		calcPairDataSuccess: (state, action: PayloadAction<{ index: number }>): void => {
-			const { index } = action.payload;
-			state.pairs[index] = { ...state.pairs[index], status: 'calc-complete' };
+		calcPairDataSuccess: (state, action: PayloadAction<{ index: number; data: MarketDataPoint[] }>): void => {
+			const { index, data } = action.payload;
+			Data.pairs[index] = data;
+			state.pairs[index].status = 'calc-complete';
+			state.pairs[index].timeSpan = DAYS_1M_BACK;
 		},
 		calcPairDataFailed: (state, action: PayloadAction<{ index: number; error: IndexError }>): void => {
 			const { index, error } = action.payload;
-			state.pairs[index] = { ...state.pairs[index], status: 'calc-failed' };
+			state.pairs[index].status = 'calc-failed';
 			state.error.push(error);
 		},
 		addNewInitPair: (state): void => {
@@ -71,20 +73,18 @@ export const pairsSlice = createSlice({
 		},
 		deletePair: (state, action: PayloadAction<number>): void => {
 			const index = action.payload;
-			console.log('BEFORE DELETE: ', Data.pairs);
-			state.pairs = [...state.pairs.filter((_, i) => i !== index)];
-			Data.pairs = [...Data.pairs.filter((_, i) => i !== index)];
-			console.log('AFTER DELETE: ', Data.pairs);
+			state.pairs = state.pairs.filter((_, i) => i !== index);
+			Data.pairs = Data.pairs.filter((_, i) => i !== index);
 		},
 		changeNumerator: (state, action: PayloadAction<{ index: number; ticker: string }>): void => {
 			const { ticker, index } = action.payload;
-			const pair = state.pairs[index];
-			state.pairs[index] = { ...pair, numerator: ticker, status: 'idle' };
+			state.pairs[index].numerator = ticker;
+			state.pairs[index].status = 'idle';
 		},
 		changeDenominator: (state, action: PayloadAction<{ index: number; ticker: string }>): void => {
 			const { ticker, index } = action.payload;
-			const pair = state.pairs[index];
-			state.pairs[index] = { ...pair, denominator: ticker, status: 'idle' };
+			state.pairs[index].denominator = ticker;
+			state.pairs[index].status = 'idle';
 		},
 		changeDataCategory: (state, action: PayloadAction<{ index: number; dataCategory: PairDataCategory }>): void => {
 			const { index, dataCategory } = action.payload;
@@ -93,8 +93,7 @@ export const pairsSlice = createSlice({
 		},
 		changeTimeSpan: (state, action: PayloadAction<{ index: number; timeSpan: number }>): void => {
 			const { index, timeSpan } = action.payload;
-			const pair = state.pairs[index];
-			state.pairs[index] = { ...pair, timeSpan: timeSpan };
+			state.pairs[index].timeSpan = timeSpan;
 		},
 	},
 });

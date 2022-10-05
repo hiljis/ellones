@@ -4,17 +4,18 @@
 	color: var(--color-primary--light);
 	background-color: var(--color-primary--10);
 	border-right: 3px solid white;
+	// border-radius: var(--radius--sm);
 	cursor: default;
 	transition: all 0.2s;
 
 	&:hover {
 		box-shadow: inset 0 0 0 3px blue;
 		font-weight: 600;
-		font-size: 1.6rem;
+		// font-size: 1.6rem;
 	}
 
 	&.pos {
-		background-color: #00ce90;
+		background-color: var(--color-positive);
 		color: var(--color-white);
 		&:hover {
 			box-shadow: inset 0 0 0 3px #004a34;
@@ -22,7 +23,7 @@
 	}
 
 	&.neg {
-		background-color: #ff1c61;
+		background-color: var(--color-warning);
 		color: var(--color-white);
 		&:hover {
 			box-shadow: inset 0 0 0 3px #7c0025;
@@ -32,10 +33,6 @@
 	&.empty {
 		background-color: var(--color-grey--lightest);
 		box-shadow: none;
-		&:hover {
-			box-shadow: none;
-			font-weight: 600;
-		}
 	}
 
 	&:last-child {
