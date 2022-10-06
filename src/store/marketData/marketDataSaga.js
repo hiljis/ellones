@@ -11,7 +11,7 @@ import {
 	selectFetchQueue,
 } from './marketDataSlice';
 
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+export const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export function* wait60sec() {
 	yield call(delay, 60000);

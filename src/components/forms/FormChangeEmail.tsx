@@ -1,19 +1,23 @@
 import { useFormik } from 'formik';
+import { useEffect } from 'react';
 import * as Yup from 'yup';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { selectEmail, selectUpdateStatus, setUpdateStatus, updateEmailStart } from '../../store/user/userSlice';
 import './Forms.scss';
+import SubmitButton from './submitButton/SubmitButton';
 
-type Props = {
-	email: string;
-};
+const FormChangeEmail: React.FC = () => {
+	const dispatch = useAppDispatch();
+	const updateStatus = useAppSelector(selectUpdateStatus);
+	const email = useAppSelector(selectEmail);
+	const initialValues = { email: email };
 
-const initialValues = {
-	email: '',
-};
+	useEffect(() => {
+		return () => {
+			dispatch(setUpdateStatus('idle'));
+		};
+	}, []);
 
-const FormChangeEmail: React.FC<Props> = ({ email }) => {
-	const initialValues = {
-		email: email,
-	};
 	const instruction = 'No confirm email is sent out, so be sure to type in your own email.';
 	const formik = useFormik({
 		initialValues,
@@ -21,9 +25,7 @@ const FormChangeEmail: React.FC<Props> = ({ email }) => {
 			email: Yup.string().email('Invalid email address').required('Required'),
 		}),
 		onSubmit: (values, actions) => {
-			console.log({ values, actions });
-			alert(JSON.stringify(values, null, 2));
-			actions.setSubmitting(false);
+			if (values.email !== email) dispatch(updateEmailStart(values.email));
 		},
 	});
 	const invalidEmail = formik.touched.email && formik.errors.email;
@@ -42,9 +44,7 @@ const FormChangeEmail: React.FC<Props> = ({ email }) => {
 					value={formik.values.email}
 					placeholder="email"
 				/>
-				<button className="form__editUserInfo--submit" type="submit">
-					Update
-				</button>
+				<SubmitButton submitStatus={updateStatus} />
 			</form>
 		</div>
 	);

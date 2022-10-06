@@ -1,23 +1,33 @@
 import { useFormik } from 'formik';
+import { useEffect } from 'react';
 import * as Yup from 'yup';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { confirmPasswordStart, selectUpdateStatus, setUpdateStatus } from '../../store/user/userSlice';
 import './Forms.scss';
+import SubmitButton from './submitButton/SubmitButton';
 
 const initialValues = {
 	confirmPassword: '',
 };
 
 const FormConfirmPassword: React.FC = () => {
+	const dispatch = useAppDispatch();
+	const updateStatus = useAppSelector(selectUpdateStatus);
+
+	useEffect(() => {
+		return () => {
+			dispatch(setUpdateStatus('idle'));
+		};
+	}, []);
+
 	const instruction = 'Type in and submit your existing password.';
 	const formik = useFormik({
 		initialValues,
 		validationSchema: Yup.object({
-			confirmPassword: Yup.string()
-				.min(8, 'Password cannot be shorter than 8 characters.')
-				.matches(/\s/g, 'Password does not have any whitespaces')
-				.required('Required'),
+			confirmPassword: Yup.string().required('Required'),
 		}),
 		onSubmit: (values, actions) => {
-			console.log({ values, actions });
+			dispatch(confirmPasswordStart(values.confirmPassword));
 		},
 	});
 	const invalidPassword = formik.touched.confirmPassword && formik.errors.confirmPassword;
@@ -37,9 +47,7 @@ const FormConfirmPassword: React.FC = () => {
 					onBlur={formik.handleBlur}
 					value={formik.values.confirmPassword}
 				/>
-				<button className="form__editUserInfo--submit" type="submit">
-					Confirm
-				</button>
+				<SubmitButton submitStatus={updateStatus}>Confirm</SubmitButton>
 			</form>
 		</div>
 	);

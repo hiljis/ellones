@@ -8,8 +8,22 @@ import {
 	createUserWithEmailAndPassword,
 	signOut,
 	onAuthStateChanged,
+	updateEmail,
+	updatePassword,
+	reauthenticateWithCredential,
+	EmailAuthProvider,
 } from 'firebase/auth';
-import { getFirestore, doc, getDoc, setDoc, collection, writeBatch, query, getDocs } from 'firebase/firestore';
+import {
+	getFirestore,
+	doc,
+	getDoc,
+	setDoc,
+	collection,
+	writeBatch,
+	query,
+	getDocs,
+	updateDoc,
+} from 'firebase/firestore';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -165,4 +179,85 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd, doc
 
 	await batch.commit();
 	console.log('DONE');
+};
+
+// UPDATE FAV CHAIN
+export const updateUserFavChain = async (userAuth, ticker) => {
+	if (!userAuth) return;
+
+	try {
+		const userDocRef = doc(db, 'users', userAuth.uid);
+		const userSnapShot = await getDoc(userDocRef);
+
+		if (!userSnapShot.exists()) {
+			return;
+		}
+		await updateDoc(userDocRef, { favChain: ticker });
+		return ticker;
+	} catch (error) {
+		throw error;
+	}
+};
+
+// UPDATE USERNAME
+export const updateUserUsername = async (userAuth, username) => {
+	if (!userAuth) return;
+
+	try {
+		const userDocRef = doc(db, 'users', userAuth.uid);
+		const userSnapShot = await getDoc(userDocRef);
+
+		if (!userSnapShot.exists()) {
+			return;
+		}
+		await updateDoc(userDocRef, { username: username });
+		return username;
+	} catch (error) {
+		throw error;
+	}
+};
+
+// UPDATE EMAIL
+export const updateUserEmail = async (userAuth, email) => {
+	if (!userAuth) return;
+	try {
+		const auth = getAuth();
+
+		const userDocRef = doc(db, 'users', userAuth.uid);
+		const userSnapShot = await getDoc(userDocRef);
+
+		if (!userSnapShot.exists()) {
+			return;
+		}
+		await updateEmail(auth.currentUser, email);
+		await updateDoc(userDocRef, { email: email });
+		return email;
+	} catch (error) {
+		throw error;
+	}
+};
+
+// CONFIRM PASSWORD
+export const confirmUserPassword = async (userAuth, confirmPassword) => {
+	if (!userAuth) return;
+	try {
+		const auth = getAuth();
+		const user = auth.currentUser;
+		const credential = EmailAuthProvider.credential(user.email, confirmPassword);
+		const result = await reauthenticateWithCredential(user, credential);
+	} catch (error) {
+		throw error;
+	}
+};
+
+// UPDATE PASSWORD
+export const updateUserPassword = async (userAuth, newPassword) => {
+	if (!userAuth) return;
+	try {
+		const auth = getAuth();
+		const user = auth.currentUser;
+		await updatePassword(user, newPassword);
+	} catch (error) {
+		throw error;
+	}
 };

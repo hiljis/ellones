@@ -1,19 +1,23 @@
 import { useFormik } from 'formik';
+import { useEffect } from 'react';
 import * as Yup from 'yup';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { selectUpdateStatus, selectUsername, setUpdateStatus, updateUsernameStart } from '../../store/user/userSlice';
 import './Forms.scss';
+import SubmitButton from './submitButton/SubmitButton';
 
-type Props = {
-	username: string;
-};
-
-const initialValues = {
-	username: '',
-};
-
-const FormChangeUsername: React.FC<Props> = ({ username }) => {
-	const initialValues = {
-		username: username,
-	};
+const FormChangeUsername: React.FC = () => {
+	const dispatch = useAppDispatch();
+	const updateStatus = useAppSelector(selectUpdateStatus);
+	const username = useAppSelector(selectUsername);
+	const initialValues = { username: username };
+	
+	useEffect(() => {
+		return () => {
+			dispatch(setUpdateStatus('idle'));
+		};
+	}, []);
+	
 	const instruction = 'At least 5 characters. Only letters and numbers. No whitespaces.';
 	const formik = useFormik({
 		initialValues,
@@ -24,9 +28,7 @@ const FormChangeUsername: React.FC<Props> = ({ username }) => {
 				.required('Required'),
 		}),
 		onSubmit: (values, actions) => {
-			console.log({ values, actions });
-			alert(JSON.stringify(values, null, 2));
-			actions.setSubmitting(false);
+			if (values.username !== username) dispatch(updateUsernameStart(values.username));
 		},
 	});
 	const invalidUsername = formik.touched.username && formik.errors.username;
@@ -46,9 +48,7 @@ const FormChangeUsername: React.FC<Props> = ({ username }) => {
 					onBlur={formik.handleBlur}
 					value={formik.values.username}
 				/>
-				<button className="form__editUserInfo--submit" type="submit">
-					Update
-				</button>
+				<SubmitButton submitStatus={updateStatus} />
 			</form>
 		</div>
 	);

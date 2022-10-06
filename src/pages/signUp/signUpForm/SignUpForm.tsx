@@ -49,7 +49,7 @@ import './SignUpForm.scss';
 // 	return errors;
 // };
 
-const initialValues: User = {
+const initialValues: UserSignUp = {
 	username: '',
 	email: '',
 	password: '',

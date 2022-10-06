@@ -1,6 +1,10 @@
 import { useFormik } from 'formik';
+import { useEffect } from 'react';
 import * as Yup from 'yup';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { selectUpdateStatus, setUpdateStatus, updatePasswordStart } from '../../store/user/userSlice';
 import './Forms.scss';
+import SubmitButton from './submitButton/SubmitButton';
 
 const confirmPassword = (password: string) => {
 	return new Promise((resolve, reject) => {
@@ -16,19 +20,27 @@ const initialValues = {
 };
 
 const FormChangePassword: React.FC = () => {
+	const dispatch = useAppDispatch();
+	const updateStatus = useAppSelector(selectUpdateStatus);
+
+	useEffect(() => {
+		return () => {
+			dispatch(setUpdateStatus('idle'));
+		};
+	}, []);
+
 	const instruction = 'At least 8 characters. No whitespaces.';
 	const formik = useFormik({
 		initialValues,
 		validationSchema: Yup.object({
 			password: Yup.string()
-				.min(8, 'Passwords must be longer than 8 characters.')
-				.matches(/\s/g, 'Passwords can not have any whitespaces')
+				.min(8, 'Must be at least 8 characters.')
+				.max(20, 'Must be 20 characters or less')
+				.matches(/^[a-zA-Z0-9]+$/, 'Password can only consist of letters A-Z and numbers')
 				.required('Required'),
 		}),
 		onSubmit: (values, actions) => {
-			console.log({ values, actions });
-			alert(JSON.stringify(values, null, 2));
-			actions.setSubmitting(false);
+			dispatch(updatePasswordStart(values.password));
 		},
 	});
 	const invalidPassword = formik.touched.password && formik.errors.password;
@@ -48,9 +60,7 @@ const FormChangePassword: React.FC = () => {
 					onBlur={formik.handleBlur}
 					value={formik.values.password}
 				/>
-				<button className="form__editUserInfo--submit" type="submit">
-					Update
-				</button>
+				<SubmitButton submitStatus={updateStatus} />
 			</form>
 		</div>
 	);

@@ -2,13 +2,13 @@ import { useFormik } from 'formik';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
-import { User } from '../../../app/utils/types';
+import { UserSignIn } from '../../../app/utils/types';
 import Loader from '../../../components/loader/loader';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { selectCurrentUser, selectUserStatus, signInEmailStart } from '../../../store/user/userSlice';
 import './SignInForm.scss';
 
-const initialValues: User = {
+const initialValues: UserSignIn = {
 	email: '',
 	password: '',
 };

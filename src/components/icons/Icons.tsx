@@ -46,4 +46,5 @@ export const getIcon = (ticker: string, className: string = '') => {
 	else if (ticker === 'qnt') return <IconQNT className={className} />;
 	else if (ticker === 'trx') return <IconTRX className={className} />;
 	else if (ticker === 'neo') return <IconNEO className={className} />;
+	else return <>---</>;
 };

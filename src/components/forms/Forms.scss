@@ -11,7 +11,7 @@
 	align-items: flex-start;
 	background-color: var(--color-white);
 	border-radius: var(--radius--lg);
-	width: 50rem;
+	min-width: 50rem;
 	padding: 5rem;
 	transform: translate(3rem, 3rem);
 
@@ -89,6 +89,15 @@
 		margin-top: 1rem;
 		margin-bottom: 2rem;
 	}
+
+	&--tickers {
+		display: grid;
+		grid-template-columns: repeat(7, min-content);
+		grid-template-rows: repeat(auto, min-content);
+		gap: 2rem;
+		margin-bottom: 4rem;
+		width: min-content;
+	}
 }
 
 .invalidInput {
@@ -124,5 +133,25 @@
 	}
 	&--4 {
 		background-color: rgb(136, 0, 255);
+	}
+}
+
+.option__ticker {
+	width: min-content;
+	height: min-content;
+	border-radius: var(--radius--md);
+	border: 1px solid transparent;
+	cursor: pointer;
+	&:hover {
+		border-color: var(--color-black);
+	}
+
+	&--active {
+		background-color: var(--color-primary);
+	}
+
+	svg {
+		width: 5rem;
+		height: auto;
 	}
 }

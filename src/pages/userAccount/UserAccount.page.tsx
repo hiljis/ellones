@@ -9,11 +9,12 @@ import FormChangePassword from '../../components/forms/FormChangePassword';
 import FormChangeEmail from '../../components/forms/FormChangeEmail';
 import FormConfirmPassword from '../../components/forms/FormConfirmPassword';
 import FormChangeAvatar from '../../components/forms/FormChangeAvatar';
-import StatBoxDropDown from '../../components/statBoxDropdown/StatBoxDropdown';
 import LinkButton from '../../components/linkButton/LinkButton';
-import { useAppSelector } from '../../store/hooks';
-import { selectCurrentUser, selectUserStatus } from '../../store/user/userSlice';
+import { useAppDispatch, useAppSelector } from '../../store/hooks';
+import { selectCurrentUser, selectUpdateStatus, selectUserStatus, setUpdateStatus } from '../../store/user/userSlice';
 import { useNavigate } from 'react-router-dom';
+import FormChangeFavChain from '../../components/forms/FormChangeFavChain';
+import FavChainBox from './favChainBox/FavChainBox';
 
 export interface IUser {
 	username: string;
@@ -23,9 +24,11 @@ export interface IUser {
 }
 
 const UserAccountPage: React.FC = () => {
+	const dispatch = useAppDispatch();
 	const [modalOpen, setModalOpen] = useState(false);
 	const [selectedForm, setSelectedForm] = useState<string>('');
 	const [passwordConfirmed, setPasswordConfirmed] = useState(false);
+	const updateStatus = useAppSelector(selectUpdateStatus);
 
 	const currentUser = useAppSelector(selectCurrentUser);
 	const userStatus = useAppSelector(selectUserStatus);
@@ -36,6 +39,21 @@ const UserAccountPage: React.FC = () => {
 			navigate('/');
 		}
 	}, [currentUser, userStatus, navigate]);
+
+	useEffect(() => {
+		if (updateStatus === 'confirm-password-success' && selectedForm === 'password') {
+			setTimeout(() => {
+				setPasswordConfirmed(true);
+			}, 1000);
+		} else if (selectedForm !== 'password') {
+			setPasswordConfirmed(false);
+		} else if (updateStatus === 'update-password-success') {
+			setTimeout(() => {
+				setModalOpen(false);
+				setPasswordConfirmed(false);
+			}, 2000);
+		}
+	}, [updateStatus, selectedForm]);
 
 	if (!currentUser || userStatus === 'no-user') return <></>;
 
@@ -49,11 +67,12 @@ const UserAccountPage: React.FC = () => {
 	};
 
 	let form;
-	if (selectedForm === 'username') form = <FormChangeUsername username={currentUser.username!} />;
+	if (selectedForm === 'username') form = <FormChangeUsername />;
 	if (selectedForm === 'password') form = <FormConfirmPassword />;
 	if (selectedForm === 'password' && passwordConfirmed) form = <FormChangePassword />;
-	if (selectedForm === 'email') form = <FormChangeEmail email={currentUser.email} />;
+	if (selectedForm === 'email') form = <FormChangeEmail />;
 	if (selectedForm === 'avatar') form = <FormChangeAvatar />;
+	if (selectedForm === 'favChain') form = <FormChangeFavChain />;
 
 	return (
 		<main className="userAccountPage">
@@ -61,7 +80,7 @@ const UserAccountPage: React.FC = () => {
 				<div className="user__stats">
 					<StatBox title="Subscription" unit="Free" />
 					<StatBox title="&#10084;&#65039;" number={24} />
-					<StatBoxDropDown title="Favorite chain" target="l1s" />
+					<FavChainBox onClickHandler={() => handleSelect('favChain')} />
 				</div>
 				<div className="userInfo">
 					<h3 className="userInfo__title">Email</h3>

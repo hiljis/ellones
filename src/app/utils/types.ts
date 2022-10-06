@@ -31,21 +31,27 @@ export interface IndexError {
 }
 
 export interface User {
-	uid?: string;
-	username?: string;
+	uid: string;
+	username: string;
 	email: string;
-	gender?: string;
-	age?: string;
-	occupation?: string;
+	gender: string;
+	age: string;
+	occupation: string;
 	password?: string;
 	createdAt?: number;
+	favChain: string;
+}
+
+export interface UserSignIn {
+	email: string;
+	password: string;
 }
 
 export interface UserSignUp {
 	username: string;
 	email: string;
 	gender: string;
-	age: number;
+	age: string | number;
 	occupation: string;
 	password: string;
 }

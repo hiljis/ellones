@@ -1,0 +1,12 @@
+.statBoxClickable {
+	cursor: pointer;
+	&:hover {
+		.statBox {
+			border-color: var(--color-primary);
+			background-color: var(--color-primary--10);
+		}
+		.statTitle {
+			background-color: var(--color-primary);
+		}
+	}
+}
