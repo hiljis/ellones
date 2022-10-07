@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import LinkText from '../../components/linkText/LinkText';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { selectCurrentUser, selectUserStatus, signOutStart } from '../../store/user/userSlice';
+import { resetUserStatus, selectCurrentUser, selectUserStatus, signOutStart } from '../../store/user/userSlice';
 import './SignIn.page.scss';
 import SignInForm from './signInForm/SignInForm';
 
@@ -14,13 +14,8 @@ const SignInPage: React.FC = () => {
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
+		dispatch(resetUserStatus());
 	}, []);
-
-	useEffect(() => {
-		if (currentUser) {
-			// navigate('/account');
-		}
-	}, [currentUser, userStatus, navigate]);
 
 	return (
 		<main className="signInPage">

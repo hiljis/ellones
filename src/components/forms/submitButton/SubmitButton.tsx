@@ -11,7 +11,8 @@ const convertStatusToState = (status: string): string => {
 		status === 'updating-username' ||
 		status === 'updating-email' ||
 		status === 'confirming-password' ||
-		status === 'updating-password'
+		status === 'updating-password' ||
+		status === 'updating-avatarColor'
 	)
 		return 'isSubmitting';
 	if (
@@ -19,7 +20,8 @@ const convertStatusToState = (status: string): string => {
 		status === 'update-username-success' ||
 		status === 'update-email-success' ||
 		status === 'confirm-password-success' ||
-		status === 'update-password-success'
+		status === 'update-password-success' ||
+		status === 'update-avatarColor-success'
 	)
 		return 'success';
 	if (
@@ -27,7 +29,8 @@ const convertStatusToState = (status: string): string => {
 		status === 'update-username-failed' ||
 		status === 'update-email-failed' ||
 		status === 'confirm-password-failed' ||
-		status === 'update-password-failed'
+		status === 'update-password-failed' ||
+		status === 'update-avatarColor-failed'
 	)
 		return 'failed';
 	return '';

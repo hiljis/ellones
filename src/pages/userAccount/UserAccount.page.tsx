@@ -8,7 +8,7 @@ import FormChangeUsername from '../../components/forms/FormChangeUsername';
 import FormChangePassword from '../../components/forms/FormChangePassword';
 import FormChangeEmail from '../../components/forms/FormChangeEmail';
 import FormConfirmPassword from '../../components/forms/FormConfirmPassword';
-import FormChangeAvatar from '../../components/forms/FormChangeAvatar';
+import FormChangeAvatarColor from '../../components/forms/FormChangeAvatarColor';
 import LinkButton from '../../components/linkButton/LinkButton';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { selectCurrentUser, selectUpdateStatus, selectUserStatus, setUpdateStatus } from '../../store/user/userSlice';
@@ -71,7 +71,7 @@ const UserAccountPage: React.FC = () => {
 	if (selectedForm === 'password') form = <FormConfirmPassword />;
 	if (selectedForm === 'password' && passwordConfirmed) form = <FormChangePassword />;
 	if (selectedForm === 'email') form = <FormChangeEmail />;
-	if (selectedForm === 'avatar') form = <FormChangeAvatar />;
+	if (selectedForm === 'avatar') form = <FormChangeAvatarColor />;
 	if (selectedForm === 'favChain') form = <FormChangeFavChain />;
 
 	return (

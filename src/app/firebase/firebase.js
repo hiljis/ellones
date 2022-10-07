@@ -69,8 +69,8 @@ export const createUserDocumentFromAuth = async (userAuth) => {
 
 		if (!userSnapShot.exists()) {
 			await setDoc(userDocRef, { ...userAuth });
+			return userAuth;
 		}
-
 		return userSnapShot;
 	} catch (error) {
 		throw error;
@@ -257,6 +257,23 @@ export const updateUserPassword = async (userAuth, newPassword) => {
 		const auth = getAuth();
 		const user = auth.currentUser;
 		await updatePassword(user, newPassword);
+	} catch (error) {
+		throw error;
+	}
+};
+
+// UPDATE AVATAR COLOR
+export const updateUserAvatarColor = async (userAuth, newColor) => {
+	if (!userAuth) return;
+	try {
+		const userDocRef = doc(db, 'users', userAuth.uid);
+		const userSnapShot = await getDoc(userDocRef);
+
+		if (!userSnapShot.exists()) {
+			return;
+		}
+		await updateDoc(userDocRef, { avatarColor: newColor });
+		return newColor;
 	} catch (error) {
 		throw error;
 	}

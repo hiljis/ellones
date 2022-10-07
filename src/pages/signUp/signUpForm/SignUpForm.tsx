@@ -6,6 +6,7 @@ import { User, UserSignUp } from '../../../app/utils/types';
 import Loader from '../../../components/loader/loader';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { selectCurrentUser, selectUserStatus, signUpStart } from '../../../store/user/userSlice';
+import SignUpButton from './signUpButton/SignUpButton';
 import './SignUpForm.scss';
 
 // const validate = (values: UserSignUp) => {
@@ -59,24 +60,9 @@ const initialValues: UserSignUp = {
 };
 
 const SignUpForm: React.FC = () => {
-	const [isLoading, setIsLoading] = useState(false);
 	const dispatch = useAppDispatch();
 	const userStatus = useAppSelector(selectUserStatus);
 	const navigate = useNavigate();
-
-	useEffect(() => {
-		if (userStatus === 'sign-in-success') {
-			setTimeout(() => {
-				navigate('/account');
-				setIsLoading(false);
-			}, 1000);
-		} else if (userStatus === 'sign-up-success') {
-			console.log('SHOW SIGN UP SUCCESS BANNER');
-		} else if (userStatus === 'sign-up-failed') {
-			setIsLoading(false);
-			console.warn('SHOW SIGN UP FAILED BANNER');
-		}
-	}, [userStatus, navigate]);
 
 	const formik = useFormik({
 		initialValues,
@@ -101,10 +87,19 @@ const SignUpForm: React.FC = () => {
 			occupation: Yup.string().required('Required'),
 		}),
 		onSubmit: (values, actions) => {
-			setIsLoading(true);
 			dispatch(signUpStart(values));
 		},
 	});
+
+	useEffect(() => {
+		if (userStatus === 'sign-in-success') {
+			navigate('/account');
+		} else if (userStatus === 'sign-in-failed') {
+			navigate('/signin', {
+				state: { email: formik.values.email, message: 'Sign up succeeded, but sign in failed.' },
+			});
+		}
+	}, [userStatus, navigate]);
 
 	const invalidUsername = formik.touched.username && formik.errors.username;
 	const invalidEmail = formik.touched.email && formik.errors.email;
@@ -216,9 +211,7 @@ const SignUpForm: React.FC = () => {
 					{invalidOccupation ? <div className="errorDot" /> : null}
 				</div>
 
-				<button className="btn--submit" type="submit">
-					{isLoading ? <Loader color="white" size="sm" /> : 'Sign up'}
-				</button>
+				<SignUpButton />
 			</form>
 		</div>
 	);

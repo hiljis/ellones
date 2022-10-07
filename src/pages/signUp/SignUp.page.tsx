@@ -1,23 +1,13 @@
 import { useEffect } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { useAppSelector } from '../../store/hooks';
-import { selectCurrentUser } from '../../store/user/userSlice';
+import { NavLink } from 'react-router-dom';
 import './SignUp.page.scss';
 import SignUpForm from './signUpForm/SignUpForm';
 
 const SignUpPage: React.FC = () => {
-	const currentUser = useAppSelector(selectCurrentUser);
-	const navigate = useNavigate();
-
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, []);
 
-	useEffect(() => {
-		if (currentUser) {
-			navigate('/account');
-		}
-	}, [currentUser, navigate]);
 	return (
 		<main className="signUpPage">
 			<div className="signUpLeft">

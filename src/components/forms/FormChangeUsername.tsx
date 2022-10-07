@@ -11,13 +11,13 @@ const FormChangeUsername: React.FC = () => {
 	const updateStatus = useAppSelector(selectUpdateStatus);
 	const username = useAppSelector(selectUsername);
 	const initialValues = { username: username };
-	
+
 	useEffect(() => {
 		return () => {
 			dispatch(setUpdateStatus('idle'));
 		};
 	}, []);
-	
+
 	const instruction = 'At least 5 characters. Only letters and numbers. No whitespaces.';
 	const formik = useFormik({
 		initialValues,

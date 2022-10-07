@@ -13,7 +13,7 @@ import { useEffect } from 'react';
 import { fetchProfiles, selectProfiles } from './store/profiles/profilesSlice';
 import SignOutPage from './pages/signOut/SignOut.page';
 import SignInPage from './pages/signIn/SignIn.page';
-import { checkUserSession } from './store/user/userSlice';
+import { checkUserSessionStart } from './store/user/userSlice';
 import HistoryPage from './pages/history/History.page';
 import DominancePage from './pages/dominance/Dominance.page';
 import PairsPage from './pages/pairs/Pairs.page';
@@ -24,7 +24,7 @@ function App() {
 	const dispatch = useAppDispatch();
 
 	useEffect(() => {
-		dispatch(checkUserSession());
+		dispatch(checkUserSessionStart());
 	});
 
 	useEffect(() => {

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { DEFAULT_AVATAR_COLOR } from '../../app/utils/consts';
 import { User, UserSignIn, UserSignUp } from '../../app/utils/types';
 import { RootState } from '../store';
 
@@ -18,20 +19,25 @@ type UpdateStatus =
 	| 'confirm-password-failed'
 	| 'updating-password'
 	| 'update-password-success'
-	| 'update-password-failed';
+	| 'update-password-failed'
+	| 'updating-avatarColor'
+	| 'update-avatarColor-success'
+	| 'update-avatarColor-failed';
 
 export interface UserState {
 	currentUser: User | null;
 	updateStatus: UpdateStatus;
 	status:
-		| 'signing-in'
-		| 'signing-out'
-		| 'signing-up'
-		| 'sign-in-success'
 		| 'no-user'
-		| 'sign-up-success'
+		| 'checking-user-session'
+		| 'signing-in'
+		| 'sign-in-success'
 		| 'sign-in-failed'
+		| 'signing-out'
+		// | 'sign-out-success'
 		| 'sign-out-failed'
+		| 'signing-up'
+		| 'sign-up-success'
 		| 'sign-up-failed';
 	errors: string[];
 }
@@ -46,9 +52,14 @@ const initialState: UserState = {
 export const userSlice = createSlice({
 	name: 'user',
 	initialState,
-	// The `reducers` field lets us define reducers and generate associated actions
 	reducers: {
-		checkUserSession: (state) => {},
+		checkUserSessionStart: (state) => {
+			state.status = 'checking-user-session';
+		},
+		checkUserSessionFailed: (state, action: PayloadAction<string>) => {
+			state.errors.push(action.payload);
+			state.status = 'no-user';
+		},
 		signInEmailStart: (state, action: PayloadAction<UserSignIn>) => {
 			state.status = 'signing-in';
 		},
@@ -56,34 +67,34 @@ export const userSlice = createSlice({
 			state.status = 'signing-in';
 		},
 		signInSuccess: (state, action: PayloadAction<User>) => {
-			state.status = 'sign-in-success';
 			state.currentUser = action.payload;
+			console.log(action.payload);
+			state.status = 'sign-in-success';
 		},
 		signInFailed: (state, action: PayloadAction<string>) => {
-			state.status = 'sign-in-failed';
 			state.errors.push(action.payload);
+			state.status = 'sign-in-failed';
 		},
 		signUpStart: (state, action: PayloadAction<UserSignUp>) => {
 			state.status = 'signing-up';
 		},
 		signUpSuccess: (state, action: PayloadAction<User>) => {
-			console.log(action.payload);
 			state.status = 'sign-up-success';
 		},
 		signUpFailed: (state, action: PayloadAction<string>) => {
-			state.status = 'sign-up-failed';
 			state.errors.push(action.payload);
+			state.status = 'sign-up-failed';
 		},
 		signOutStart: (state) => {
 			state.status = 'signing-out';
 		},
 		signOutSuccess: (state) => {
-			state.status = 'no-user';
 			state.currentUser = null;
+			state.status = 'no-user';
 		},
 		signOutFailed: (state, action: PayloadAction<string>) => {
-			state.status = 'sign-out-failed';
 			state.errors.push(action.payload);
+			state.status = 'sign-out-failed';
 		},
 		updateFavChainStart: (state, action: PayloadAction<string>) => {
 			state.updateStatus = 'updating-fav-chain';
@@ -97,8 +108,8 @@ export const userSlice = createSlice({
 		},
 		updateFavChainFailed: (state, action: PayloadAction<string>) => {
 			const error = action.payload;
-			state.updateStatus = 'update-fav-chain-failed';
 			state.errors.push(error);
+			state.updateStatus = 'update-fav-chain-failed';
 		},
 		updateUsernameStart: (state, action: PayloadAction<string>) => {
 			state.updateStatus = 'updating-username';
@@ -112,8 +123,8 @@ export const userSlice = createSlice({
 		},
 		updateUsernameFailed: (state, action: PayloadAction<string>) => {
 			const error = action.payload;
-			state.updateStatus = 'update-username-failed';
 			state.errors.push(error);
+			state.updateStatus = 'update-username-failed';
 		},
 		updateEmailStart: (state, action: PayloadAction<string>) => {
 			state.updateStatus = 'updating-email';
@@ -127,8 +138,8 @@ export const userSlice = createSlice({
 		},
 		updateEmailFailed: (state, action: PayloadAction<string>) => {
 			const error = action.payload;
-			state.updateStatus = 'update-email-failed';
 			state.errors.push(error);
+			state.updateStatus = 'update-email-failed';
 		},
 		confirmPasswordStart: (state, action: PayloadAction<string>) => {
 			state.updateStatus = 'confirming-password';
@@ -138,8 +149,8 @@ export const userSlice = createSlice({
 		},
 		confirmPasswordFailed: (state, action: PayloadAction<string>) => {
 			const error = action.payload;
-			state.updateStatus = 'confirm-password-failed';
 			state.errors.push(error);
+			state.updateStatus = 'confirm-password-failed';
 		},
 		updatePasswordStart: (state, action: PayloadAction<string>) => {
 			state.updateStatus = 'updating-password';
@@ -149,8 +160,26 @@ export const userSlice = createSlice({
 		},
 		updatePasswordFailed: (state, action: PayloadAction<string>) => {
 			const error = action.payload;
-			state.updateStatus = 'update-password-failed';
 			state.errors.push(error);
+			state.updateStatus = 'update-password-failed';
+		},
+		updateAvatarColorStart: (state, action: PayloadAction<string>) => {
+			state.updateStatus = 'updating-avatarColor';
+		},
+		updateAvatarColorSuccess: (state, action: PayloadAction<string>) => {
+			const newColor = action.payload;
+			if (state.currentUser) {
+				state.currentUser = { ...state.currentUser, avatarColor: newColor };
+				state.updateStatus = 'update-avatarColor-success';
+			}
+		},
+		updateAvatarColorFailed: (state, action: PayloadAction<string>) => {
+			const error = action.payload;
+			state.errors.push(error);
+			state.updateStatus = 'update-avatarColor-failed';
+		},
+		resetUserStatus: (state) => {
+			state.status = 'no-user';
 		},
 		setUpdateStatus: (state, action: PayloadAction<UpdateStatus>) => {
 			state.updateStatus = action.payload;
@@ -159,7 +188,8 @@ export const userSlice = createSlice({
 });
 
 export const {
-	checkUserSession,
+	checkUserSessionStart,
+	checkUserSessionFailed,
 	signInEmailStart,
 	signInGoogleStart,
 	signInSuccess,
@@ -185,6 +215,10 @@ export const {
 	updatePasswordStart,
 	updatePasswordSuccess,
 	updatePasswordFailed,
+	updateAvatarColorStart,
+	updateAvatarColorSuccess,
+	updateAvatarColorFailed,
+	resetUserStatus,
 	setUpdateStatus,
 } = userSlice.actions;
 
@@ -204,6 +238,10 @@ export const selectUsername = (state: RootState) => {
 };
 export const selectEmail = (state: RootState) => {
 	if (state.user.currentUser) return state.user.currentUser.email;
+	else return '';
+};
+export const selectAvatarColor = (state: RootState) => {
+	if (state.user.currentUser && state.user.currentUser.avatarColor) return state.user.currentUser.avatarColor;
 	else return '';
 };
 

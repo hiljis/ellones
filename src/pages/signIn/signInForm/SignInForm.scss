@@ -1,5 +1,6 @@
 .signInForm__container {
 	width: 30%;
+	position: relative;
 }
 
 .signInForm {
@@ -101,4 +102,19 @@
 	height: 1.2rem;
 	border-radius: var(--radius--round);
 	background-color: red;
+}
+
+.signUpMessage {
+	position: absolute;
+	font-size: 1.2rem;
+	font-weight: 600;
+	letter-spacing: 2px;
+	width: 100%;
+	color: var(--color-white);
+	background-color: var(--color-warning);
+	padding: 1rem 2rem;
+	border-radius: var(--radius--md);
+	left: 50%;
+	top: -7rem;
+	transform: translateX(-50%);
 }

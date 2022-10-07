@@ -1,27 +1,29 @@
 import { useEffect } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-import { selectCurrentUser, signOutStart } from '../../store/user/userSlice';
+import { selectCurrentUser, selectUserStatus, signOutStart } from '../../store/user/userSlice';
 import './SignOut.page.scss';
 
 const SignOutPage: React.FC = () => {
 	const dispatch = useAppDispatch();
 	const currentUser = useAppSelector(selectCurrentUser);
 	const navigate = useNavigate();
+	const userStatus = useAppSelector(selectUserStatus);
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
 	}, []);
 
 	useEffect(() => {
-		if (!currentUser) {
+		if (userStatus === 'no-user') {
+			navigate('/');
+		} else if (userStatus === 'sign-out-failed') {
+			// TODO Dislay message
 			navigate('/');
 		} else {
-			setTimeout(() => {
-				dispatch(signOutStart());
-			}, 3000);
+			dispatch(signOutStart());
 		}
-	}, [currentUser, navigate, dispatch]);
+	}, [navigate, dispatch, userStatus]);
 
 	return (
 		<main className="signOutPage">

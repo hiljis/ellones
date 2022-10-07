@@ -20,3 +20,9 @@ export const CG_ERROR_STATUS_OVERLOAD = 429;
 export const CG_ERROR_STATUS_UNAVAILABLE = 503;
 
 export const FETCH_TIME_LIMIT_MS = 10000;
+
+export const DEFAULT_AVATAR_COLOR = 'rgb(0,0,255)';
+export const AVATAR_COLOR_GREEN = 'rgb(0,255,153)';
+export const AVATAR_COLOR_MAGENTA = 'rgb(255,0,128)';
+export const AVATAR_COLOR_PURPLE = 'rgb(136,0,255)';
+export const AVATAR_COLOR_ORANGE = 'rgb(255,166,0)';

@@ -28,6 +28,7 @@ const FormChangeFavChain: React.FC = () => {
 
 	const handleSubmit = (e: React.SyntheticEvent) => {
 		e.preventDefault();
+		if (selectedTicker === currentFavChain) return;
 		dispatch(updateFavChainStart(selectedTicker));
 	};
 

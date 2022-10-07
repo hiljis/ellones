@@ -1,12 +1,18 @@
 import { useFormik } from 'formik';
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { UserSignIn } from '../../../app/utils/types';
 import Loader from '../../../components/loader/loader';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { selectCurrentUser, selectUserStatus, signInEmailStart } from '../../../store/user/userSlice';
+import SignInButton from './signInButton/SignInButton';
 import './SignInForm.scss';
+
+type SignUpMessage = {
+	message: string;
+	email: string;
+};
 
 const initialValues: UserSignIn = {
 	email: '',
@@ -15,15 +21,11 @@ const initialValues: UserSignIn = {
 
 const SignInForm: React.FC = () => {
 	const dispatch = useAppDispatch();
-	const currentUser = useAppSelector(selectCurrentUser);
 	const userStatus = useAppSelector(selectUserStatus);
 	const navigate = useNavigate();
-
-	useEffect(() => {
-		if (currentUser) {
-			navigate('/account');
-		}
-	}, [currentUser]);
+	const location = useLocation();
+	const [message, setMessage] = useState('');
+	const [email, setEmail] = useState('');
 
 	const formik = useFormik({
 		initialValues,
@@ -36,18 +38,28 @@ const SignInForm: React.FC = () => {
 				.required('Required'),
 		}),
 		onSubmit: (values, actions) => {
-			try {
-				actions.setSubmitting(true);
-				dispatch(signInEmailStart(values));
-			} catch (err) {
-				console.error('SIGN IN FAILED');
-			} finally {
-				setTimeout(() => {
-					actions.setSubmitting(false);
-				}, 2000);
-			}
+			console.log('hej');
+			dispatch(signInEmailStart(values));
 		},
 	});
+
+	useEffect(() => {
+		if (userStatus === 'sign-in-success') {
+			navigate('/account');
+		}
+	}, [userStatus, navigate]);
+
+	useEffect(() => {
+		if (location.state) {
+			const signUpMessage = location.state as SignUpMessage;
+			setMessage(signUpMessage.message);
+			setEmail(signUpMessage.email);
+			formik.values.email = email;
+		} else {
+			setMessage('');
+			setEmail('');
+		}
+	}, [location]);
 
 	const invalidEmail = formik.touched.email && formik.errors.email;
 	const invalidPassword = formik.touched.password && formik.errors.password;
@@ -82,10 +94,9 @@ const SignInForm: React.FC = () => {
 					{invalidPassword ? <div className="errorDot" /> : null}
 				</div>
 
-				<button className="btn--submit" type="submit">
-					{userStatus === 'signing-in' ? <Loader color="white" size="sm" /> : 'Sign in'}
-				</button>
+				<SignInButton />
 			</form>
+			{message ? <p className="signUpMessage">{message}</p> : ''}
 		</div>
 	);
 };

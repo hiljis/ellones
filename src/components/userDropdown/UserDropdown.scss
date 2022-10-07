@@ -1,5 +1,11 @@
 .userDropdown {
 	position: relative;
+	height: 4.5rem;
+	width: 10rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
 	&__btn {
 		width: 4.5rem;
 		height: 4.5rem;
@@ -9,6 +15,15 @@
 		cursor: pointer;
 		overflow: hidden;
 		transition: all 0.1s;
+
+		&--checking {
+			background-color: var(--color-primary);
+			pointer-events: none;
+
+			&--success {
+				background-color: var(--color-positive);
+			}
+		}
 
 		&:hover {
 			transform: translate(-3px, -3px);
@@ -26,7 +41,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			background-color: var(--color-primary);
+			// background-color: var(--color-primary);
 			color: var(--color-white);
 			font-size: 1.8rem;
 			font-weight: 600;

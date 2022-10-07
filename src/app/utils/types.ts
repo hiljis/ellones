@@ -40,6 +40,7 @@ export interface User {
 	password?: string;
 	createdAt?: number;
 	favChain: string;
+	avatarColor: string;
 }
 
 export interface UserSignIn {
