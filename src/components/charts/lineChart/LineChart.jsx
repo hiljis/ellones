@@ -71,7 +71,7 @@ const initData = {
 // };
 
 // const LineChart = ({ chartData, dataCategory, datasetLabel, type, resolution }) => {
-const LineChart = ({ chartData }) => {
+const LineChart = ({ chartData, borderColor = '', chartOptions = {} }) => {
 	const chartRef = useRef(null);
 	const [data, setData] = useState({ datasets: [] });
 
@@ -87,14 +87,15 @@ const LineChart = ({ chartData }) => {
 				...dataset,
 				label: 'hej',
 				data: chartData,
-				borderColor: 'rgba(0,0,255,1)',
+				borderColor: borderColor ? borderColor : 'rgba(0,0,255,1)',
+				// borderColor: 'rgba(0,0,255,1)',
 			})),
 		};
 
 		setData(joinedData);
 	}, [chartData]);
 
-	const options = getPairlineChartOptions(chartData, 'mCap', 'linear', 1);
+	const options = chartOptions ? chartOptions : getPairlineChartOptions(chartData, 'mCap', 'linear', 1);
 
 	const resetZoom = () => {
 		chartRef.current.resetZoom();

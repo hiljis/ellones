@@ -1,0 +1,77 @@
+:root {
+	--color-near--primary: white;
+	--color-near--secondary: black;
+	--color-near--tertiary: black;
+
+	.near-hover {
+		&:hover {
+			background: linear-gradient(to right bottom, var(--color-near--primary) 50%, var(--color-black--10));
+			color: black;
+		}
+
+		& ~ svg {
+			path {
+				fill: black;
+				stroke: black;
+			}
+		}
+	}
+
+	.statBox.near {
+		color: var(--color-black);
+		border: 1px solid black;
+		.statTitle {
+			background-color: var(--color-black);
+			color: var(--color-white);
+		}
+
+		&:hover {
+			background-color: var(--color-black--10);
+		}
+	}
+
+	.heroPresentation.near {
+		background: linear-gradient(160deg, transparent 60%, var(--color-black--50)), var(--color-near--primary);
+		color: var(--color-black);
+
+		.btn {
+			color: var(--color-black);
+			border-width: 1px;
+			border-color: var(--color-black);
+			&:hover {
+				background-color: var(--color-black--10);
+			}
+		}
+	}
+
+	.heroPresentation__chart.near {
+		border-width: 1px;
+		border-color: var(--color-black);
+	}
+
+	.header.near,
+	.baseBackground.near {
+		background-color: var(--color-near--primary);
+	}
+
+	.near.loader {
+		border-top-color: var(--color-black);
+		border-right-color: var(--color-black);
+	}
+
+	.near {
+		.linkText,
+		.marketDropdown__btn {
+			color: var(--color-black);
+			&:hover::after {
+				background-color: var(--color-black);
+			}
+		}
+
+		.marketDropdown__btn--icon {
+			path {
+				fill: var(--color-black);
+			}
+		}
+	}
+}

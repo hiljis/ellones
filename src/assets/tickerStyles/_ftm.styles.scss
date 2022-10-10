@@ -1,0 +1,64 @@
+:root {
+	--color-ftm--primary: rgb(0, 72, 255);
+	--color-ftm--secondary: rgb(25, 105, 255);
+	--color-ftm--tertiary: rgb(0, 0, 190);
+
+	.ftm-hover {
+		&:hover {
+			background-color: var(--color-ftm--primary);
+			color: white;
+		}
+	}
+
+	.statBox.ftm {
+		color: var(--color-white);
+		border-color: var(--color-ftm--secondary);
+		border: none;
+		background-color: var(--color-white--10);
+		.statTitle {
+			background-color: var(--color-white);
+			color: var(--color-black);
+		}
+		&:hover {
+			background-color: var(--color-white--25);
+		}
+	}
+
+	.heroPresentation.ftm {
+		background: linear-gradient(160deg, transparent 40%, var(--color-black--50)), var(--color-ftm--primary);
+		color: var(--color-white);
+	}
+
+	.heroPresentation__chart.ftm {
+		border-color: var(--color-white--50);
+		&:hover {
+			background-color: var(--color-white--10);
+		}
+	}
+
+	.header.ftm,
+	.baseBackground.ftm {
+		background-color: var(--color-ftm--primary);
+	}
+
+	.ftm.loader {
+		border-top-color: var(--color-white);
+		border-right-color: var(--color-white);
+	}
+
+	.ftm {
+		.linkText,
+		.marketDropdown__btn {
+			color: var(--color-white);
+			&:hover::after {
+				background-color: white;
+			}
+		}
+
+		.marketDropdown__btn--icon {
+			path {
+				fill: var(--color-white);
+			}
+		}
+	}
+}

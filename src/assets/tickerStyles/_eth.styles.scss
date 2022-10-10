@@ -1,0 +1,51 @@
+:root {
+	--color-eth--primary: #1c1cff;
+	--color-eth--secondary: #84f7ff;
+	--color-eth--tertiary: #84f7ff;
+
+	--color-eth--primary--dark: #1414c2;
+
+	.eth-hover {
+		&:hover {
+			background-color: var(--color-eth--primary);
+			color: white;
+		}
+	}
+
+	.statBox.eth {
+		color: var(--color-white);
+		border: none;
+		background-color: var(--color-white--10);
+		.statTitle {
+			background-color: var(--color-white--75);
+			color: var(--color-black);
+		}
+
+		&:hover {
+			border-color: var(--color-eth--secondary);
+			.statTitle {
+				background-color: var(--color-eth--secondary);
+				color: var(--color-black);
+			}
+		}
+	}
+
+	.heroPresentation.eth {
+		background: linear-gradient(
+			160deg,
+			var(--color-eth--primary) 0%,
+			var(--color-eth--primary) 40%,
+			var(--color-eth--primary--dark)
+		);
+		color: var(--color-white);
+	}
+
+	.heroPresentation__chart.eth {
+		border-color: var(--color-white--50);
+	}
+
+	.header.eth,
+	.baseBackground.eth {
+		background-color: var(--color-eth--primary);
+	}
+}

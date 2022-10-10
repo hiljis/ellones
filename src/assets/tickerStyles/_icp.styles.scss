@@ -1,0 +1,82 @@
+:root {
+	--color-icp--primary: rgb(41, 171, 226);
+	--color-icp--secondary: rgb(238, 30, 121);
+	--color-icp--tertiary: rgb(251, 176, 59);
+
+	.icp-hover {
+		&:hover {
+			background: linear-gradient(
+				to right bottom,
+				var(--color-icp--primary) 40%,
+				var(--color-icp--secondary) 90%,
+				var(--color-icp--tertiary) 95%
+			);
+			color: white;
+		}
+	}
+
+	.statBox.icp {
+		color: var(--color-white);
+		border: none;
+		border-color: var(--color-black);
+		background-color: var(--color-white--10);
+		.statTitle {
+			background-color: var(--color-white);
+			color: var(--color-black);
+		}
+
+		&:hover {
+			background: linear-gradient(to right bottom, var(--color-white--10) 40%, var(--color-white--50));
+		}
+	}
+
+	.heroPresentation.icp {
+		background: linear-gradient(
+			160deg,
+			var(--color-icp--primary),
+			var(--color-icp--primary) 70%,
+			var(--color-icp--secondary) 90%,
+			var(--color-icp--tertiary) 100%
+		);
+		color: var(--color-white);
+
+		.btn {
+			&:hover {
+				background-color: var(--color-icp--tertiary);
+			}
+		}
+	}
+
+	.heroPresentation__chart.icp {
+		border-color: var(--color-white--50);
+		&:hover {
+			background-color: var(--color-white--10);
+		}
+	}
+
+	.header.icp,
+	.baseBackground.icp {
+		background-color: var(--color-icp--primary);
+	}
+
+	.icp.loader {
+		border-top-color: var(--color-white);
+		border-right-color: var(--color-white);
+	}
+
+	.icp {
+		.linkText,
+		.marketDropdown__btn {
+			color: var(--color-white);
+			&:hover::after {
+				background-color: var(--color-white);
+			}
+		}
+
+		.marketDropdown__btn--icon {
+			path {
+				fill: var(--color-white);
+			}
+		}
+	}
+}

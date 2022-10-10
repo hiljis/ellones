@@ -1,0 +1,70 @@
+:root {
+	--color-matic--primary: #7b3fe4;
+	--color-matic--primary--10: rgba(123, 63, 228, 0.1);
+	--color-matic--secondary: #7b3fe4;
+	--color-matic--tertiary: #7b3fe4;
+
+	.matic-hover {
+		&:hover {
+			background-color: var(--color-matic--primary);
+			color: white;
+		}
+	}
+
+	.statBox.matic {
+		color: var(--color-white);
+		border: none;
+		background-color: var(--color-white--10);
+		.statTitle {
+			background-color: var(--color-white);
+			color: var(--color-black);
+		}
+
+		&:hover {
+			background-color: var(--color-white--25);
+		}
+	}
+
+	.heroPresentation__giantTicker.matic {
+		font-size: 17rem;
+	}
+
+	.heroPresentation.matic {
+		background: linear-gradient(160deg, transparent 40%, var(--color-black--50)), var(--color-matic--primary);
+		color: var(--color-white);
+	}
+
+	.heroPresentation__chart.matic {
+		border-color: var(--color-white--50);
+		&:hover {
+			background-color: var(--color-white--10);
+		}
+	}
+
+	.header.matic,
+	.baseBackground.matic {
+		background-color: var(--color-matic--primary);
+		color: var(--color-white);
+	}
+
+	.matic.loader {
+		border-top-color: var(--color-white);
+		border-right-color: var(--color-white);
+	}
+
+	.matic {
+		.linkText,
+		.marketDropdown__btn {
+			color: var(--color-white);
+			&:hover::after {
+				background-color: white;
+			}
+		}
+
+		.marketDropdown__btn--icon {
+			path {
+				fill: var(--color-white);
+			}
+		}
+	}
+}

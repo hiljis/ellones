@@ -6,7 +6,7 @@ import FooterCopy from './footerCopy/FooterCopy';
 
 const Footer = () => {
 	return (
-		<section className="footer">
+		<footer className="footer">
 			<div className="footer__cols">
 				<div className="footer__col">
 					<div className="footer__col--header">
@@ -97,7 +97,7 @@ const Footer = () => {
 				</div>
 			</div>
 			<FooterCopy />
-		</section>
+		</footer>
 	);
 };
 

@@ -220,5 +220,13 @@ export const selectMarketDataByIndex = (state: RootState, dataTarget: string, in
 export const selectFetchQueue = (state: RootState) => {
 	return state.marketData.fetchQueue;
 };
+export const selectPriceHistoryRange = (state: RootState, ticker: string, daysFromToday: number) => {
+	const marketData = Data.marketData.get(ticker);
+	if (!marketData) return [];
+	const indexToday = marketData.priceHistory.length - 1;
+	let indexFrom = indexToday - daysFromToday;
+	if (indexFrom < 0) return marketData.priceHistory;
+	return marketData.priceHistory.slice(indexFrom, indexToday);
+};
 
 export default marketDataSlice.reducer;

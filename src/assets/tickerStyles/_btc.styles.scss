@@ -1,0 +1,76 @@
+:root {
+	--color-btc--primary: rgb(255, 183, 43);
+	--color-btc--secondary: rgb(255, 183, 43);
+	--color-btc--tertiary: rgb(255, 183, 43);
+
+	--color-btc--primary--dark: rgb(232, 153, 0);
+
+	.btc-hover {
+		&:hover {
+			background-color: var(--color-btc--primary);
+			color: black;
+		}
+	}
+
+	.statBox.btc {
+		color: var(--color-black);
+		border-color: var(--color-white);
+		// background-color: var(--color-white--25);
+		.statTitle {
+			background-color: var(--color-white);
+			color: var(--color-black);
+		}
+
+		&:hover {
+			border-color: var(--color-black);
+			background-color: var(--color-white--50);
+			.statTitle {
+				background-color: var(--color-black);
+				color: var(--color-white);
+			}
+		}
+	}
+
+	.heroPresentation.btc {
+		background: linear-gradient(
+			160deg,
+			var(--color-btc--primary) 0%,
+			var(--color-btc--primary) 40%,
+			var(--color-btc--primary--dark)
+		);
+		color: var(--color-black);
+
+		.btn {
+			&:hover {
+				color: var(--color-black);
+				border-color: var(--color-black);
+			}
+		}
+	}
+
+	.heroPresentation__chart.btc {
+		border-color: var(--color-white);
+		&:hover {
+			border-color: var(--color-black);
+		}
+	}
+
+	.header.btc,
+	.baseBackground.btc {
+		background-color: var(--color-btc--primary);
+	}
+
+	.btc.loader {
+		border-top-color: var(--color-white);
+		border-right-color: var(--color-white);
+	}
+
+	.btc {
+		.linkText,
+		.marketDropdown__btn {
+			&:hover::after {
+				background-color: var(--color-black);
+			}
+		}
+	}
+}

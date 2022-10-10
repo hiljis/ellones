@@ -1,0 +1,92 @@
+:root {
+	--color-xlm--primary: black;
+	--color-xlm--secondary: rgb(6, 0, 86);
+	--color-xlm--tertiary: rgb(10, 0, 154);
+
+	.xlm-hover {
+		&:hover {
+			background: linear-gradient(
+				to right bottom,
+				var(--color-xlm--primary) 20%,
+				var(--color-xlm--secondary) 60%,
+				var(--color-xlm--tertiary) 90%
+			);
+			color: white;
+		}
+	}
+
+	.statBox.xlm {
+		color: var(--color-white);
+		border: none;
+		background-color: var(--color-white--25);
+		.statTitle {
+			background-color: var(--color-black);
+			color: var(--color-white);
+		}
+		&:hover {
+			background-color: var(--color-white--50);
+		}
+	}
+
+	.heroPresentation.xlm {
+		background: linear-gradient(
+			160deg,
+			var(--color-xlm--primary) 30%,
+			var(--color-xlm--secondary) 70%,
+			var(--color-xlm--tertiary)
+		);
+		color: var(--color-white);
+
+		.btn {
+			&:hover {
+				background-color: var(--color-white--10);
+			}
+		}
+	}
+
+	.heroPresentation__chart.xlm {
+		border: none;
+		background-color: var(--color-white--10);
+		&:hover {
+			background-color: var(--color-white--25);
+		}
+	}
+
+	.header.xlm,
+	.baseBackground.xlm {
+		background-color: var(--color-xlm--primary);
+
+		.logoFull--text {
+			color: white;
+		}
+	}
+
+	.heroPresentation__giantTicker.xlm {
+		// font-size: 18rem;
+	}
+	//////////////////////////
+
+	.xlm.loader {
+		border-top-color: var(--color-white);
+		border-right-color: var(--color-white);
+	}
+
+	.xlm {
+		.linkText,
+		.marketDropdown__btn {
+			color: var(--color-white);
+			&:hover::after {
+				background-color: var(--color-white);
+			}
+		}
+		.marketDropdown__btn--icon {
+			path {
+				fill: var(--color-white);
+			}
+		}
+	}
+
+	.xlm .themeDropdown__btn {
+		background-color: var(--color-white--25);
+	}
+}

@@ -1,0 +1,75 @@
+:root {
+	--color-avax--primary: rgb(232, 65, 66);
+	--color-avax--secondary: rgb(224, 232, 8);
+	--color-avax--tertiary: rgb(224, 232, 8);
+
+	.avax-hover {
+		&:hover {
+			background: linear-gradient(to right bottom, var(--color-avax--primary) 70%, var(--color-avax--secondary));
+			color: white;
+		}
+	}
+
+	.statBox.avax {
+		color: var(--color-white);
+		background-color: var(--color-white--25);
+		border: none;
+		.statTitle {
+			background-color: var(--color-white);
+			color: var(--color-black);
+		}
+
+		&:hover {
+			background-color: var(--color-white--50);
+		}
+	}
+
+	.heroPresentation__giantTicker.avax {
+		// font-size: 18rem;
+	}
+
+	.heroPresentation.avax {
+		background: linear-gradient(160deg, var(--color-avax--primary) 70%, var(--color-avax--secondary) 100%);
+		color: var(--color-white);
+
+		.btn {
+			&:hover {
+				background-color: var(--color-black--10);
+			}
+		}
+	}
+
+	.heroPresentation__chart.avax {
+		border-color: var(--color-white--50);
+
+		&:hover {
+			border-color: var(--color-white);
+		}
+	}
+
+	.header.avax,
+	.baseBackground.avax {
+		background-color: var(--color-avax--primary);
+	}
+
+	.avax.loader {
+		border-top-color: var(--color-white);
+		border-right-color: var(--color-white);
+	}
+
+	.avax {
+		.linkText,
+		.marketDropdown__btn {
+			color: var(--color-black);
+			&:hover::after {
+				background-color: var(--color-white);
+			}
+		}
+
+		.marketDropdown__btn--icon {
+			path {
+				fill: var(--color-black);
+			}
+		}
+	}
+}

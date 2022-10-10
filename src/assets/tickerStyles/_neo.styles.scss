@@ -1,0 +1,83 @@
+:root {
+	--color-neo--primary: rgb(0 229 153);
+	--color-neo--secondary: rgb(0, 170, 150);
+	--color-neo--tertiary: #2b373f;
+
+	.neo-hover {
+		&:hover {
+			background-color: var(--color-neo--primary);
+			color: black;
+		}
+		& ~ svg {
+			path {
+				fill: var(--color-black);
+				stroke: var(--color-black);
+			}
+		}
+	}
+
+	.statBox.neo {
+		color: var(--color-black);
+		border: none;
+		background-color: var(--color-white--25);
+		.statTitle {
+			background-color: var(--color-neo--tertiary);
+			color: var(--color-white);
+		}
+
+		&:hover {
+			border-color: var(--color-black);
+			background-color: var(--color-white--50);
+			.statTitle {
+				background-color: var(--color-black);
+				color: var(--color-white);
+			}
+		}
+	}
+
+	.heroPresentation.neo {
+		background: linear-gradient(160deg, var(--color-neo--primary) 50%, var(--color-neo--secondary));
+		color: var(--color-black);
+
+		.btn {
+			&:hover {
+				color: var(--color-black);
+				border-color: var(--color-black);
+			}
+		}
+
+		path {
+			fill: var(--color-black);
+		}
+	}
+
+	.heroPresentation__chart.neo {
+		border-color: var(--color-black--25);
+		&:hover {
+			background-color: var(--color-black--10);
+		}
+	}
+
+	.header.neo,
+	.baseBackground.neo {
+		background-color: var(--color-neo--primary);
+	}
+
+	.heroPresentation__giantTicker.neo {
+		// font-size: 18rem;
+	}
+
+	.neo.loader {
+		border-top-color: var(--color-white);
+		border-right-color: var(--color-white);
+	}
+
+	.neo {
+		.linkText,
+		.marketDropdown__btn {
+			&:hover::after {
+				background-color: var(--color-white);
+			}
+		}
+	}
+}

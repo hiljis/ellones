@@ -20,11 +20,11 @@ const L1Card: React.FC<Props> = ({ ticker, width, link }) => {
 		setModalOpen(false);
 	};
 	const card = link ? (
-		<Link className={`l1Card ${ticker}`} to={`/l1s/${ticker}`}>
+		<Link className={`l1Card ${ticker}-hover`} to={`/l1s/${ticker}`}>
 			{ticker}
 		</Link>
 	) : (
-		<div className={`l1Card ${ticker}`}>{ticker}</div>
+		<div className={`l1Card ${ticker}-hover`}>{ticker}</div>
 	);
 
 	return (

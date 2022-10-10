@@ -1,0 +1,66 @@
+:root {
+	--color-sol--primary: rgb(154, 70, 255);
+	--color-sol--primary--75: rgba(153, 70, 255, 0.75);
+	--color-sol--secondary: rgb(19, 242, 149);
+	--color-sol--tertiary: rgb(19, 242, 149);
+
+	.sol-hover {
+		&:hover {
+			background-color: var(--color-sol--primary);
+			color: black;
+		}
+	}
+
+	.statBox.sol {
+		color: var(--color-white);
+		border-color: var(--color-white);
+		border: none;
+		background-color: var(--color-black--10);
+		.statTitle {
+			background-color: var(--color-black);
+			color: var(--color-white);
+		}
+
+		&:hover {
+			background-color: var(--color-black--25);
+		}
+	}
+
+	.heroPresentation.sol {
+		background: linear-gradient(160deg, transparent 40%, var(--color-black--50)), var(--color-sol--primary--75);
+		color: var(--color-black);
+	}
+
+	.heroPresentation__chart.sol {
+		border-color: var(--color-black--25);
+		&:hover {
+			background-color: var(--color-black--25);
+		}
+	}
+
+	.header.sol,
+	.baseBackground.sol {
+		background-color: var(--color-sol--primary);
+	}
+
+	.sol.loader {
+		border-top-color: var(--color-white);
+		border-right-color: var(--color-white);
+	}
+
+	.sol {
+		.linkText,
+		.marketDropdown__btn {
+			color: var(--color-black);
+			&:hover::after {
+				background-color: white;
+			}
+		}
+
+		.marketDropdown__btn--icon {
+			path {
+				fill: var(--color-black);
+			}
+		}
+	}
+}

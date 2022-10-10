@@ -9,8 +9,8 @@ type Props = {
 
 const Loader: React.FC<Props> = ({ color, size, className, thickness }) => {
 	return (
-		<div className={`loaderContainer ${className}`}>
-			<div className={`loader loader--${color} ${size} ${thickness}`}></div>
+		<div className={`loaderContainer`}>
+			<div className={`loader ${className} loader--${color} ${size} ${thickness}`}></div>
 		</div>
 	);
 };

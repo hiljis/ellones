@@ -1,0 +1,88 @@
+:root {
+	--color-algo--primary: black;
+	--color-algo--secondary: rgb(0, 255, 68);
+	--color-algo--tertiary: rgb(187, 0, 255);
+
+	.algo-hover {
+		&:hover {
+			background: linear-gradient(to right bottom, var(--color-algo--primary) 70%, var(--color-algo--secondary));
+			color: white;
+		}
+	}
+
+	.statBox.algo {
+		color: var(--color-white);
+		border: none;
+		background-color: var(--color-white--10);
+		.statTitle {
+			background-color: var(--color-white);
+			color: var(--color-black);
+		}
+		&:hover {
+			background-color: var(--color-white--25);
+		}
+	}
+
+	.heroPresentation__giantTicker.algo {
+		// font-size: 18rem;
+	}
+
+	.heroPresentation.algo {
+		background: linear-gradient(
+			160deg,
+			var(--color-algo--primary),
+			var(--color-algo--primary) 80%,
+			var(--color-algo--secondary)
+		);
+		color: var(--color-white);
+
+		.btn {
+			&:hover {
+				background-color: var(--color-algo--tertiary);
+			}
+		}
+	}
+
+	.heroPresentation__chart.algo {
+		border-color: var(--color-white);
+		// border: none;
+		background-color: transparent;
+		&:hover {
+			background-color: var(--color-white--10);
+		}
+	}
+
+	.header.algo,
+	.baseBackground.algo {
+		background-color: var(--color-algo--primary);
+
+		.logoFull--text {
+			color: white;
+		}
+	}
+
+	.algo.loader {
+		border-top-color: var(--color-white);
+		border-right-color: var(--color-white);
+	}
+
+	.algo {
+		.linkText,
+		.marketDropdown__btn {
+			color: var(--color-white);
+			&:hover::after {
+				background-color: var(--color-white);
+			}
+		}
+
+		.marketDropdown__btn--icon {
+			path {
+				fill: var(--color-white);
+			}
+		}
+	}
+
+	.algo .themeDropdown__btn {
+		background-color: var(--color-white--25);
+	}
+}

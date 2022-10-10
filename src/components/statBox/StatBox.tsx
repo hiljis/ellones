@@ -1,15 +1,18 @@
+import { useAppSelector } from '../../store/hooks';
+import { selectGlobalTheme } from '../../store/theme/theme.slice';
 import './StatBox.scss';
 
 type Props = {
 	children?: React.ReactNode;
 	title: string;
 	unit?: string;
-	number?: number;
+	number?: number | string;
 };
 
 const StatBox: React.FC<Props> = ({ children, number, unit, title }) => {
+	const theme = useAppSelector(selectGlobalTheme);
 	return (
-		<div className="statBox statBox--black">
+		<div className={`statBox statBox--black ${theme}`}>
 			{children ? (
 				<div className="stat">{children}</div>
 			) : (

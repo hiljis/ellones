@@ -1,0 +1,71 @@
+:root {
+	--color-trx--primary: rgb(231, 0, 39);
+	--color-trx--secondary: #e70028;
+	--color-trx--tertiary: #e70028;
+	--color-trx--primary--dark: rgb(141, 0, 24);
+
+	.trx-hover {
+		&:hover {
+			background-color: var(--color-trx--primary);
+			color: white;
+		}
+	}
+
+	.statBox.trx {
+		color: var(--color-white);
+		border: none;
+		border-color: transparent;
+		background-color: var(--color-white--25);
+		.statTitle {
+			background-color: var(--color-white);
+			color: var(--color-black);
+		}
+
+		&:hover {
+			background-color: var(--color-black--25);
+		}
+	}
+
+	.heroPresentation.trx {
+		background: linear-gradient(160deg, var(--color-trx--primary) 60%, var(--color-trx--primary--dark) 100%);
+		color: var(--color-white);
+		.btn {
+			&:hover {
+				background-color: var(--color-trx--primary--dark);
+			}
+		}
+	}
+
+	.heroPresentation__chart.trx {
+		border-color: var(--color-white--50);
+		&:hover {
+			background-color: var(--color-black--10);
+		}
+	}
+
+	.header.trx,
+	.baseBackground.trx {
+		background-color: var(--color-trx--primary);
+	}
+
+	.bnb.loader {
+		border-top-color: var(--color-white);
+		border-right-color: var(--color-white);
+	}
+
+	.trx {
+		.linkText,
+		.marketDropdown__btn {
+			color: var(--color-white);
+			&:hover::after {
+				background-color: var(--color-white);
+			}
+		}
+
+		.marketDropdown__btn--icon {
+			path {
+				fill: var(--color-white);
+			}
+		}
+	}
+}

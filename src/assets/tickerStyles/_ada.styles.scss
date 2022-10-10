@@ -1,0 +1,82 @@
+:root {
+	--color-ada--primary: #3458b1;
+	--color-ada--secondary: rgb(0, 81, 255);
+	--color-ada--tertiary: rgb(0, 81, 255);
+
+	--color-ada--primary--dark: #193478;
+	--color-ada--white: #f8f8f5;
+
+	.ada-hover {
+		&:hover {
+			background-color: var(--color-ada--primary);
+			color: var(--color-ada--white);
+		}
+		& ~ svg {
+			path {
+				fill: var(--color-ada--white);
+				stroke: transparent;
+			}
+		}
+	}
+
+	.statBox.ada {
+		color: var(--color-ada--white);
+		border-color: var(--color-white--50);
+		.statTitle {
+			background-color: var(--color-ada--primary--dark);
+			color: var(--color-ada--white);
+		}
+
+		&:hover {
+			border-color: var(--color-ada--primary--dark);
+		}
+	}
+
+	.heroPresentation.ada {
+		background-color: var(--color-ada--primary);
+		color: var(--color-ada--white);
+
+		.btn {
+			color: var(--color-ada--white);
+			border-color: var(--color-ada--white);
+			&:hover {
+				background-color: var(--color-ada--primary--dark);
+			}
+		}
+
+		path {
+			fill: var(--color-ada--white);
+			stroke: transparent;
+		}
+	}
+
+	.heroPresentation__chart.ada {
+		border-color: var(--color-white--25);
+		&:hover {
+			background-color: var(--color-white--10);
+		}
+	}
+
+	.header.ada,
+	.baseBackground.ada {
+		background-color: var(--color-ada--primary);
+	}
+
+	.heroPresentation__giantTicker.ada {
+		// font-size: 18rem;
+	}
+
+	.ada.loader {
+		border-top-color: var(--color-ada--white);
+		border-right-color: var(--color-ada--white);
+	}
+
+	.ada {
+		.linkText,
+		.marketDropdown__btn {
+			&:hover::after {
+				background-color: var(--color-ada--white);
+			}
+		}
+	}
+}

@@ -226,3 +226,126 @@ export const getPairlineChartOptions = (chartData, dataCategory, type, resolutio
 		},
 	};
 };
+
+export const getPresentationChartOptions = (ticker, chartData, type, resolution) => {
+	return {
+		// indexAxis: 'xAxis',
+		responsive: true,
+		maintainAspectRatio: false,
+		parsing: false,
+		animation: true,
+		scales: {
+			'y-axis-1': {
+				indexAxis: 'xAxis',
+				position: 'left',
+				reverse: false,
+				type: type,
+				bounds: 'ticks',
+				beginAtZero: false,
+				ticks: {
+					display: false,
+				},
+				grid: {
+					display: false,
+					borderWidth: 0,
+				},
+			},
+			xAxis: {
+				min: chartData[0].x,
+				max: chartData[chartData.length - 1].x,
+				type: 'time',
+				time: {
+					unit: 'day',
+					stepSize: 1,
+					displayFormats: {
+						millisecond: '',
+						seconds: '',
+						minute: '',
+						hour: '',
+						day: 'MMM d',
+						week: 'yy MMM',
+						month: 'yy MMM',
+						quarter: 'yy MMM',
+						year: 'yyyy',
+					},
+				},
+				ticks: {
+					display: false,
+					maxTicksLimit: 12,
+				},
+				grid: {
+					display: false,
+					borderWidth: 0,
+				},
+			},
+		},
+		plugins: {
+			legend: {
+				display: false,
+				position: 'top',
+			},
+			title: {
+				display: false,
+			},
+			tooltip: {
+				position: 'average',
+				borderWidth: 0,
+				backgroundColor: 'rgba(0, 0, 0, 1)',
+				bodyColor: 'white',
+				padding: 10,
+				titleFont: {
+					size: 14,
+					weight: 500,
+				},
+				titleAlign: 'center',
+				caretSize: 0,
+				caretPadding: 20,
+				displayColors: true,
+				cornerRadius: 0,
+				boxWidth: 5,
+				boxHeight: 5,
+				boxPadding: 5,
+				usePointStyle: true,
+				xAlign: 'right',
+				yAlign: 'bottom',
+				animation: false,
+				callbacks: {
+					title: (data) => {
+						const dataPointLabel = data[0].label;
+						const [date, year] = dataPointLabel.split(',');
+						return `${date}, ${year}`;
+					},
+					label: (data) => {
+						const floatVal = parseFloat(data.formattedValue.replace(',', ''));
+						const numOfDecimals = floatVal < 1 ? 3 : 2;
+						const currencyStr = floatVal.toLocaleString('en-US', {
+							maximumFractionDigits: numOfDecimals,
+							style: 'currency',
+							currency: 'USD',
+						});
+						return currencyStr;
+					},
+				},
+			},
+		},
+		elements: {
+			line: {
+				// borderColor: 'rgba(0,0,255,1)',
+				// fill: 'origin',
+				fill: false,
+				borderWidth: 2,
+				tension: 0.4,
+			},
+			point: {
+				pointStyle: 'circle',
+				pointBackgroundColor: 'transparent',
+				pointBorderColor: 'transparent',
+				pointRadius: 5,
+
+				pointHoverRadius: 5,
+				pointHoverBorderWidth: 2,
+				pointHitRadius: 20,
+			},
+		},
+	};
+};

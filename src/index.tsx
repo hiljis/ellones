@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { store } from './store/store';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import './assets/GlobalStyles.scss';
 import './index.scss';
 
 const container = document.getElementById('root')!;
