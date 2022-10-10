@@ -14,18 +14,15 @@
 
 	.statBox.eth {
 		color: var(--color-white);
-		border: none;
-		background-color: var(--color-white--10);
+		border: 1px solid var(--color-white);
 		.statTitle {
-			background-color: var(--color-white--75);
+			background-color: var(--color-white);
 			color: var(--color-black);
 		}
-
 		&:hover {
 			border-color: var(--color-eth--secondary);
 			.statTitle {
 				background-color: var(--color-eth--secondary);
-				color: var(--color-black);
 			}
 		}
 	}
@@ -38,14 +35,53 @@
 			var(--color-eth--primary--dark)
 		);
 		color: var(--color-white);
+
+		.btn {
+			color: var(--color-white);
+			border-color: var(--color-white);
+			&:hover {
+				color: var(--color-eth--secondary);
+				border-color: var(--color-eth--secondary);
+			}
+		}
 	}
 
 	.heroPresentation__chart.eth {
-		border-color: var(--color-white--50);
+		border: 1px solid var(--color-white--50);
+		&:hover {
+			border-color: var(--color-white);
+		}
 	}
 
 	.header.eth,
 	.baseBackground.eth {
 		background-color: var(--color-eth--primary);
+		.logoFull--text {
+			color: white;
+		}
+	}
+
+	.heroPresentation__giantTicker.eth {
+		// font-size: 18rem;
+	}
+
+	.eth.loader {
+		border-top-color: var(--color-eth--secondary);
+		border-right-color: var(--color-eth--secondary);
+	}
+
+	.eth {
+		.linkText,
+		.marketDropdown__btn {
+			color: var(--color-white);
+			&:hover::after {
+				background-color: var(--color-eth--secondary);
+			}
+		}
+		.marketDropdown__btn--icon {
+			path {
+				fill: var(--color-white);
+			}
+		}
 	}
 }

@@ -18,4 +18,5 @@ export const presentationBorderColor: { [key: string]: string } = {
 	hbar: 'rgb(41, 113, 213)',
 	bnb: '#f0b90a',
 	dot: 'rgb(135, 0, 72)',
+	eth: '#84f7ff',
 };
