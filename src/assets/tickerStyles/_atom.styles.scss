@@ -2,6 +2,7 @@
 	--color-atom--primary: rgb(117, 105, 159);
 	--color-atom--secondary: rgb(172, 72, 197);
 	--color-atom--tertiary: rgb(219, 158, 72);
+	--color-atom--random: 'rgba(70, 0, 255, 1)';
 
 	.atom-hover {
 		&:hover {
@@ -94,5 +95,9 @@
 				fill: var(--color-white);
 			}
 		}
+	}
+
+	.selectTickerBtn.load-success.atom {
+		background-color: var(--color-atom--primary);
 	}
 }

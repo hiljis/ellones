@@ -32,7 +32,7 @@
 	}
 
 	&.load-failed {
-		color: var(--color-warning);
+		color: var(--color-delete);
 	}
 
 	&.load-complete {
@@ -84,10 +84,10 @@
 	}
 
 	&.load-failed-still-loading {
-		background-color: var(--color-warning--10);
+		background-color: var(--color-delete--10);
 		&::after {
 			content: '';
-			border: 1px solid var(--color-warning);
+			border: 1px solid var(--color-delete);
 			border-top-color: transparent;
 			animation: btnLoadRotate 1s linear infinite;
 		}

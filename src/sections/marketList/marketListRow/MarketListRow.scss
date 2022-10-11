@@ -32,14 +32,14 @@
 		&.waiting {
 			cursor: pointer;
 			&:hover {
-				background-color: var(--color-warning--10);
+				background-color: var(--color-delete--10);
 			}
 		}
 		&.failed {
 			cursor: pointer;
-			background-color: var(--color-warning--25);
+			background-color: var(--color-delete--25);
 			&:hover {
-				background-color: var(--color-warning--10);
+				background-color: var(--color-delete--10);
 			}
 		}
 	}

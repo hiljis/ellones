@@ -129,12 +129,8 @@ const PairCard: React.FC<Props> = ({ index }) => {
 	]);
 
 	useEffect(() => {
-		setIsLoading(true);
 		if (pairData && pairData.length > 0) {
 			setTrimmedPairData(pairData.slice(pairData.length - pairTimeSpan));
-			setTimeout(() => {
-				setIsLoading(false);
-			}, 200);
 		}
 	}, [pairTimeSpan, pairData]);
 
@@ -161,7 +157,7 @@ const PairCard: React.FC<Props> = ({ index }) => {
 	let content;
 	if (!numerator || !denominator) {
 		content = <p className="pairCard__message">(Choose numerator & denominator)</p>;
-	} else if (isLoading) {
+	} else if (trimmedPairData.length === 0 || isLoading) {
 		content = <Loader color="black" size="md" />;
 	} else if (numeratorFailed) {
 		content = <p className="pairCard__message">{`Failed to fetch market data for ${numerator}`}</p>;
@@ -171,7 +167,7 @@ const PairCard: React.FC<Props> = ({ index }) => {
 		content = (
 			<p className="pairCard__message">{`Failed to fetch market data for both ${numerator} & ${denominator}`}</p>
 		);
-	} else {
+	} else if (trimmedPairData.length > 0) {
 		// content = <PairChart data={pairData.slice(pairData.length - pairTimeSpan)} />;
 		content = <PairChart data={trimmedPairData} />;
 	}
@@ -185,7 +181,7 @@ const PairCard: React.FC<Props> = ({ index }) => {
 					initSelected={pairDataCategory}
 					widthSize="md"
 					selectHandler={handleOnDataCategoryChange}
-					disabled={isLoading}
+					disabled={pairData.length <= 0}
 				>
 					{[
 						{ string: 'Market Cap', value: 'mCap' },
@@ -194,28 +190,24 @@ const PairCard: React.FC<Props> = ({ index }) => {
 					]}
 				</CheckGroup>
 
-				{pairData?.length ? (
-					<CheckGroup
-						initSelected={pairTimeSpan}
-						widthSize="sm"
-						selectHandler={handleOnTimeSpanChange}
-						disabled={isLoading}
-					>
-						{[
-							{ string: '1m', value: DAYS_1M_BACK <= pairData.length ? DAYS_1M_BACK : -1 },
-							{ string: '3m', value: DAYS_3M_BACK <= pairData.length ? DAYS_3M_BACK : -1 },
-							{ string: '6m', value: DAYS_6M_BACK <= pairData.length ? DAYS_6M_BACK : -1 },
-							{ string: '1y', value: DAYS_1Y_BACK <= pairData.length ? DAYS_1Y_BACK : -1 },
-							{ string: '2y', value: DAYS_2Y_BACK <= pairData.length ? DAYS_2Y_BACK : -1 },
-							{ string: '3y', value: DAYS_3Y_BACK <= pairData.length ? DAYS_3Y_BACK : -1 },
-							{ string: '4y', value: DAYS_4Y_BACK <= pairData.length ? DAYS_4Y_BACK : -1 },
-							{ string: '5y', value: DAYS_5Y_BACK <= pairData.length ? DAYS_5Y_BACK : -1 },
-							{ string: 'all', value: pairData.length },
-						]}
-					</CheckGroup>
-				) : (
-					''
-				)}
+				<CheckGroup
+					initSelected={pairTimeSpan}
+					widthSize="sm"
+					selectHandler={handleOnTimeSpanChange}
+					disabled={pairData.length <= 0}
+				>
+					{[
+						{ string: '1m', value: DAYS_1M_BACK <= pairData.length ? DAYS_1M_BACK : -1 },
+						{ string: '3m', value: DAYS_3M_BACK <= pairData.length ? DAYS_3M_BACK : -1 },
+						{ string: '6m', value: DAYS_6M_BACK <= pairData.length ? DAYS_6M_BACK : -1 },
+						{ string: '1y', value: DAYS_1Y_BACK <= pairData.length ? DAYS_1Y_BACK : -1 },
+						{ string: '2y', value: DAYS_2Y_BACK <= pairData.length ? DAYS_2Y_BACK : -1 },
+						{ string: '3y', value: DAYS_3Y_BACK <= pairData.length ? DAYS_3Y_BACK : -1 },
+						{ string: '4y', value: DAYS_4Y_BACK <= pairData.length ? DAYS_4Y_BACK : -1 },
+						{ string: '5y', value: DAYS_5Y_BACK <= pairData.length ? DAYS_5Y_BACK : -1 },
+						{ string: 'all', value: pairData.length ? pairData.length : -1 },
+					]}
+				</CheckGroup>
 			</div>
 			<div className="pairCard__numerator">
 				<PairTickerPicker isNumerator={true} selectedTicker={numerator} selectHandler={handleNumeratorSelect} />

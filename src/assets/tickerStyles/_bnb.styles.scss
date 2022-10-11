@@ -1,5 +1,5 @@
 :root {
-	--color-bnb--primary: #1e2026;
+	--color-bnb--primary: rgb(30, 32, 38);
 	--color-bnb--secondary: #f0b90a;
 	--color-bnb--secondary--10: rgba(240, 186, 10, 0.1);
 	--color-bnb--tertiary: #f0b90a;
@@ -84,5 +84,9 @@
 
 	.bnb .themeDropdown__btn {
 		background-color: var(--color-white--25);
+	}
+
+	.selectTickerBtn.load-success.bnb {
+		background-color: var(--color-bnb--primary);
 	}
 }

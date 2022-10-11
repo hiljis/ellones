@@ -48,7 +48,6 @@ export const getBarBgColor = (ticker: string) => {
 };
 
 export const getBorderColor = (ticker: string) => {
-	return 'white';
 	if (ticker === 'btc') return 'rgba(255,150,0,0.5)';
 	if (ticker === 'eth') return 'rgba(0,0,255,0.5)';
 	if (ticker === 'bnb') return 'rgba(0,0,0,0.5)';
@@ -70,5 +69,30 @@ export const getBorderColor = (ticker: string) => {
 	if (ticker === 'atom') return 'rgba(70, 0, 255, 1)';
 	if (ticker === 'neo') return 'rgba(0, 200, 105, 1)';
 	if (ticker === 'eos') return 'rgba(0, 0, 0, 1)';
+	else return 'rgba(0, 0, 0, 0.5)';
+};
+
+export const getChartCardBorderColor = (ticker: string) => {
+	if (ticker === 'btc') return 'rgb(255, 183, 43)';
+	if (ticker === 'eth') return 'rgb(28, 28, 255)';
+	if (ticker === 'bnb') return 'rgb(30, 32, 38)';
+	if (ticker === 'ada') return 'rgb(52, 88, 177)';
+	if (ticker === 'sol') return 'rgb(154, 70, 255)';
+	if (ticker === 'avax') return 'rgb(232, 65, 66)';
+	if (ticker === 'hbar') return 'rgba(0, 0, 0, 1)';
+	if (ticker === 'ftm') return 'rgb(0, 72, 255)';
+	if (ticker === 'dot') return 'rgb(230, 0, 122)';
+	if (ticker === 'icp') return 'rgb(41, 171, 226)';
+	if (ticker === 'xlm') return 'rgb(6, 0, 86)';
+	if (ticker === 'xtz') return '#0062ff';
+	if (ticker === 'matic') return 'rgb(123, 63, 228)';
+	if (ticker === 'near') return 'rgba(0, 0, 0, 1)';
+	if (ticker === 'egld') return 'rgba(0, 0, 0, 1)';
+	if (ticker === 'algo') return 'rgba(0, 0, 0, 1)';
+	if (ticker === 'flow') return 'rgb(0, 239, 140)';
+	if (ticker === 'trx') return 'rgb(231, 0, 39)';
+	if (ticker === 'atom') return 'rgba(70, 0, 255, 1)';
+	if (ticker === 'neo') return 'rgb(0, 170, 150)';
+	if (ticker === 'eos') return 'rgb(47, 80, 249)';
 	else return 'rgba(0, 0, 0, 0.5)';
 };

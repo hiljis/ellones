@@ -7,6 +7,7 @@ interface DataModel {
 	marketListData: Map<string, MarketListRowModel>;
 	historyData: Map<string, HistoryData>;
 	pairs: Array<MarketDataPoint[]>;
+	charts: Array<MarketDataPoint[]>;
 }
 
 export const Data: DataModel = {
@@ -14,4 +15,5 @@ export const Data: DataModel = {
 	marketListData: new Map<string, MarketListRowModel>(),
 	historyData: new Map<string, HistoryData>(),
 	pairs: new Array<MarketDataPoint[]>(),
+	charts: new Array<MarketDataPoint[]>(),
 };

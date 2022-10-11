@@ -21,10 +21,10 @@
 	}
 
 	&.load-failed {
-		color: var(--color-warning);
+		color: var(--color-delete);
 		cursor: pointer;
 		&:hover {
-			background-color: var(--color-warning--10);
+			background-color: var(--color-delete--10);
 		}
 	}
 }

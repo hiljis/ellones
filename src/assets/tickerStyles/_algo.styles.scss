@@ -1,5 +1,5 @@
 :root {
-	--color-algo--primary: black;
+	--color-algo--primary: rgb(0, 0, 0);
 	--color-algo--secondary: rgb(0, 255, 68);
 	--color-algo--tertiary: rgb(187, 0, 255);
 
@@ -84,5 +84,9 @@
 
 	.algo .themeDropdown__btn {
 		background-color: var(--color-white--25);
+	}
+
+	.selectTickerBtn.load-success.algo {
+		background-color: var(--color-algo--primary);
 	}
 }

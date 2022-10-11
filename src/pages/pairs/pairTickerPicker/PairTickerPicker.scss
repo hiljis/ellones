@@ -116,9 +116,9 @@
 	}
 
 	&.load-failed {
-		background-color: var(--color-warning--25);
+		background-color: var(--color-delete--25);
 		&:hover {
-			background-color: var(--color-warning--25);
+			background-color: var(--color-delete--25);
 		}
 	}
 }

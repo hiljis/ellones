@@ -19,6 +19,7 @@ import DominancePage from './pages/dominance/Dominance.page';
 import PairsPage from './pages/pairs/Pairs.page';
 import { fetchAllStart } from './store/marketData/marketDataSlice';
 import BaseBackground from './components/baseBackground/BaseBackground';
+import ChartsPage from './pages/charts/Charts.page';
 
 function App() {
 	const profiles = useAppSelector(selectProfiles);
@@ -45,6 +46,7 @@ function App() {
 				<Route path="/change" element={<MarketPage />} />
 				<Route path="/dominance" element={<DominancePage />} />
 				<Route path="/pairs" element={<PairsPage />} />
+				<Route path="/charts" element={<ChartsPage />} />
 				<Route path="/signin" element={<SignInPage />} />
 				<Route path="/signup" element={<SignUpPage />} />
 				<Route path="/signout" element={<SignOutPage />} />

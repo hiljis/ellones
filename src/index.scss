@@ -14,12 +14,21 @@
 	--color-tertiary--85: rgba(255, 165, 0, 0.85);
 	--color-tertiary--dark: rgb(190, 123, 0);
 
-	--color-warning: rgb(255, 0, 100);
-	--color-warning--50: rgba(255, 0, 100, 0.5);
-	--color-warning--25: rgba(255, 0, 100, 0.25);
-	--color-warning--10: rgba(255, 0, 100, 0.1);
+	--color-delete: rgb(255, 0, 100);
+	--color-delete--50: rgba(255, 0, 100, 0.5);
+	--color-delete--25: rgba(255, 0, 100, 0.25);
+	--color-delete--10: rgba(255, 0, 100, 0.1);
+
+	--color-warning: rgb(233, 202, 0);
+	--color-warning--50: rgba(233, 202, 0, 0.5);
+	--color-warning--25: rgba(233, 202, 0, 0.25);
+	--color-warning--10: rgba(233, 202, 0, 0.1);
 
 	--color-positive: rgb(0, 231, 161);
+	--color-positive--light: rgb(193, 255, 238);
+	--color-positive--50: rgb(0, 231, 161, 0.5);
+	--color-positive--25: rgb(0, 231, 161, 0.25);
+	--color-positive--10: rgb(0, 231, 161, 0.1);
 	--color-negative: rgb(255, 0, 122);
 
 	--color-text: #3c4b62;
@@ -168,14 +177,14 @@ a {
 .icon--warning {
 	path,
 	circle {
-		fill: var(--color-warning);
+		fill: var(--color-delete);
 	}
 }
 
 .icon--warningStroke {
 	path,
 	rect {
-		stroke: var(--color-warning);
+		stroke: var(--color-delete);
 	}
 }
 

@@ -1,5 +1,5 @@
 :root {
-	--color-ada--primary: #3458b1;
+	--color-ada--primary: rgb(52, 88, 177);
 	--color-ada--secondary: rgb(0, 81, 255);
 	--color-ada--tertiary: rgb(0, 81, 255);
 
@@ -78,5 +78,9 @@
 				background-color: var(--color-ada--white);
 			}
 		}
+	}
+
+	.selectTickerBtn.load-success.ada {
+		background-color: var(--color-ada--primary);
 	}
 }

@@ -32,8 +32,8 @@ const Footer = () => {
 				<div className="footer__col">
 					<h4 className="footer__col--header">LINKS</h4>
 					<div className="footer__col--item">
-						<LinkText to="/compare" type="compare">
-							compare
+						<LinkText to="/charts" type="charts">
+							charts
 						</LinkText>
 					</div>
 					<div className="footer__col--item">

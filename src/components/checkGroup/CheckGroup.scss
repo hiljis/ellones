@@ -1,3 +1,18 @@
+.checkGroupContainer {
+	position: relative;
+}
+.checkGroupHeader {
+	position: absolute;
+	top: -100%;
+	left: 50%;
+	transform: translateX(-50%);
+	font-size: 1rem;
+	font-weight: 400;
+	letter-spacing: 5px;
+	text-transform: uppercase;
+	color: var(--color-grey);
+}
+
 .checkGroup {
 	overflow: hidden;
 	height: 2.4rem;
@@ -55,6 +70,10 @@
 	height: 100%;
 	background-color: white;
 	&.disabled {
-		display: none;
+		pointer-events: none;
+		background-color: var(--color-grey--lighter);
+		label {
+			color: var(--color-grey);
+		}
 	}
 }

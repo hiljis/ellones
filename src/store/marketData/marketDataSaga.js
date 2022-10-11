@@ -1,4 +1,5 @@
 import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
+import { fetchMarketDataHistory } from '../../app/coingecko/coingecko';
 import { getTestData } from '../../app/Data/TestData';
 import { CG_ERROR_STATUS_OVERLOAD, CG_ERROR_STATUS_UNAVAILABLE, ERROR_CODE_TIME_LIMIT } from '../../app/utils/consts';
 import { calcHistoryDataStart } from '../historyMatrix/historyMatrix.slice';
@@ -26,8 +27,8 @@ export function* fetchFromQueueAsync() {
 		if (!ticker) break;
 		try {
 			yield call(delay, 3000);
-			// const data = yield call(fetchMarketDataHistory, ticker);
-			const data = getTestData(ticker);
+			const data = yield call(fetchMarketDataHistory, ticker);
+			// const data = getTestData(ticker);
 			yield put(fetchTickerSuccess(data));
 			yield put(calculateRowDataStart(data));
 			yield put(calcHistoryDataStart(data));

@@ -1,5 +1,5 @@
 :root {
-	--color-eth--primary: #1c1cff;
+	--color-eth--primary: rgb(28, 28, 255);
 	--color-eth--secondary: #84f7ff;
 	--color-eth--tertiary: #84f7ff;
 
@@ -83,5 +83,9 @@
 				fill: var(--color-white);
 			}
 		}
+	}
+
+	.selectTickerBtn.load-success.eth {
+		background-color: var(--color-eth--primary);
 	}
 }

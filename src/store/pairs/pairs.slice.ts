@@ -112,7 +112,11 @@ export const {
 
 export const selectPairs = (state: RootState) => state.pairs.pairs;
 export const selectPair = (state: RootState, index: number) => state.pairs.pairs[index];
-export const selectPairData = (state: RootState, index: number) => Data.pairs[index];
+export const selectPairData = (state: RootState, index: number) => {
+	if (Data.pairs.length === 0) return [];
+	if (!Data.pairs[index]) return [];
+	return Data.pairs[index];
+};
 export const selectPairStatus = (state: RootState, index: number) => state.pairs.pairs[index].status;
 export const selectPairDataCategory = (state: RootState, index: number) => state.pairs.pairs[index].dataCategory;
 export const selectPairTimeSpan = (state: RootState, index: number) => state.pairs.pairs[index].timeSpan;

@@ -101,7 +101,7 @@
 }
 
 .invalidInput {
-	background-color: var(--color-warning--50);
+	background-color: var(--color-delete--50);
 	&::placeholder {
 		color: var(--color-black);
 	}

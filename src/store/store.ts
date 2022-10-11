@@ -8,6 +8,7 @@ import marketListReducer from './marketList/marketListSlice';
 import historyMatrixReducer from './historyMatrix/historyMatrix.slice';
 import dominanceReducer from './dominance/dominance.slice';
 import pairsReducer from './pairs/pairs.slice';
+import chartsReducer from './charts/charts.slice';
 import themeReducer from './theme/theme.slice';
 import counterReducer from './counter/counterSlice';
 
@@ -21,6 +22,7 @@ export const store = configureStore({
 		historyMatrix: historyMatrixReducer,
 		dominance: dominanceReducer,
 		pairs: pairsReducer,
+		charts: chartsReducer,
 		theme: themeReducer,
 		counter: counterReducer,
 	},

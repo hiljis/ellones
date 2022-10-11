@@ -32,10 +32,10 @@
 	}
 	&--failed {
 		width: 20rem;
-		background-color: var(--color-warning);
-		border: 3px solid var(--color-warning);
+		background-color: var(--color-delete);
+		border: 3px solid var(--color-delete);
 		&:hover {
-			color: var(--color-warning);
+			color: var(--color-delete);
 		}
 	}
 	&--loading {

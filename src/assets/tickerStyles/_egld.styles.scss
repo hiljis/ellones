@@ -84,4 +84,8 @@
 	.egld .themeDropdown__btn {
 		background-color: var(--color-white--25);
 	}
+
+    .selectTickerBtn.load-success.egld {
+		background-color: var(--color-egld--primary);
+	}
 }

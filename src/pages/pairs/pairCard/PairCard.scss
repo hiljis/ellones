@@ -30,12 +30,12 @@
 		right: 1rem;
 
 		&:hover {
-			border-color: var(--color-warning);
-			background-color: var(--color-warning--25);
+			border-color: var(--color-delete);
+			background-color: var(--color-delete--25);
 
 			&::after,
 			&::before {
-				background-color: var(--color-warning);
+				background-color: var(--color-delete);
 			}
 		}
 

@@ -1,5 +1,5 @@
 :root {
-	--color-flow--primary: #00ef8c;
+	--color-flow--primary: rgb(0, 239, 140);
 	--color-flow--primary--dark: #00472a;
 	--color-flow--secondary: #00ef8c;
 	--color-flow--tertiary: #00ef8c;
@@ -78,5 +78,9 @@
 				fill: var(--color-white);
 			}
 		}
+	}
+
+    .selectTickerBtn.load-success.flow {
+		background-color: var(--color-flow--primary);
 	}
 }

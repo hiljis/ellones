@@ -3,7 +3,7 @@ import './LinkText.scss';
 
 type Props = {
 	children: string;
-	type?: 'compare' | 'l1s' | 'market' | 'resource' | 'email' | 'external';
+	type?: 'charts' | 'l1s' | 'market' | 'resource' | 'email' | 'external';
 	to: string;
 };
 

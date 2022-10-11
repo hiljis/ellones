@@ -1,4 +1,5 @@
 import { useId, useState } from 'react';
+import { DAYS_1M_BACK } from '../../app/utils/consts';
 import './CheckGroup.scss';
 
 type Props = {
@@ -7,9 +8,10 @@ type Props = {
 	initSelected: string | number;
 	widthSize: string;
 	disabled?: boolean;
+	title?: string;
 };
 
-const CheckGroup: React.FC<Props> = ({ children, selectHandler, initSelected, widthSize, disabled }) => {
+const CheckGroup: React.FC<Props> = ({ children, selectHandler, initSelected, widthSize, disabled, title }) => {
 	const id = useId();
 	const [selected, setSelected] = useState(initSelected);
 
@@ -20,29 +22,33 @@ const CheckGroup: React.FC<Props> = ({ children, selectHandler, initSelected, wi
 	};
 
 	return (
-		<form className={`checkGroup ${disabled && 'disabled'}`}>
-			{children.map(({ string, value }, i) => {
-				return (
-					<div className={`checkContainer ${value === -1 ? 'disabled' : ''}`} key={i}>
-						<input
-							className={`checkGroup--input ${value === -1 ? 'disabled' : ''}`}
-							type="radio"
-							id={`${id}-${i}`}
-							value={value}
-							checked={selected === value}
-							onChange={handleOnSelect}
-							name={`checkGroup-${id}`}
-						/>
-						<label
-							className={`checkGroup--label ${widthSize} ${value === -1 ? 'disabled' : ''}`}
-							htmlFor={`${id}-${i}`}
-						>
-							{string}
-						</label>
-					</div>
-				);
-			})}
-		</form>
+		<div className="checkGroupContainer">
+			<h5 className="checkGroupHeader">{title}</h5>
+			<form className={`checkGroup ${disabled && 'disabled'}`}>
+				{children.map(({ string, value }, i) => {
+					return (
+						<div className={`checkContainer ${value === -1 ? 'disabled' : ''}`} key={i}>
+							{/* <div className={`checkContainer`} key={i}> */}
+							<input
+								className={`checkGroup--input`}
+								type="radio"
+								id={`${id}-${i}`}
+								value={value}
+								checked={selected === value}
+								onChange={handleOnSelect}
+								name={`checkGroup-${id}`}
+							/>
+							<label
+								className={`checkGroup--label ${widthSize} ${value === -1 ? 'disabled' : ''}`}
+								htmlFor={`${id}-${i}`}
+							>
+								{string}
+							</label>
+						</div>
+					);
+				})}
+			</form>
+		</div>
 	);
 };
 

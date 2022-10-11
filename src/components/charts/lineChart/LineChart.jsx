@@ -71,7 +71,7 @@ const initData = {
 // };
 
 // const LineChart = ({ chartData, dataCategory, datasetLabel, type, resolution }) => {
-const LineChart = ({ chartData, borderColor = '', chartOptions = {} }) => {
+const LineChart = ({ chartData, borderColor = '', chartOptions = {}, className = '' }) => {
 	const chartRef = useRef(null);
 	const [data, setData] = useState({ datasets: [] });
 
@@ -102,7 +102,7 @@ const LineChart = ({ chartData, borderColor = '', chartOptions = {} }) => {
 	};
 
 	return (
-		<div className="chartBox--line">
+		<div className={`chartBox--line ${className}`}>
 			<Chart
 				ref={chartRef}
 				type="line"
