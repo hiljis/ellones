@@ -1,5 +1,5 @@
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, registerables as registerablesJS } from 'chart.js';
 import { Chart } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import 'chartjs-adapter-date-fns';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import { useEffect, useRef, useState } from 'react';
@@ -7,7 +7,8 @@ import { getDoughnutChartOptions } from './DoughnutChartOptions';
 import { getBarBgColor, getBorderColor } from '../chartUtils/colors';
 import './DoughnutChart.scss';
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+// ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(...registerablesJS);
 
 const DoughnutChart = ({ tickerData, dataCategory }) => {
 	const chartRef = useRef(null);

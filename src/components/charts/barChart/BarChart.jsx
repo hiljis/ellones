@@ -1,13 +1,22 @@
+import {
+	Chart as ChartJS,
+	CategoryScale,
+	LinearScale,
+	BarElement,
+	Title,
+	Tooltip,
+	Legend,
+	registerables as registerablesJS,
+} from 'chart.js';
 import { Chart } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
 import 'chartjs-adapter-date-fns';
-import zoomPlugin from 'chartjs-plugin-zoom';
 import { useEffect, useRef, useState } from 'react';
 import { getBarChartOptions } from './BarChartOptions';
 import { getBarBgColor } from '../chartUtils/colors';
 import './BarChart.scss';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+// ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+ChartJS.register(...registerablesJS);
 
 const BarChart = ({ tickerData, dataCategory }) => {
 	const chartRef = useRef(null);
