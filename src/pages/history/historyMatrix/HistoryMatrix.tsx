@@ -5,11 +5,8 @@ import AlgoYearPicker from './pickers/AlgoYearPicker';
 import DataPicker from './pickers/DataPicker';
 import TickerPicker from './pickers/tickerPicker/TickerPicker';
 import './HistoryMatrix.scss';
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { useAppSelector } from '../../../store/hooks';
 import { selectHistoryData, selectTicker } from '../../../store/historyMatrix/historyMatrix.slice';
-import Loader from '../../../components/loader/loader';
-import { fetchTickerStart, selectMarketDataStatusByTicker } from '../../../store/marketData/marketDataSlice';
-import { useEffect, useState } from 'react';
 import { HistoryStateMessage } from './historyStateMessage/HistoryStateMessage';
 
 const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];

@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Data } from '../../app/Data/Data';
 import { DAYS_1M_BACK } from '../../app/utils/consts';
-import { IndexError, MarketDataPoint, TickerError } from '../../app/utils/types';
+import { TickerError } from '../../app/utils/types';
 import { RootState } from '../store';
 
 export type ChartDataCategory = 'price' | 'mCap' | 'volume' | 'tvl';

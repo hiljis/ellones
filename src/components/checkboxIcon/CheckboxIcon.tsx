@@ -1,6 +1,4 @@
 import React, { useEffect, useId, useState } from 'react';
-import { useAppSelector } from '../../store/hooks';
-import { selectMarketDataStatusByTicker } from '../../store/marketData/marketDataSlice';
 import { getIcon } from '../icons/Icons';
 import './CheckboxIcon.scss';
 

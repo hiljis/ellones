@@ -61,10 +61,6 @@
 		border-radius: var(--radius--round);
 	}
 
-	&.idle,
-	&.load-incomplete {
-	}
-
 	&.loading {
 		&::after {
 			content: '';

@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { DEFAULT_AVATAR_COLOR } from '../../app/utils/consts';
 import { User, UserSignIn, UserSignUp } from '../../app/utils/types';
 import { RootState } from '../store';
 

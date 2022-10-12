@@ -1,4 +1,4 @@
-import React, { useEffect, useId, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
 	DAYS_1M_BACK,
 	DAYS_1Y_BACK,
@@ -52,7 +52,6 @@ const ChartCard: React.FC<Props> = ({ children, deleteHandler, index }) => {
 	const selectedTicker = useAppSelector((state) => selectChartTicker(state, index));
 	const chartDisplayMode = useAppSelector((state) => selectChartDisplayMode(state, index));
 	const loadStatus = useAppSelector((state) => selectMarketDataStatusByTicker(state, selectedTicker));
-	const [isLoading, setIsLoading] = useState(false);
 	const [trimmedChartData, setTrimmedChartData] = useState<MarketDataPoint[]>([]);
 
 	useEffect(() => {

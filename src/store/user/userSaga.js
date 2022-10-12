@@ -1,4 +1,4 @@
-import { takeLatest, put, call, all } from 'redux-saga/effects';
+import { takeLatest, put, call } from 'redux-saga/effects';
 
 import {
 	signInSuccess,
@@ -30,7 +30,6 @@ import {
 	createAuthUserWithEmailAndPassword,
 	signInUser,
 	SIGN_IN_METHOD_EMAIL_PASSWORD,
-	updateFavChainTicker,
 	updateUserFavChain,
 	updateUserUsername,
 	updateUserEmail,
@@ -45,7 +44,7 @@ export function* getSnapShotFromUserAuth(userAuth) {
 	try {
 		const userSnapShot = yield call(createUserDocumentFromAuth, userAuth);
 		if (userAuth.uid !== userSnapShot.id) throw new Error('uid does not match document id');
-		const data = userSnapShot.data;
+		// const data = userSnapShot.data;
 		// throw new Error('TEST ERROR');
 		yield put(signInSuccess(userSnapShot.data()));
 	} catch (error) {

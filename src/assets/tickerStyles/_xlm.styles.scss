@@ -61,11 +61,6 @@
 		}
 	}
 
-	.heroPresentation__giantTicker.xlm {
-		// font-size: 18rem;
-	}
-	//////////////////////////
-
 	.xlm.loader {
 		border-top-color: var(--color-white);
 		border-right-color: var(--color-white);
@@ -90,7 +85,7 @@
 		background-color: var(--color-white--25);
 	}
 
-    .selectTickerBtn.load-success.xlm {
+	.selectTickerBtn.load-success.xlm {
 		background-color: var(--color-xlm--secondary);
 	}
 }

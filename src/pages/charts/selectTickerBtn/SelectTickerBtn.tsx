@@ -1,13 +1,10 @@
 import { useEffect, useState } from 'react';
 import { TickerStatus } from '../../../app/utils/types';
-import { getChartCardBorderColor } from '../../../components/charts/chartUtils/colors';
-import CheckboxIcon from '../../../components/checkboxIcon/CheckboxIcon';
 import { getIcon } from '../../../components/icons/Icons';
 import LogoSelectorGrid from '../../../components/logoSelectorGrid/LogoSelectorGrid';
 import OverlayFull from '../../../components/overlayFull/OverlayFull';
-import { changeChartTicker, selectChartTicker } from '../../../store/charts/charts.slice';
-import { useAppDispatch, useAppSelector } from '../../../store/hooks';
-import { MarketDataStatus } from '../../../store/marketData/marketDataSlice';
+import { changeChartTicker } from '../../../store/charts/charts.slice';
+import { useAppDispatch } from '../../../store/hooks';
 import './SelectTickerBtn.scss';
 
 type Props = {

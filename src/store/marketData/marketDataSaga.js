@@ -1,4 +1,4 @@
-import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
+import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { fetchMarketDataHistory } from '../../app/coingecko/coingecko';
 import { getTestData } from '../../app/Data/TestData';
 import { CG_ERROR_STATUS_OVERLOAD, CG_ERROR_STATUS_UNAVAILABLE, ERROR_CODE_TIME_LIMIT } from '../../app/utils/consts';

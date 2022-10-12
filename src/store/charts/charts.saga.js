@@ -1,6 +1,4 @@
-import { put, select, takeEvery } from 'redux-saga/effects';
-import { Data } from '../../app/Data/Data';
-import { selectMarketData } from '../marketData/marketDataSlice';
+import { takeEvery } from 'redux-saga/effects';
 
 export function* setChartData({ payload }) {
 	// const { index, ticker, dataCategory } = payload;

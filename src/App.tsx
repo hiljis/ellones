@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import './App.css';
 import Footer from './sections/footer/Footer';
 import Header from './sections/header/Header';
@@ -17,7 +17,6 @@ import { checkUserSessionStart } from './store/user/userSlice';
 import HistoryPage from './pages/history/History.page';
 import DominancePage from './pages/dominance/Dominance.page';
 import PairsPage from './pages/pairs/Pairs.page';
-import { fetchAllStart } from './store/marketData/marketDataSlice';
 import BaseBackground from './components/baseBackground/BaseBackground';
 import ChartsPage from './pages/charts/Charts.page';
 

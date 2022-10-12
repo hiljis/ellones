@@ -62,10 +62,6 @@
 		background-color: var(--color-dot--primary);
 	}
 
-	.heroPresentation__giantTicker.dot {
-		// font-size: 18rem;
-	}
-
 	.dot.loader {
 		border-top-color: var(--color-dot--secondary);
 		border-right-color: var(--color-dot--secondary);
@@ -80,7 +76,7 @@
 		}
 	}
 
-    .selectTickerBtn.load-success.dot {
+	.selectTickerBtn.load-success.dot {
 		background-color: var(--color-dot--secondary);
 	}
 }

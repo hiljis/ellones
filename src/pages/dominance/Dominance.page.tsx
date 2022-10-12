@@ -1,4 +1,4 @@
-import { FormEventHandler, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
 	DAYS_1M_BACK,
 	DAYS_3M_BACK,
@@ -6,15 +6,12 @@ import {
 	DAYS_1Y_BACK,
 	DAYS_2Y_BACK,
 	DAYS_3Y_BACK,
-	DAYS_SINCE_BTC_MARKET_DATA_START,
 	DAYS_4Y_BACK,
 	DAYS_5Y_BACK,
 } from '../../app/utils/consts';
 import BarChart from '../../components/charts/barChart/BarChart';
 import DoughnutChart from '../../components/charts/doughnutChart/DoughnutChart';
-import CheckboxIcon from '../../components/checkboxIcon/CheckboxIcon';
 import CheckGroup from '../../components/checkGroup/CheckGroup';
-import Loader from '../../components/loader/loader';
 import PageHeader from '../../components/pageHeader/PageHeader';
 import {
 	changeDataCategory,

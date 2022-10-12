@@ -17,7 +17,7 @@ const L1PresentationPage: React.FC = () => {
 		return () => {
 			dispatch(setLocalTheme(''));
 		};
-	}, [ticker]);
+	}, [ticker, dispatch]);
 
 	return (
 		<main className="l1PresentationPage">

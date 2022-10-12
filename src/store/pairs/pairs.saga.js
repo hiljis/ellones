@@ -1,7 +1,6 @@
 import { put, takeEvery } from 'redux-saga/effects';
-import { Data } from '../../app/Data/Data';
 
-import { calcPairDataFailed, calcPairDataSuccess, changeTimeSpan } from './pairs.slice';
+import { calcPairDataFailed, calcPairDataSuccess } from './pairs.slice';
 
 export function* calcPairData({ payload }) {
 	const { index, numeratorData, denominatorData } = payload;

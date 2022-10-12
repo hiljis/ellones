@@ -1,4 +1,4 @@
-import { DAYS_1M_BACK, DAYS_1Y_BACK } from '../../../app/utils/consts';
+import { DAYS_1Y_BACK } from '../../../app/utils/consts';
 import { useAppSelector } from '../../../store/hooks';
 import { selectPriceHistoryRange } from '../../../store/marketData/marketDataSlice';
 import LineChart from '../lineChart/LineChart';

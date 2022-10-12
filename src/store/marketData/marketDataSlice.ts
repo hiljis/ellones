@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Data } from '../../app/Data/Data';
-import { tickers } from '../../app/utils/tickers';
 import { MarketData, MarketDataPoint, TickerError, TickerStatus } from '../../app/utils/types';
 import { MarketListRowModel } from '../marketList/marketListSlice';
 import { RootState } from '../store';

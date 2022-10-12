@@ -4,12 +4,10 @@ import PageHeader from '../../components/pageHeader/PageHeader';
 import PageContainer from '../../components/UI/PageContainer';
 import { selectCharts } from '../../store/charts/charts.slice';
 import { useAppSelector } from '../../store/hooks';
-import { selectTickers } from '../../store/profiles/profilesSlice';
 import './Charts.page.scss';
 import ChartAdderBtn from './chartAdderBtn/ChartAdderBtn';
 
 const ChartsPage: React.FC = () => {
-	const tickers = useAppSelector(selectTickers);
 	const charts = useAppSelector(selectCharts);
 
 	useEffect(() => {

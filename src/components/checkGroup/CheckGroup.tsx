@@ -1,5 +1,4 @@
 import { useId, useState } from 'react';
-import { DAYS_1M_BACK } from '../../app/utils/consts';
 import './CheckGroup.scss';
 
 type Props = {
