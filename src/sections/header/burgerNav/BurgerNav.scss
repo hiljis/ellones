@@ -1,0 +1,93 @@
+.burgerNav {
+	position: fixed;
+	top: 0;
+	left: 100%;
+	width: 100vw;
+	min-height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: var(--color-white);
+	transition: left 0.4s;
+
+	&.open {
+		left: 0;
+	}
+
+	&__list {
+		width: 100%;
+		list-style: none;
+	}
+
+	&__listItem {
+		cursor: pointer;
+		&:hover {
+			background-color: blue;
+			color: var(--color-white);
+			svg path {
+				fill: var(--color-white);
+			}
+		}
+	}
+
+	&__link,
+	&__dropdownButton {
+		width: 100%;
+		height: 10rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 3.2rem;
+		font-weight: 600;
+		&Content {
+			position: relative;
+		}
+		&Icon {
+			position: absolute;
+			right: -5rem;
+			top: 50%;
+			width: 3rem;
+			height: 3rem;
+			transform: translateY(-50%);
+		}
+		&.open {
+			background-color: blue;
+			color: var(--color-white);
+			svg path {
+				fill: var(--color-white);
+			}
+		}
+	}
+	&__dropdownList {
+		background-color: var(--color-white);
+		top: 100%;
+		left: 0;
+		width: 100%;
+		height: 0;
+		overflow: hidden;
+		&Item {
+			cursor: pointer;
+			&:hover,
+			&:active,
+			&:focus {
+				background-color: var(--color-primary--10);
+				color: var(--color-primary);
+				svg path {
+					fill: var(--color-primary);
+				}
+			}
+		}
+		&.open {
+			height: min-content;
+		}
+	}
+	&__dropdownLink {
+		width: 100%;
+		height: 10rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 3rem;
+		font-weight: 600;
+	}
+}

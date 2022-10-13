@@ -1,4 +1,10 @@
+@import '../../../assets/styles/abstracts/mixins';
+
 .headerNav {
 	display: flex;
 	gap: 5rem;
+
+	@include respond(phone) {
+		display: none;
+	}
 }

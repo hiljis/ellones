@@ -5,6 +5,8 @@ import LogoFull from '../../components/LogoFull/LogoFull';
 import HeaderNav from './HeaderNav/HeaderNav';
 import { useAppSelector } from '../../store/hooks';
 import { selectGlobalTheme } from '../../store/theme/theme.slice';
+import BurgerButton from './burgerButton/BurgerButton';
+import BurgerNav from './burgerNav/BurgerNav';
 
 const Header = () => {
 	const theme = useAppSelector(selectGlobalTheme);
@@ -17,6 +19,7 @@ const Header = () => {
 				<ThemeDropdown />
 				<UserDropdown />
 			</div>
+			<BurgerButton />
 		</header>
 	);
 };

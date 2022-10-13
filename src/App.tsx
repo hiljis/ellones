@@ -55,7 +55,7 @@ function App() {
 				<Route path="/l1s/:ticker" element={<L1PresentationPage />} />
 				<Route path="/history" element={<HistoryPage />} />
 			</Routes>
-			<Footer />
+			{/* <Footer /> */}
 		</div>
 	);
 }

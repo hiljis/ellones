@@ -1,3 +1,5 @@
+@import 'assets/styles/abstracts/mixins';
+
 :root {
 	--color-secondary: rgb(0, 162, 143);
 	--color-secondary--10: rgba(0, 162, 143, 0.1);
@@ -89,19 +91,40 @@
 
 html {
 	scroll-behavior: smooth;
+	font-size: 62.5%; // 1rem = 10px, 10px/16px = 62.5%
+
+	@include respond(tab-land) {
+		font-size: 56.25%; // 1rem = 9px, 9/16 = 56.25%
+	}
+	@include respond(tab-port) {
+		font-size: 50%; // 1rem = 8px, 8/16 = 50%
+	}
+	@include respond(phone) {
+		font-size: 43.75%; // 1rem = 7px, 7/16 = 43.75%
+	}
+	@include respond(big-desktop) {
+		font-size: 75%; // 1rem = 12px, 12/16 = 75%
+	}
 }
 
-* {
+*,
+*::before,
+*::after {
 	margin: 0;
 	padding: 0;
+	box-sizing: inherit;
 	/* 1 rem = 10px */
-	font-size: 62.5%;
 	font-family: inherit;
 	box-sizing: border-box;
 }
 
 body {
+	box-sizing: border-box;
 	font-family: var(--f-family);
+	// font-weight: 400;
+	// line-height: 1.7;
+	// color: var(--color-black);
+	// padding: 3rem;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
