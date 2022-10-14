@@ -1,3 +1,5 @@
+@import '../../assets/styles/abstracts/mixins';
+
 .linkSocial {
 	display: flex;
 	align-items: center;
@@ -55,5 +57,11 @@
 		}
 
 		color: var(--color-youtube);
+	}
+
+	span {
+		@include respond(phone) {
+			display: none;
+		}
 	}
 }

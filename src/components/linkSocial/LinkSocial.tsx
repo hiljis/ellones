@@ -24,7 +24,7 @@ const LinkSocial = (props: LinkSocialProps) => {
 			{props.plattform === 'github' ? <IconGithub className="linkSocial__icon" /> : ''}
 			{props.plattform === 'youtube' ? <IconYoutube className="linkSocial__icon" /> : ''}
 			{props.plattform === 'discord' ? <IconDiscord className="linkSocial__icon" /> : ''}
-			{props.withText && props.plattform}
+			{props.withText && <span>{props.plattform}</span>}
 		</a>
 	);
 };

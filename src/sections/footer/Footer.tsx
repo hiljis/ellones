@@ -8,11 +8,11 @@ const Footer = () => {
 	return (
 		<footer className="footer">
 			<div className="footer__cols">
-				<div className="footer__col">
-					<div className="footer__col--header">
+				<div className="footer__col footer__col--company">
+					<div className="footer__col--header logo">
 						<LogoFull />
 					</div>
-					<div className="footer__col--item">
+					<div className="footer__col--item email">
 						<LinkText to="henric.hiljanen@gmail.com" type="email">
 							support@ellones.com
 						</LinkText>
@@ -29,7 +29,7 @@ const Footer = () => {
 						</LinkText>
 					</div>
 				</div>
-				<div className="footer__col">
+				<div className="footer__col footer__col--links">
 					<h4 className="footer__col--header">LINKS</h4>
 					<div className="footer__col--item">
 						<LinkText to="/charts" type="charts">
@@ -57,7 +57,7 @@ const Footer = () => {
 						</LinkText>
 					</div>
 				</div>
-				<div className="footer__col">
+				<div className="footer__col footer__col--resources">
 					<h4 className="footer__col--header">RESOUCES</h4>
 					<div className="footer__col--item">
 						<LinkText to="#" type="resource">
@@ -80,7 +80,7 @@ const Footer = () => {
 						</LinkText>
 					</div>
 				</div>
-				<div className="footer__col">
+				<div className="footer__col footer__col--socials">
 					<h4 className="footer__col--header">SOCIALS</h4>
 					<div className="footer__col--item">
 						<LinkSocial plattform="twitter" href="#" withText={true} />
