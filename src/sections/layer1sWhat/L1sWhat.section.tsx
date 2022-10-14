@@ -13,7 +13,7 @@ const L1sWhat: React.FC = () => {
 		<section className="section__whatIs">
 			<button className="btn--sectionWide" onClick={handleToggleCollapsed} type="button">
 				<p className="question">What is a L1?</p>
-				<IconArrowDown />
+				<IconArrowDown className="btn--sectionWide--icon" />
 			</button>
 
 			<div className={`answer--container ${collapsed ? 'collapsed' : ''}`}>

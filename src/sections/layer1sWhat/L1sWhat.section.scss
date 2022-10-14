@@ -1,3 +1,5 @@
+@import '../../assets/styles/abstracts/mixins';
+
 .section__whatIs {
 	overflow: hidden;
 	border-radius: var(--radius--md);
@@ -32,6 +34,18 @@
 	svg path {
 		fill: white;
 	}
+
+	@include respond(tab-port) {
+		&--icon {
+			width: 3rem;
+		}
+	}
+	@include respond(phone) {
+		padding: 2rem 4rem;
+		&--icon {
+			width: 2.4rem;
+		}
+	}
 }
 
 .answer--container {
@@ -53,6 +67,11 @@
 	color: white;
 	background-color: black;
 	text-align: left;
+
+	@include respond(phone) {
+		padding: 3rem;
+		padding-top: 0;
+	}
 }
 
 .collapsed {

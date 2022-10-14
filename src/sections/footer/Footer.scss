@@ -13,7 +13,7 @@
 	z-index: 1;
 
 	@include respond(big-desktop) {
-		padding: 10rem 40rem;
+		padding: 10rem 20rem;
 	}
 
 	@include respond(phone) {
@@ -107,6 +107,7 @@
 		}
 
 		&--subHeader {
+			white-space: nowrap;
 			margin-top: 5.5rem;
 			height: 2.5rem;
 			margin-bottom: 3rem;
