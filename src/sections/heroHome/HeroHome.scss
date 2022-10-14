@@ -1,3 +1,5 @@
+@import '../../assets/styles/abstracts/mixins';
+
 .section__heroHome {
 	width: 100%;
 	min-height: calc(100vh - 10rem);
@@ -22,6 +24,10 @@
 	font-weight: 600;
 	line-height: 1;
 	overflow: hidden;
+
+	@include respond(slim) {
+		font-size: 8rem;
+	}
 }
 
 @keyframes slideInLeft {
@@ -61,11 +67,11 @@
 .heroHome__link {
 	position: absolute;
 	left: 50%;
-	bottom: 3rem;
+	bottom: 1rem;
 	transform: translateX(-50%);
 	opacity: 0;
 	visibility: hidden;
-	padding: 3rem 5rem;
+	padding: 2rem 5rem;
 	border-radius: var(--radius--md);
 
 	animation: show 1s 1.2s forwards;
