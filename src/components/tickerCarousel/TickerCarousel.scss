@@ -1,89 +1,45 @@
+@import '../../assets/styles/abstracts/mixins';
+
 .carousel__container {
 	display: flex;
-	flex-direction: column;
 	align-items: center;
-}
-
-.carousel {
-	width: 100%;
+	width: 100vw;
 	height: 25rem;
+	overflow-x: scroll;
 
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-}
-
-.carousel__btn {
-	width: 10rem;
-	height: 15rem;
-	background-color: var(--color-white);
-	border: none;
-	cursor: pointer;
-
-	display: flex;
-	align-items: center;
-	justify-content: center;
-
-	&:hover {
-		background-color: var(--color-black);
-	}
-
-	&:active {
-		background-color: var(--color-grey);
-	}
-
-	&:hover svg path {
-		fill: var(--color-white);
-	}
-}
-
-.carousel__btnIcon {
-	height: 3rem;
-	path {
-		fill: var(--color-black);
-	}
-
-	&--left {
-		transform: translateX(-5px);
-	}
-
-	&--right {
-		transform: translateX(5px);
-	}
-}
-
-.carousel__content {
-	position: relative;
-	width: calc(100vw - 20rem);
-	height: 100%;
-	overflow: hidden;
-
-	.carousel__cards {
-		position: absolute;
-		top: 0;
-		left: 0;
+	.cards {
 		height: 100%;
-
+		width: calc((100vw / 7) * 21);
 		display: flex;
-		transition: left 0.6s;
+		align-items: center;
+
+		@include respond(tab-land) {
+			width: calc((100vw / 6) * 21);
+		}
+		@include respond(tab-port) {
+			width: calc((100vw / 5) * 21);
+		}
+		@include respond(phone) {
+			width: calc((100vw / 2) * 21);
+		}
+		@include respond(big-desktop) {
+			width: calc((100vw / 10) * 21);
+		}
 	}
-}
 
-.carouselIndicator--position {
-	position: relative;
-	margin-top: 2rem;
-
-	height: 0.5rem;
-	width: calc(100vw - 20rem);
-
-	.position {
-		position: absolute;
-		left: 0;
-		top: 0;
-		height: 100%;
-		background-color: var(--color-black);
-		border-radius: var(--radius--round);
-
-		transition: left 0.6s;
+	.l1CardContainer {
+		width: calc(100vw / 7);
+		@include respond(tab-land) {
+			width: calc(100vw / 6);
+		}
+		@include respond(tab-port) {
+			width: calc(100vw / 5);
+		}
+		@include respond(phone) {
+			width: calc(100vw / 3);
+		}
+		@include respond(big-desktop) {
+			width: calc(100vw / 10);
+		}
 	}
 }

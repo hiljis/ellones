@@ -1,7 +1,18 @@
+@import '../../assets/styles/abstracts/mixins';
+
 .section__carousel {
 	display: flex;
 	flex-direction: column;
 
 	width: 100%;
 	padding: 15rem 0;
+
+	@include respond(tab-land) {
+	}
+	@include respond(tab-port) {
+	}
+	@include respond(phone) {
+	}
+	@include respond(big-desktop) {
+	}
 }

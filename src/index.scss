@@ -152,6 +152,18 @@ a {
 	align-self: flex-start;
 	margin-left: 10rem;
 	margin-bottom: 5rem;
+
+	@include respond(tab-land) {
+		margin-left: 5rem;
+	}
+	@include respond(tab-port) {
+		margin-left: 5rem;
+	}
+	@include respond(phone) {
+		margin-left: 3rem;
+	}
+	@include respond(big-desktop) {
+	}
 }
 
 .icon--xxs {
