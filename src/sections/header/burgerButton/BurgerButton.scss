@@ -19,6 +19,10 @@
 		}
 	}
 
+	@include respond(tab-port) {
+		display: block;
+		position: relative;
+	}
 	@include respond(phone) {
 		display: block;
 		position: relative;

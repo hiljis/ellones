@@ -85,7 +85,7 @@ const L1SummaryCard: React.FC<Props> = ({ ticker }) => {
 				</div>
 			</div>
 
-			<div className="layer1__box layer1__logo">
+			<div className={`layer1__box layer1__logo ${ticker}`}>
 				{getIcon(ticker, 'layer1__logo__img icon--white')}
 				<div className="layer1__logo__btnContainer">
 					<LinkButton to={`/l1s/${ticker}`} type="primary-invert">
