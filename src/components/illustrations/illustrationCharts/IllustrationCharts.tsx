@@ -2,7 +2,11 @@ import { ReactComponent as IllustrationComponentCharts } from './illustration__c
 import './IllustrationCharts.scss';
 
 const IllustrationCharts = () => {
-	<IllustrationComponentCharts />;
+	return (
+		<div className="illustration__container illustration__container--charts">
+			<IllustrationComponentCharts className="illustration--charts" />
+		</div>
+	);
 };
 
 export default IllustrationCharts;

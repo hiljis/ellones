@@ -1,6 +1,6 @@
 .feature {
 	width: 100%;
-	height: 25vw;
+	height: 100%;
 	padding: 2rem;
 	background-color: var(--color-white);
 	color: var(--color-black);
@@ -89,6 +89,7 @@
 	}
 
 	&__illustration {
+		max-width: 70%;
 		svg {
 			line,
 			circle {
