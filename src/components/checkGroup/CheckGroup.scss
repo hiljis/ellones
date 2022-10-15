@@ -1,3 +1,5 @@
+@import '../../assets/styles/abstracts/mixins';
+
 .checkGroupContainer {
 	position: relative;
 }
@@ -11,6 +13,7 @@
 	letter-spacing: 5px;
 	text-transform: uppercase;
 	color: var(--color-grey);
+	white-space: nowrap;
 }
 
 .checkGroup {
@@ -40,6 +43,9 @@
 		font-weight: 600;
 		text-transform: uppercase;
 		letter-spacing: 2px;
+		@include respond(phone) {
+			letter-spacing: 1px;
+		}
 
 		&:hover {
 			background-color: var(--color-black);
@@ -48,11 +54,18 @@
 
 		&.sm {
 			padding: 0 1rem;
+
+			@include respond(phone) {
+				padding: 0 0.6rem;
+			}
 		}
 
 		&.md {
 			padding: 0 1rem;
 			min-width: 10rem;
+			@include respond(phone) {
+				padding: 0 0.6rem;
+			}
 		}
 	}
 

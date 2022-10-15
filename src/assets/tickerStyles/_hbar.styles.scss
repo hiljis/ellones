@@ -1,5 +1,6 @@
 :root {
 	--color-hbar--primary: black;
+	--color-hbar--primary--80: rgba(0, 0, 0, 0.8);
 	--color-hbar--secondary: rgb(41, 113, 213);
 	--color-hbar--tertiary: rgb(205, 18, 222);
 
@@ -85,7 +86,21 @@
 		background-color: var(--color-white--25);
 	}
 
-    .selectTickerBtn.load-success.hbar {
+	.selectTickerBtn.load-success.hbar {
 		background-color: var(--color-hbar--primary);
+	}
+}
+
+.settingsOverlay.hbar {
+	background-color: var(--color-hbar--primary--80);
+	h5 {
+		color: white;
+	}
+}
+
+.chartCard__settingsBtn.hbar {
+	background-color: var(--color-hbar--secondary);
+	svg path {
+		stroke: white;
 	}
 }

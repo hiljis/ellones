@@ -1,5 +1,6 @@
 :root {
 	--color-icp--primary: rgb(41, 171, 226);
+	--color-icp--primary--95: rgba(41, 171, 226, 0.95);
 	--color-icp--secondary: rgb(238, 30, 121);
 	--color-icp--tertiary: rgb(251, 176, 59);
 
@@ -80,7 +81,21 @@
 		}
 	}
 
-    .selectTickerBtn.load-success.icp {
+	.selectTickerBtn.load-success.icp {
 		background-color: var(--color-icp--primary);
+	}
+}
+
+.settingsOverlay.icp {
+	background-color: var(--color-icp--primary--95);
+	h5 {
+		color: white;
+	}
+}
+
+.chartCard__settingsBtn.icp {
+	background-color: var(--color-icp--tertiary);
+	svg path {
+		stroke: white;
 	}
 }

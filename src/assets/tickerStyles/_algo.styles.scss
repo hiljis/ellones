@@ -1,5 +1,6 @@
 :root {
 	--color-algo--primary: rgb(0, 0, 0);
+	--color-algo--primary--80: rgba(0, 0, 0, 0.8);
 	--color-algo--secondary: rgb(0, 255, 68);
 	--color-algo--tertiary: rgb(187, 0, 255);
 
@@ -89,4 +90,15 @@
 	.selectTickerBtn.load-success.algo {
 		background-color: var(--color-algo--primary);
 	}
+}
+
+.settingsOverlay.algo {
+	background-color: var(--color-algo--primary--80);
+	h5 {
+		color: white;
+	}
+}
+
+.chartCard__settingsBtn.algo {
+	background-color: var(--color-algo--primary);
 }

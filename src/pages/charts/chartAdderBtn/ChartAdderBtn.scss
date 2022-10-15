@@ -1,3 +1,5 @@
+@import '../../../assets/styles/abstracts/mixins';
+
 .chartAdderBtn {
 	width: 90%;
 	height: 5rem;
@@ -26,5 +28,9 @@
 
 	&:hover {
 		background-color: var(--color-primary--10);
+	}
+
+	@include respond(big-desktop) {
+		width: calc(100vw - 30rem);
 	}
 }

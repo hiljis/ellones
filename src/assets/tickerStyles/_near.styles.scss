@@ -1,5 +1,6 @@
 :root {
 	--color-near--primary: white;
+	--color-near--primary--95: rgba(255, 255, 255, 0.95);
 	--color-near--secondary: black;
 	--color-near--tertiary: black;
 
@@ -75,7 +76,21 @@
 		}
 	}
 
-    .selectTickerBtn.load-success.near {
+	.selectTickerBtn.load-success.near {
 		background-color: var(--color-near--secondary);
+	}
+}
+
+.settingsOverlay.near {
+	background-color: var(--color-near--primary--95);
+	h5 {
+		color: black;
+	}
+}
+
+.chartCard__settingsBtn.near {
+	background-color: var(--color-near--secondary);
+	svg path {
+		stroke: white;
 	}
 }

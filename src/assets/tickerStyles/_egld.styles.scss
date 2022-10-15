@@ -1,5 +1,6 @@
 :root {
 	--color-egld--primary: black;
+	--color-egld--primary--80: rgba(0, 0, 0, 0.8);
 	--color-egld--secondary: rgb(0, 42, 255);
 	--color-egld--tertiary: black;
 
@@ -85,7 +86,18 @@
 		background-color: var(--color-white--25);
 	}
 
-    .selectTickerBtn.load-success.egld {
+	.selectTickerBtn.load-success.egld {
 		background-color: var(--color-egld--primary);
 	}
+}
+
+.settingsOverlay.egld {
+	background-color: var(--color-egld--primary--80);
+	h5 {
+		color: white;
+	}
+}
+
+.chartCard__settingsBtn.egld {
+	background-color: var(--color-egld--secondary);
 }

@@ -1,5 +1,6 @@
 :root {
 	--color-neo--primary: rgb(0 229 153);
+	--color-neo--primary--95: rgba(0, 229, 153, 0.95);
 	--color-neo--secondary: rgb(0, 170, 150);
 	--color-neo--tertiary: #2b373f;
 
@@ -82,6 +83,23 @@
 	}
 
 	.selectTickerBtn.load-success.neo {
-		background-color: var(--color-neo--secondary);
+		background-color: var(--color-neo--primary);
+		svg path {
+			fill: black;
+		}
+	}
+}
+
+.settingsOverlay.neo {
+	background-color: var(--color-neo--primary--95);
+	h5 {
+		color: black;
+	}
+}
+
+.chartCard__settingsBtn.neo {
+	background-color: var(--color-neo--secondary);
+	svg path {
+		stroke: white;
 	}
 }

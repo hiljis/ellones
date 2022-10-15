@@ -1,3 +1,5 @@
+@import '../../assets/styles/abstracts/mixins';
+
 .historyPage {
 	grid-column: content-start / content-end;
 	grid-row: main-start / main-end;
@@ -5,5 +7,16 @@
 
 .selectorGridContainer {
 	width: 100%;
-	padding: 0 10rem;
+	height: 100%;
+	padding: 10rem;
+
+	@include respond(tab-land) {
+		padding: 7rem;
+	}
+	@include respond(tab-port) {
+		padding: 2rem;
+	}
+	@include respond(big-desktop) {
+		width: 75%;
+	}
 }

@@ -179,6 +179,10 @@ a {
 .icon--sm {
 	width: 8rem;
 	height: auto;
+
+	@include respond(phone) {
+		width: 5rem;
+	}
 }
 
 .icon--white {

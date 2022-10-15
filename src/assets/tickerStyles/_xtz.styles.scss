@@ -1,5 +1,6 @@
 :root {
 	--color-xtz--primary: #0062ff;
+	--color-xtz--primary--95: rgba(0, 98, 255, 0.95);
 	--color-xtz--secondary: #9d00ff;
 	--color-xtz--tertiary: #1e1e1e;
 
@@ -83,5 +84,19 @@
 
 	.selectTickerBtn.load-success.xtz {
 		background-color: var(--color-xtz--primary);
+	}
+}
+
+.settingsOverlay.xtz {
+	background-color: var(--color-xtz--primary--95);
+	h5 {
+		color: white;
+	}
+}
+
+.chartCard__settingsBtn.xtz {
+	background-color: var(--color-xtz--secondary);
+	svg path {
+		stroke: white;
 	}
 }

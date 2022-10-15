@@ -1,5 +1,6 @@
 :root {
 	--color-flow--primary: rgb(0, 239, 140);
+	--color-flow--primary--95: rgba(0, 239, 140, 0.95);
 	--color-flow--primary--dark: #00472a;
 	--color-flow--secondary: #00ef8c;
 	--color-flow--tertiary: #00ef8c;
@@ -80,7 +81,21 @@
 		}
 	}
 
-    .selectTickerBtn.load-success.flow {
+	.selectTickerBtn.load-success.flow {
 		background-color: var(--color-flow--primary);
+	}
+}
+
+.settingsOverlay.flow {
+	background-color: var(--color-flow--primary--95);
+	h5 {
+		color: black;
+	}
+}
+
+.chartCard__settingsBtn.flow {
+	background-color: var(--color-flow--primary--dark);
+	svg path {
+		stroke: white;
 	}
 }

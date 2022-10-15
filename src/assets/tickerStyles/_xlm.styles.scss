@@ -1,6 +1,7 @@
 :root {
 	--color-xlm--primary: black;
 	--color-xlm--secondary: rgb(6, 0, 86);
+	--color-xlm--secondary--95: rgba(6, 0, 86, 0.95);
 	--color-xlm--tertiary: rgb(10, 0, 154);
 
 	.xlm-hover {
@@ -90,7 +91,21 @@
 		background-color: var(--color-white--25);
 	}
 
-    .selectTickerBtn.load-success.xlm {
+	.selectTickerBtn.load-success.xlm {
 		background-color: var(--color-xlm--secondary);
+	}
+}
+
+.settingsOverlay.xlm {
+	background-color: var(--color-xlm--secondary--95);
+	h5 {
+		color: white;
+	}
+}
+
+.chartCard__settingsBtn.xlm {
+	background-color: var(--color-xlm--primary);
+	svg path {
+		stroke: white;
 	}
 }

@@ -1,5 +1,6 @@
 :root {
 	--color-ada--primary: rgb(52, 88, 177);
+	--color-ada--primary--95: rgba(52, 88, 177, 0.95);
 	--color-ada--secondary: rgb(0, 81, 255);
 	--color-ada--tertiary: rgb(0, 81, 255);
 
@@ -83,4 +84,15 @@
 	.selectTickerBtn.load-success.ada {
 		background-color: var(--color-ada--primary);
 	}
+}
+
+.settingsOverlay.ada {
+	background-color: var(--color-ada--primary--95);
+	h5 {
+		color: white;
+	}
+}
+
+.chartCard__settingsBtn.ada {
+	background-color: var(--color-ada--primary);
 }

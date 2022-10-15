@@ -1,6 +1,7 @@
 :root {
 	--color-eos--primary: white;
 	--color-eos--secondary: rgb(47, 80, 249);
+	--color-eos--secondary--95: rgba(47, 80, 249, 0.95);
 	--color-eos--tertiary: black;
 
 	.eos-hover {
@@ -78,7 +79,21 @@
 		}
 	}
 
-    .selectTickerBtn.load-success.eos {
+	.selectTickerBtn.load-success.eos {
 		background-color: var(--color-eos--secondary);
+	}
+}
+
+.settingsOverlay.eos {
+	background-color: var(--color-eos--secondary--95);
+	h5 {
+		color: white;
+	}
+}
+
+.chartCard__settingsBtn.eos {
+	background-color: var(--color-eos--primary);
+	svg path {
+		stroke: var(--color-eos--secondary);
 	}
 }

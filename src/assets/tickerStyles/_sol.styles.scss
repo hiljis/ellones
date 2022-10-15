@@ -1,5 +1,6 @@
 :root {
 	--color-sol--primary: rgb(154, 70, 255);
+	--color-sol--primary--95: rgba(153, 70, 255, 0.95);
 	--color-sol--primary--75: rgba(153, 70, 255, 0.75);
 	--color-sol--secondary: rgb(19, 242, 149);
 	--color-sol--tertiary: rgb(19, 242, 149);
@@ -64,7 +65,21 @@
 		}
 	}
 
-    .selectTickerBtn.load-success.sol {
+	.selectTickerBtn.load-success.sol {
 		background-color: var(--color-sol--primary);
+	}
+}
+
+.settingsOverlay.sol {
+	background-color: var(--color-sol--primary--95);
+	h5 {
+		color: black;
+	}
+}
+
+.chartCard__settingsBtn.sol {
+	background-color: var(--color-sol--secondary);
+	svg path {
+		stroke: black;
 	}
 }

@@ -1,5 +1,6 @@
 :root {
 	--color-avax--primary: rgb(232, 65, 66);
+	--color-avax--primary--95: rgba(232, 65, 66, 0.95);
 	--color-avax--secondary: rgb(224, 232, 8);
 	--color-avax--tertiary: rgb(224, 232, 8);
 
@@ -73,7 +74,21 @@
 		}
 	}
 
-    .selectTickerBtn.load-success.avax {
+	.selectTickerBtn.load-success.avax {
 		background-color: var(--color-avax--primary);
+	}
+}
+
+.settingsOverlay.avax {
+	background-color: var(--color-avax--primary--95);
+	h5 {
+		color: white;
+	}
+}
+
+.chartCard__settingsBtn.avax {
+	background-color: var(--color-avax--secondary);
+	svg path {
+		stroke: black;
 	}
 }

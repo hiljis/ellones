@@ -1,3 +1,5 @@
+@import '../../../assets/styles/abstracts/mixins';
+
 @keyframes removeIn20 {
 	to {
 		visibility: hidden;
@@ -18,6 +20,16 @@
 	display: flex;
 	align-items: center;
 	gap: 2rem;
+
+	@include respond(tab-land) {
+		right: 3rem;
+	}
+	@include respond(tab-port) {
+		right: 5rem;
+	}
+	@include respond(phone) {
+		right: 3rem;
+	}
 }
 
 .btnLoadMessage {
@@ -37,6 +49,10 @@
 
 	&.load-complete {
 		color: var(--color-black);
+	}
+
+	@include respond(phone) {
+		display: none;
 	}
 }
 
