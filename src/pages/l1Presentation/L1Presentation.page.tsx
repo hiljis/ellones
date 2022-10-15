@@ -20,7 +20,7 @@ const L1PresentationPage: React.FC = () => {
 	}, [ticker]);
 
 	return (
-		<main className="l1PresentationPage">
+		<main className={`l1PresentationPage ${ticker}`}>
 			<HeroPresentation ticker={ticker} />
 		</main>
 	);
