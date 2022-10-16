@@ -31,8 +31,8 @@ $breakpoint argument choices:
 */
 @mixin respond($breakpoint) {
 	@if $breakpoint == slim {
-		// 400px
-		@media (max-width: 25em) {
+		// 426px
+		@media (max-width: 26.625em) {
 			@content;
 		}
 	}

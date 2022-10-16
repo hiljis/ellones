@@ -9,6 +9,6 @@
 	min-height: 100vh;
 
 	@include respond(phone) {
-		grid-template-rows: [header-start] 12rem [header-end main-start] minmax(calc(100vh - 10rem), auto) [main-end footer-start] min-content [footer-end];
+		grid-template-rows: [header-start] 10rem [header-end main-start] minmax(calc(100vh - 10rem), auto) [main-end footer-start] min-content [footer-end];
 	}
 }

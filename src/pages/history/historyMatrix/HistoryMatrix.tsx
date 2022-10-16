@@ -9,8 +9,9 @@ import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { selectHistoryData, selectTicker } from '../../../store/historyMatrix/historyMatrix.slice';
 import Loader from '../../../components/loader/loader';
 import { fetchTickerStart, selectMarketDataStatusByTicker } from '../../../store/marketData/marketDataSlice';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useLayoutEffect, useState } from 'react';
 import { HistoryStateMessage } from './historyStateMessage/HistoryStateMessage';
+import { ReactComponent as IconReload } from '../../../assets/svg/icon_reload.svg';
 
 const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
 const convertYearDataToMonthData = (data: number[][]): number[][] => {
@@ -50,7 +51,47 @@ const HistoryMatrix: React.FC = () => {
 
 	if (!historyData) {
 		return (
-			<table className="historyMatrix historyMatrix--loading">
+			<Fragment>
+				<table className="historyMatrix historyMatrix--loading">
+					<thead className="historyMatrix__header">
+						<tr>
+							<TickerPicker />
+							{months.map((month, i) => (
+								<th className="historyMatrix__colHead" key={i}>
+									{month}
+								</th>
+							))}
+							<AlgoYearPicker />
+						</tr>
+					</thead>
+					<tbody className="historyMatrix__body historyMatrix__body--loading">
+						<tr>
+							<td>
+								<HistoryStateMessage ticker={ticker} />
+							</td>
+						</tr>
+					</tbody>
+					<tfoot className="historyMatrix__footer">
+						<tr>
+							<AlgoMonthPicker />
+							{emptyTfootData.map((data, i) => (
+								<HistoryCalcData data={data} target={'empty'} key={i} />
+							))}
+							<DataPicker />
+						</tr>
+					</tfoot>
+				</table>
+				<div className="rotateMessage">
+					<IconReload className="icon--sm icon--warningStroke" />
+					<p className="rotateMessage--text">Please rotate :)</p>
+				</div>
+			</Fragment>
+		);
+	}
+	const monthlyData = convertYearDataToMonthData(historyData.map((data) => data.months.map((month) => month.change)));
+	return (
+		<Fragment>
+			<table className="historyMatrix">
 				<thead className="historyMatrix__header">
 					<tr>
 						<TickerPicker />
@@ -62,54 +103,26 @@ const HistoryMatrix: React.FC = () => {
 						<AlgoYearPicker />
 					</tr>
 				</thead>
-				<tbody className="historyMatrix__body historyMatrix__body--loading">
-					<tr>
-						<td>
-							<HistoryStateMessage ticker={ticker} />
-						</td>
-					</tr>
+				<tbody className="historyMatrix__body">
+					{historyData.map((data, i) => {
+						return <HistoryRow year={data.year} data={data.months.map((month) => month.change)} key={i} />;
+					})}
 				</tbody>
 				<tfoot className="historyMatrix__footer">
 					<tr>
 						<AlgoMonthPicker />
-						{emptyTfootData.map((data, i) => (
-							<HistoryCalcData data={data} target={'empty'} key={i} />
+						{monthlyData.map((data, i) => (
+							<HistoryCalcData data={data} target={'algoMonth'} key={i} />
 						))}
 						<DataPicker />
 					</tr>
 				</tfoot>
 			</table>
-		);
-	}
-	const monthlyData = convertYearDataToMonthData(historyData.map((data) => data.months.map((month) => month.change)));
-	return (
-		<table className="historyMatrix">
-			<thead className="historyMatrix__header">
-				<tr>
-					<TickerPicker />
-					{months.map((month, i) => (
-						<th className="historyMatrix__colHead" key={i}>
-							{month}
-						</th>
-					))}
-					<AlgoYearPicker />
-				</tr>
-			</thead>
-			<tbody className="historyMatrix__body">
-				{historyData.map((data, i) => {
-					return <HistoryRow year={data.year} data={data.months.map((month) => month.change)} key={i} />;
-				})}
-			</tbody>
-			<tfoot className="historyMatrix__footer">
-				<tr>
-					<AlgoMonthPicker />
-					{monthlyData.map((data, i) => (
-						<HistoryCalcData data={data} target={'algoMonth'} key={i} />
-					))}
-					<DataPicker />
-				</tr>
-			</tfoot>
-		</table>
+			<div className="rotateMessage">
+				<IconReload className="icon--sm icon--warningStroke" />
+				<p className="rotateMessage--text">Please rotate :)</p>
+			</div>
+		</Fragment>
 	);
 };
 
