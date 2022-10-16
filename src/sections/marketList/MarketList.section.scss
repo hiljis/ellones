@@ -1,5 +1,20 @@
+@import '../../assets/styles/abstracts/mixins';
+
 .section__marketList {
 	margin: 5rem 10rem;
+
+	@include respond(tab-land) {
+		margin: 5rem 5rem;
+	}
+	@include respond(phone) {
+		margin: 5rem 2rem;
+	}
+	@include respond(slim) {
+		margin: 5rem 1rem;
+	}
+	@include respond(big-desktop) {
+		margin: 5rem 15rem;
+	}
 }
 
 .marketList {
@@ -12,10 +27,60 @@
 		margin-bottom: 3rem;
 
 		display: grid;
-		grid-template-columns: 7rem 20rem repeat(8, 1fr) 20rem;
+		grid-template-columns:
+			[ticker-start]
+			12rem [ticker-end price-start]
+			15rem [price-end oneD-start]
+			1fr [oneD-end oneW-start]
+			1fr [oneW-end oneM-start]
+			1fr [oneM-end threeM-start]
+			1fr [threeM-end sixM-start]
+			1fr [sixM-end oneY-start]
+			1fr [oneY-end threeY-start]
+			1fr [threeY-end range-start]
+			1fr [range-end mCap-start]
+			15rem [mCap-end];
 		grid-template-rows: min-content min-content repeat(auto, 6rem);
 		align-items: center;
 		justify-items: center;
+
+		// @include respond(tab-port) {
+		// 	grid-template-columns:
+		// 		[ticker-start]
+		// 		10rem [ticker-end price-start]
+		// 		12rem [price-end oneD-start]
+		// 		1fr [oneD-end oneW-start]
+		// 		1fr [oneM-end threeM-start]
+		// 		1fr [threeM-end sixM-start]
+		// 		1fr [sixM-end oneY-start]
+		// 		1fr [oneY-end threeY-start]
+		// 		1fr [threeY-end mCap-start]
+		// 		12rem [mCap-end];
+		// }
+
+		@include respond(tab-port) {
+			grid-template-columns:
+				[ticker-start]
+				8rem [ticker-end price-start]
+				10rem [price-end oneD-start]
+				1fr [oneD-end oneM-start]
+				1fr [oneM-end threeM-start]
+				1fr [threeM-end sixM-start]
+				1fr [sixM-end oneY-start]
+				1fr [oneY-end threeY-start]
+				1fr [threeY-end mCap-start]
+				10rem [mCap-end];
+		}
+		@include respond(phone) {
+			grid-template-columns:
+				[ticker-start]
+				7rem [ticker-end oneD-start]
+				1fr [oneD-end oneM-start]
+				1fr [oneM-end sixM-start]
+				1fr [sixM-end oneY-start]
+				1fr [oneY-end threeY-start]
+				1fr [threeY-end];
+		}
 	}
 
 	&__targetGroup {
@@ -32,6 +97,11 @@
 			button {
 				flex-grow: 1;
 			}
+
+			@include respond(tab-port) {
+				grid-column: 1 / -1;
+				gap: 1rem;
+			}
 		}
 
 		&--range {
@@ -45,6 +115,10 @@
 				text-transform: uppercase;
 				margin: 0 1rem;
 			}
+
+			@include respond(tab-port) {
+				display: none;
+			}
 		}
 	}
 
@@ -56,37 +130,56 @@
 	}
 
 	.col--ticker {
-		grid-column: 1 / span 1;
+		grid-column: [ticker-start] / [ticker-end];
+		justify-self: flex-start;
 	}
 	.col--price {
-		grid-column: 2 / span 1;
+		grid-column: [price-start] / [price-end];
+		justify-self: flex-start;
+		@include respond(phone) {
+			display: none;
+		}
 	}
 	.col--24h {
-		grid-column: 3 / span 1;
+		grid-column: [oneD-start] / [oneD-end];
 	}
 	.col--1w {
-		grid-column: 4 / span 1;
+		grid-column: [oneW-start] / [oneW-end];
+		@include respond(tab-port) {
+			display: none;
+		}
 	}
 	.col--1m {
-		grid-column: 5 / span 1;
+		grid-column: [oneM-start] / [oneM-end];
 	}
 	.col--3m {
-		grid-column: 6 / span 1;
+		grid-column: [threeM-start] / [threeM-end];
+		@include respond(phone) {
+			display: none;
+		}
 	}
 	.col--6m {
-		grid-column: 7 / span 1;
+		grid-column: [sixM-start] / [sixM-end];
 	}
 	.col--1y {
-		grid-column: 8 / span 1;
+		grid-column: [oneY-start] / [oneY-end];
 	}
 	.col--3y {
-		grid-column: 9 / span 1;
+		grid-column: [threeY-start] / [threeY-end];
 	}
 	.col--range {
-		grid-column: 10 / span 1;
+		grid-column: [range-start] / [range-end];
+
+		@include respond(tab-port) {
+			display: none;
+		}
 	}
 	.col--mCap {
-		grid-column: 11 / span 1;
+		grid-column: [mCap-start] / [mCap-end];
+		justify-self: flex-end;
+		@include respond(phone) {
+			display: none;
+		}
 	}
 	.col--all {
 		grid-column: 1 / -1;
