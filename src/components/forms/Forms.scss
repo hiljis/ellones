@@ -1,3 +1,5 @@
+@import '../../assets/styles/abstracts/mixins';
+
 @keyframes lift {
 	to {
 		transform: translate(0, 0);
@@ -16,11 +18,29 @@
 	transform: translate(3rem, 3rem);
 
 	animation: lift 0.4s forwards;
+
+	@include respond(tab-port) {
+		padding: 3rem;
+		transform: translate(0, 0);
+		animation: none;
+	}
+	@include respond(phone) {
+		align-items: center;
+		width: 100vw;
+		padding: 5rem 0;
+		border-radius: 0;
+	}
 }
 
 .form__editUserInfo {
 	text-align: left;
-	width: 90%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+
+	@include respond(phone) {
+		align-items: center;
+	}
 
 	&--title {
 		font-size: 3.2rem;
@@ -36,6 +56,9 @@
 		margin-bottom: 3rem;
 		line-height: 1.8;
 		text-align: left;
+		@include respond(phone) {
+			inline-size: 55%;
+		}
 	}
 
 	&--input {
@@ -53,6 +76,13 @@
 
 		&::placeholder {
 			color: var(--color-primary);
+		}
+
+		@include respond(phone) {
+			width: 60rem;
+		}
+		@include respond(phone) {
+			width: 30rem;
 		}
 	}
 
@@ -79,15 +109,26 @@
 	}
 
 	&--full {
-		width: 100%;
+		width: min-content;
+		@include respond(phone) {
+			.submitButton {
+				// margin: 0 auto;
+			}
+		}
 	}
 
 	&--avatars {
 		display: flex;
-		justify-content: space-between;
-		gap: 2rem;
+		justify-content: center;
+		gap: 4rem;
 		margin-top: 1rem;
 		margin-bottom: 4rem;
+		@include respond(tab-port) {
+			gap: 3rem;
+		}
+		@include respond(phone) {
+			gap: 2rem;
+		}
 	}
 
 	&--tickers {
@@ -95,8 +136,18 @@
 		grid-template-columns: repeat(7, min-content);
 		grid-template-rows: repeat(auto, min-content);
 		gap: 2rem;
+		// margin: 0 auto;
 		margin-bottom: 4rem;
 		width: min-content;
+
+		@include respond(phone) {
+			grid-template-columns: repeat(5, min-content);
+			grid-template-rows: repeat(auto, min-content);
+			gap: 1rem;
+		}
+		@include respond(slim) {
+			gap: 0;
+		}
 	}
 }
 
@@ -111,17 +162,24 @@
 	width: 5rem;
 	height: 5rem;
 	border-radius: var(--radius--round);
-	outline: 2px solid transparent;
-	outline-offset: 1rem;
 	cursor: pointer;
 
+	@include respond(phone) {
+	}
+	@include respond(phone) {
+		width: 4rem;
+		height: 4rem;
+	}
+
 	&:hover {
-		outline-color: var(--color-black);
+		box-shadow: 0 0 0 5px var(--color-black--25);
 	}
 
 	&--active {
-		outline-color: var(--color-black);
-		outline-width: 4px;
+		box-shadow: 0 0 0 7px var(--color-primary--25);
+		&:hover {
+			box-shadow: 0 0 0 7px var(--color-primary--25);
+		}
 	}
 }
 
