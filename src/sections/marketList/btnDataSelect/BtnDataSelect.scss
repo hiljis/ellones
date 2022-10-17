@@ -1,8 +1,8 @@
 .marketList {
 	&__btnDataSelect {
-		border: 2px solid var(--color-black);
-		background-color: var(--color-white);
-		color: var(--color-black);
+		border: none;
+		background-color: var(--color-primary--10);
+		color: var(--color-primary);
 		font-size: 0.9rem;
 		font-weight: 600;
 		text-transform: uppercase;
@@ -16,7 +16,7 @@
 		&.active,
 		&:hover,
 		&:active {
-			background-color: var(--color-black);
+			background-color: var(--color-primary);
 			color: var(--color-white);
 		}
 	}

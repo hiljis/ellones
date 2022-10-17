@@ -1,8 +1,11 @@
+@import '../../assets/styles/abstracts/mixins';
+
 .dominancePage {
 	grid-column: content-start / content-end;
 	grid-row: main-start / main-end;
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 }
 
 .section__dominanceCharts {
@@ -11,15 +14,25 @@
 	padding: 5rem 10rem;
 
 	display: grid;
-	grid-template-columns: 3fr 1fr;
+	grid-template-columns: 1fr;
 	grid-template-rows: min-content 30rem min-content;
 	justify-content: center;
 	align-items: center;
 	row-gap: 5rem;
 	// column-gap: 5rem;
 
-	div:nth-child(3) {
-		justify-self: end;
+	// div:nth-child(3) {
+	// 	justify-self: end;
+	// }
+
+	@include respond(tab-port) {
+		padding: 5rem 5rem;
+	}
+	@include respond(phone) {
+		display: none;
+	}
+	@include respond(big-desktop) {
+		grid-template-rows: min-content 30rem min-content;
 	}
 
 	&.loading {
@@ -32,14 +45,43 @@
 		grid-row: 1 / span 1;
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
+
+		@include respond(tab-port) {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			grid-template-rows: min-content min-content;
+
+			.checkGroupContainer {
+				grid-column: 1 / span 1;
+				justify-self: flex-start;
+				&:first-child {
+					margin-bottom: 1rem;
+				}
+			}
+			button {
+				grid-column: 2 / span 1;
+				grid-row: 1 / span 2;
+			}
+		}
 	}
 
 	&__iconToggleRow {
 		grid-column: 1 / -1;
 		grid-row: 3 / span 1;
-		display: flex;
-		justify-content: space-between;
+		display: grid;
+		grid-template-columns: repeat(21, 1fr);
+		justify-items: center;
 		border: none;
+
+		@include respond(tab-land) {
+			grid-template-columns: repeat(11, 1fr);
+			row-gap: 2rem;
+		}
+		@include respond(tab-port) {
+			grid-template-columns: repeat(7, 1fr);
+			row-gap: 2rem;
+		}
 	}
 }
 
@@ -51,4 +93,132 @@
 	justify-content: center;
 	width: 5rem;
 	transition: height 1s;
+}
+
+.toggleGroup {
+	display: flex;
+	gap: 2rem;
+}
+
+.duoMode {
+	display: flex;
+	justify-content: space-between;
+	grid-column: 1;
+	width: 100%;
+
+	.chartBox--doughnut {
+		height: 30rem;
+		width: 30rem;
+	}
+
+	.chartBox--bar {
+		height: 30rem;
+		width: 70%;
+	}
+
+	@include respond(tab-land) {
+		display: none;
+	}
+	@include respond(big-desktop) {
+		.chartBox--doughnut {
+			height: 30rem;
+			width: 30rem;
+		}
+
+		.chartBox--bar {
+			height: 30rem;
+			width: 70%;
+		}
+	}
+}
+
+.duoModeSingle {
+	display: flex;
+	justify-content: center;
+	grid-column: 1;
+	width: 100%;
+
+	.chartBox--doughnut {
+		height: 30rem;
+		width: 30rem;
+	}
+
+	.chartBox--bar {
+		height: 30rem;
+		width: 70%;
+	}
+
+	@include respond(tab-land) {
+		display: none;
+	}
+	@include respond(big-desktop) {
+		.chartBox--doughnut {
+			height: 30rem;
+			width: 30rem;
+		}
+
+		.chartBox--bar {
+			height: 30rem;
+			width: 70%;
+		}
+	}
+
+	&--message {
+		font-size: 1.4rem;
+		letter-spacing: 2px;
+		color: var(--color-grey--light);
+	}
+}
+
+.singleMode {
+	display: none;
+	grid-column: 1;
+	width: 100%;
+
+	.chartBox--doughnut {
+		height: 30rem;
+		width: 30rem;
+	}
+
+	.chartBox--bar {
+		height: 30rem;
+	}
+
+	@include respond(tab-land) {
+		display: flex;
+		justify-content: center;
+	}
+	@include respond(big-desktop) {
+		.chartBox--doughnut {
+			height: 30rem;
+			width: 30rem;
+		}
+
+		.chartBox--bar {
+			height: 30rem;
+		}
+	}
+}
+
+.rotateMessage {
+	display: none;
+	margin-top: 5rem;
+	padding: 3rem;
+	width: 80%;
+	height: 30rem;
+	background-color: var(--color-negative--10);
+	border-radius: var(--radius--md);
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 3rem;
+	font-size: 1.8rem;
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	color: var(--color-negative);
+
+	@include respond(phone) {
+		display: flex;
+	}
 }

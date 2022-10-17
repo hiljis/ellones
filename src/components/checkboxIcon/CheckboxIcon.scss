@@ -1,3 +1,5 @@
+@import '../../assets/styles/abstracts/mixins';
+
 @keyframes checkboxIcon_spin {
 	to {
 		transform: translate(-50%, -50%) rotate(365deg);
@@ -13,6 +15,15 @@
 		display: flex;
 		padding: 0.5rem;
 		cursor: pointer;
+
+		@include respond(tab-port) {
+			width: 6rem;
+			height: 6rem;
+		}
+		@include respond(phone) {
+			width: 5rem;
+			height: 5rem;
+		}
 
 		&:hover {
 			box-shadow: inset 0 0 0 1px black;
@@ -30,5 +41,12 @@
 				background-color: var(--color-primary--50);
 			}
 		}
+	}
+
+	&.sm {
+	}
+	&.md {
+		width: 6rem;
+		height: 6rem;
 	}
 }

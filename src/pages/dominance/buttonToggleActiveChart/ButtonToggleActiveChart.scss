@@ -1,0 +1,27 @@
+@import '../../../assets/styles/abstracts/mixins';
+
+.buttonToggleActiveChart {
+	border: none;
+	width: 6rem;
+	height: 6rem;
+	padding: 1.8rem;
+	border-radius: var(--radius--round);
+	background-color: var(--color-primary--10);
+	justify-self: flex-end;
+	align-self: flex-end;
+	grid-row: foot-start / foot-end;
+	grid-column: 5;
+	z-index: 7;
+	cursor: pointer;
+	display: none;
+	justify-content: center;
+	align-items: center;
+
+	&:hover {
+		background-color: var(--color-primary--25);
+	}
+
+	@include respond(tab-land) {
+		display: flex;
+	}
+}

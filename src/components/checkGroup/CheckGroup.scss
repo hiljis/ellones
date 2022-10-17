@@ -19,12 +19,12 @@
 .checkGroup {
 	overflow: hidden;
 	height: 2.4rem;
-	background-color: var(--color-black);
-	border: 2px solid var(--color-black);
+	// background-color: var(--color-black);
+	// border: 2px solid var(--color-black);
 	border-radius: var(--radius--round);
 	display: flex;
 	align-items: center;
-	gap: 2px;
+	gap: 3px;
 
 	&.disabled {
 		pointer-events: none;
@@ -38,7 +38,8 @@
 		justify-content: center;
 		cursor: pointer;
 
-		color: var(--color-black);
+		background-color: var(--color-primary--10);
+		color: var(--color-primary);
 		font-size: 0.9rem;
 		font-weight: 600;
 		text-transform: uppercase;
@@ -48,7 +49,7 @@
 		}
 
 		&:hover {
-			background-color: var(--color-black);
+			background-color: var(--color-primary);
 			color: var(--color-white);
 		}
 
@@ -73,7 +74,7 @@
 		display: none;
 
 		&:checked + label {
-			background-color: var(--color-black);
+			background-color: var(--color-primary);
 			color: var(--color-white);
 		}
 	}

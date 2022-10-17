@@ -57,4 +57,4 @@ export interface UserSignUp {
 	password: string;
 }
 
-export type ChartType = 'line' | 'bar' | 'doughnut';
+export type ChartType = 'line' | 'bar' | 'doughnut' | 'stacked';
