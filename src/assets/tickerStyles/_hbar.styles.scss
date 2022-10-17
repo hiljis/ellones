@@ -90,17 +90,3 @@
 		background-color: var(--color-hbar--primary);
 	}
 }
-
-.settingsOverlay.hbar {
-	background-color: var(--color-hbar--primary--80);
-	h5 {
-		color: white;
-	}
-}
-
-.chartCard__settingsBtn.hbar {
-	background-color: var(--color-hbar--secondary);
-	svg path {
-		stroke: white;
-	}
-}

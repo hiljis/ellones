@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { ReactComponent as IconSettings } from '../../../assets/svg/icon_settings.svg';
+import { ReactComponent as IconClose } from '../../../assets/svg/icon_close.svg';
 import {
 	DAYS_1M_BACK,
 	DAYS_1Y_BACK,
@@ -55,6 +57,7 @@ const PairCard: React.FC<Props> = ({ index }) => {
 	const [denominatorFailed, setDenominatorFailed] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
 	const [trimmedPairData, setTrimmedPairData] = useState<MarketDataPoint[]>([]);
+	const [isOverlayOpen, setIsOverlayOpen] = useState(false);
 
 	useEffect(() => {
 		if (numerator) {
@@ -154,6 +157,10 @@ const PairCard: React.FC<Props> = ({ index }) => {
 		dispatch(changeTimeSpan({ index: index, timeSpan: timeSpan }));
 	};
 
+	const handleToggleOverlay = () => {
+		setIsOverlayOpen(!isOverlayOpen);
+	};
+
 	let content;
 	if (!numerator || !denominator) {
 		content = <p className="pairCard__message">(Choose numerator & denominator)</p>;
@@ -176,12 +183,14 @@ const PairCard: React.FC<Props> = ({ index }) => {
 	return (
 		<article className="pairCard">
 			<button className="pairCard__btnClose" type="button" title="Close" onClick={handleDeletePair} />
-			<div className="pairCard__settings">
+
+			<div className={`pairCard__settings ${isOverlayOpen ? 'open' : ''}`}>
 				<CheckGroup
 					initSelected={pairDataCategory}
 					widthSize="md"
 					selectHandler={handleOnDataCategoryChange}
 					disabled={pairData.length <= 0}
+					title="Data category"
 				>
 					{[
 						{ string: 'Market Cap', value: 'mCap' },
@@ -195,6 +204,7 @@ const PairCard: React.FC<Props> = ({ index }) => {
 					widthSize="sm"
 					selectHandler={handleOnTimeSpanChange}
 					disabled={pairData.length <= 0}
+					title="Timespan"
 				>
 					{[
 						{ string: '1m', value: DAYS_1M_BACK <= pairData.length ? DAYS_1M_BACK : -1 },
@@ -220,6 +230,19 @@ const PairCard: React.FC<Props> = ({ index }) => {
 					selectHandler={handleDenominatorSelect}
 				/>
 			</div>
+			<button
+				className={`pairCard__btnSettings ${isOverlayOpen ? 'open' : 'closed'} ${
+					trimmedPairData.length === 0 ? 'disabled' : ''
+				}`}
+				title="Settings"
+				onClick={handleToggleOverlay}
+			>
+				{isOverlayOpen ? (
+					<IconClose className="icon--whiteStroke icon--sm" />
+				) : (
+					<IconSettings className={`icon--sm icon--primaryStroke`} />
+				)}
+			</button>
 		</article>
 	);
 };

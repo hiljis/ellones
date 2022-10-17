@@ -85,17 +85,3 @@
 		background-color: var(--color-flow--primary);
 	}
 }
-
-.settingsOverlay.flow {
-	background-color: var(--color-flow--primary--95);
-	h5 {
-		color: black;
-	}
-}
-
-.chartCard__settingsBtn.flow {
-	background-color: var(--color-flow--primary--dark);
-	svg path {
-		stroke: white;
-	}
-}

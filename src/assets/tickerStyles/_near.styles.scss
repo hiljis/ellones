@@ -80,17 +80,3 @@
 		background-color: var(--color-near--secondary);
 	}
 }
-
-.settingsOverlay.near {
-	background-color: var(--color-near--primary--95);
-	h5 {
-		color: black;
-	}
-}
-
-.chartCard__settingsBtn.near {
-	background-color: var(--color-near--secondary);
-	svg path {
-		stroke: white;
-	}
-}

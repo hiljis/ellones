@@ -1,11 +1,20 @@
+@import '../../../assets/styles/abstracts/mixins';
+
 .pairAdderBtn {
-	width: 90%;
+	width: calc(100vw - 20rem);
 	height: 5rem;
 	background-color: var(--color-grey--lightest);
 	border: none;
 	border-radius: var(--radius--md);
 	cursor: pointer;
 	position: relative;
+
+	@include respond(tab-land) {
+		width: calc(100vw - 10rem);
+	}
+	@include respond(slim) {
+		width: calc(100vw - 5rem);
+	}
 
 	&::after,
 	&::before {

@@ -90,17 +90,3 @@
 		background-color: var(--color-eth--primary);
 	}
 }
-
-.settingsOverlay.eth {
-	background-color: var(--color-eth--primary--95);
-	h5 {
-		color: white;
-	}
-}
-
-.chartCard__settingsBtn.eth {
-	background-color: var(--color-eth--secondary);
-	svg path {
-		stroke: black;
-	}
-}

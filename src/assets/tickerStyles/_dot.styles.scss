@@ -85,17 +85,3 @@
 		background-color: var(--color-dot--secondary);
 	}
 }
-
-.settingsOverlay.dot {
-	background-color: var(--color-dot--secondary--95);
-	h5 {
-		color: white;
-	}
-}
-
-.chartCard__settingsBtn.dot {
-	background-color: var(--color-dot--primary);
-	svg path {
-		stroke: black;
-	}
-}

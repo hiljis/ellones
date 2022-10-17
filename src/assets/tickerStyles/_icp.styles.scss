@@ -85,17 +85,3 @@
 		background-color: var(--color-icp--primary);
 	}
 }
-
-.settingsOverlay.icp {
-	background-color: var(--color-icp--primary--95);
-	h5 {
-		color: white;
-	}
-}
-
-.chartCard__settingsBtn.icp {
-	background-color: var(--color-icp--tertiary);
-	svg path {
-		stroke: white;
-	}
-}

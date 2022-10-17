@@ -232,9 +232,7 @@ const ChartCard: React.FC<Props> = ({ children, deleteHandler, index }) => {
 				''
 			) : (
 				<button
-					className={`chartCard__settingsBtn ${chartDisplayMode} ${
-						isOverlayOpen ? selectedTicker : 'closed'
-					}`}
+					className={`chartCard__settingsBtn ${chartDisplayMode} ${isOverlayOpen ? 'open' : 'closed'}`}
 					title="Settings"
 					onClick={handleToggleOverlay}
 				>
@@ -246,7 +244,7 @@ const ChartCard: React.FC<Props> = ({ children, deleteHandler, index }) => {
 				</button>
 			)}
 			{isOverlayOpen ? (
-				<div className={`settingsOverlay ${selectedTicker} ${chartDisplayMode}`}>
+				<div className={`settingsOverlay ${chartDisplayMode}`}>
 					<CheckGroup
 						initSelected={chartDataCategory}
 						widthSize="md"

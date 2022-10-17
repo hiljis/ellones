@@ -54,7 +54,7 @@ export const getPairlineChartOptions = (chartData, dataCategory, type, resolutio
 					font: {
 						family: "'Poppins','Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
 						size: 10,
-						weight: 600,
+						weight: 500,
 						lineHeight: 1,
 						style: 'normal',
 					},
@@ -96,7 +96,7 @@ export const getPairlineChartOptions = (chartData, dataCategory, type, resolutio
 					font: {
 						family: "'Poppins','Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
 						size: 10,
-						weight: 600,
+						weight: 500,
 						lineHeight: 1,
 						style: 'normal',
 					},
@@ -409,7 +409,7 @@ export const getChartCardlineChartOptions = (chartData, dataCategory, scale, res
 					font: {
 						family: "'Poppins','Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
 						size: 10,
-						weight: 600,
+						weight: 500,
 						lineHeight: 1,
 						style: 'normal',
 					},
@@ -451,7 +451,7 @@ export const getChartCardlineChartOptions = (chartData, dataCategory, scale, res
 					font: {
 						family: "'Poppins','Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
 						size: 10,
-						weight: 600,
+						weight: 500,
 						lineHeight: 1,
 						style: 'normal',
 					},

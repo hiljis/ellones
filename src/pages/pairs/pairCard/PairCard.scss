@@ -1,3 +1,5 @@
+@import '../../../assets/styles/abstracts/mixins';
+
 .pairCard {
 	width: calc(100vw - 20rem);
 	min-height: 30rem;
@@ -6,13 +8,30 @@
 	border: 2px solid var(--color-grey--light);
 	margin: 5rem 0;
 	position: relative;
+	overflow: hidden;
 
 	display: grid;
 	grid-template-columns: [numerator-start] 1fr [numerator-end chart-start] 70% [chart-end denominator-start] 1fr [denominator-end];
-	grid-template-rows: [settings-start] min-content [settings-end content-start] 40rem [content-end];
+	grid-template-rows: [settings-start] min-content [settings-end content-start] min-content [content-end];
 
-	@media only screen and (max-width: 1000px) {
-		background-color: green;
+	@include respond(tab-land) {
+		width: calc(100vw - 10rem);
+		padding: 4rem 4rem;
+	}
+	@include respond(tab-port) {
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: [selectors-start] min-content [selectors-end chart-start] 40rem [chart-end footer-start] min-content [footer-end];
+		column-gap: 10rem;
+		width: calc(100vw - 10rem);
+		// padding: 2rem 3rem;
+		width: 100vw;
+		border-left: none;
+		border-right: none;
+		border-radius: 0;
+		padding: 2rem 2rem;
+		padding-top: 4rem;
+	}
+	@include respond(phone) {
 	}
 
 	&__btnClose {
@@ -66,18 +85,51 @@
 		display: flex;
 		justify-content: space-between;
 		margin-bottom: 4rem;
+
+		@include respond(tab-port) {
+			display: none;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-color: var(--color-white--90);
+			flex-direction: column;
+			gap: 5rem;
+			align-items: center;
+			justify-content: center;
+			z-index: 6;
+
+			&.open {
+				display: flex;
+			}
+		}
 	}
 
 	&__numerator {
 		grid-column: numerator-start / numerator-end;
 		grid-row: content-start / content-end;
-		justify-self: self-start;
+		justify-self: flex-start;
+
+		@include respond(tab-port) {
+			grid-column: 1 / span 1;
+			grid-row: selectors-start / selectors-end;
+			justify-self: flex-end;
+			margin-bottom: 5rem;
+		}
 	}
 
 	&__denominator {
 		grid-column: denominator-start / denominator-end;
 		grid-row: content-start / content-end;
-		justify-self: self-end;
+		justify-self: flex-end;
+
+		@include respond(tab-port) {
+			grid-column: 2 / span 1;
+			grid-row: selectors-start / selectors-end;
+			justify-self: flex-start;
+			margin-bottom: 5rem;
+		}
 	}
 
 	&__chartArea {
@@ -86,6 +138,11 @@
 		justify-self: center;
 		width: 100%;
 		position: relative;
+
+		@include respond(tab-port) {
+			grid-column: 1 / span 2;
+			grid-row: chart-start / chart-end;
+		}
 	}
 
 	&__numerator,
@@ -99,5 +156,47 @@
 		font-size: 1.4rem;
 		letter-spacing: 2px;
 		color: var(--color-grey--light);
+	}
+}
+
+.pairCard__btnSettings {
+	display: none;
+	// border: 2px solid var(--color-primary);
+	border: none;
+	width: 6rem;
+	height: 6rem;
+	padding: 1.4rem;
+	border-radius: var(--radius--round);
+	background-color: var(--color-primary--10);
+	justify-self: flex-end;
+	align-self: flex-end;
+	grid-row: footer-start / footer-end;
+	grid-column: 2 / span 1;
+	z-index: 7;
+	cursor: pointer;
+	justify-content: center;
+	align-items: center;
+
+	&.coll {
+		display: none;
+	}
+
+	&.open {
+		background-color: var(--color-primary);
+	}
+
+	&.disabled {
+		pointer-events: none;
+		background-color: var(--color-grey--lightest);
+		svg {
+			opacity: 0.25;
+			path {
+				stroke: black;
+			}
+		}
+	}
+
+	@include respond(tab-port) {
+		display: flex;
 	}
 }

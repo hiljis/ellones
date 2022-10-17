@@ -74,17 +74,3 @@
 		background-color: var(--color-trx--primary);
 	}
 }
-
-.settingsOverlay.trx {
-	background-color: var(--color-trx--primary--95);
-	h5 {
-		color: white;
-	}
-}
-
-.chartCard__settingsBtn.trx {
-	background-color: var(--color-trx--primary--dark);
-	svg path {
-		stroke: white;
-	}
-}
