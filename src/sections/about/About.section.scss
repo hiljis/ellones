@@ -1,0 +1,27 @@
+@import '../../assets/styles/abstracts/mixins';
+
+.section__about {
+	width: 100%;
+	background-color: var(--color-primary);
+	color: var(--color-grey--lightest);
+	font-size: 1.6rem;
+	font-weight: 400;
+	padding: 12rem 10rem;
+	text-align: left;
+
+	&__header {
+		font-size: 3.2rem;
+		font-weight: 500;
+		margin-bottom: 1.4rem;
+	}
+	&__text {
+		line-height: 2;
+	}
+
+	@include respond(tab-land) {
+		padding: 5rem 5rem;
+	}
+	@include respond(phone) {
+		padding: 5rem 4rem;
+	}
+}

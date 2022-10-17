@@ -20,6 +20,7 @@ import PairsPage from './pages/pairs/Pairs.page';
 import { fetchAllStart } from './store/marketData/marketDataSlice';
 import BaseBackground from './components/baseBackground/BaseBackground';
 import ChartsPage from './pages/charts/Charts.page';
+import AboutPage from './pages/about/About.page';
 
 function App() {
 	const profiles = useAppSelector(selectProfiles);
@@ -54,6 +55,7 @@ function App() {
 				<Route path="/l1s" element={<L1sPage />} />
 				<Route path="/l1s/:ticker" element={<L1PresentationPage />} />
 				<Route path="/history" element={<HistoryPage />} />
+				<Route path="/about" element={<AboutPage />} />
 			</Routes>
 			<Footer />
 		</div>

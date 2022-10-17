@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import './PageContainer.scss';
 
 type Props = {
@@ -5,6 +6,9 @@ type Props = {
 };
 
 const PageContainer: React.FC<Props> = ({ children }) => {
+	useEffect(() => {
+		window.scrollTo(0, 0);
+	}, []);
 	return <main className="pageContainer">{children}</main>;
 };
 
