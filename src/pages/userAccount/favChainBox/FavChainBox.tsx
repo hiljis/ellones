@@ -1,6 +1,5 @@
 import { setMilliseconds } from 'date-fns/esm';
 import { useEffect, useState } from 'react';
-import DropdownList from '../../../components/dropdownList/dropdownList';
 import { getIcon } from '../../../components/icons/Icons';
 import Loader from '../../../components/loader/loader';
 import StatBox from '../../../components/statBox/StatBox';

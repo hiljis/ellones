@@ -13,27 +13,31 @@ const ThemeDropdown = () => {
 		setIsOpen(!isOpen);
 	};
 
+	const closeDropdownList = () => {
+		setIsOpen(false);
+	};
+
 	return (
 		<div className="themeDropdown">
 			<button className="themeDropdown__btn" type="button" title="Theme" onClick={toggleIsOpen}>
 				<IconTheme className="themeDropdown__btn--icon" />
 			</button>
-			{isOpen && (
-				<DropdownList type="theme">
-					<div>
-						<IconLight />
-						<span>light</span>
-					</div>
-					<div>
-						<IconDark />
-						<span>dark</span>
-					</div>
-					<div>
-						<IconBlue />
-						<span>blue</span>
-					</div>
-				</DropdownList>
-			)}
+			{/* {isOpen && ( */}
+			<DropdownList show={isOpen} closeHandler={closeDropdownList} type="theme">
+				<div>
+					<IconLight />
+					<span>light</span>
+				</div>
+				<div>
+					<IconDark />
+					<span>dark</span>
+				</div>
+				<div>
+					<IconBlue />
+					<span>blue</span>
+				</div>
+			</DropdownList>
+			{/* )} */}
 		</div>
 	);
 };

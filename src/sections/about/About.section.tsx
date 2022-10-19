@@ -2,7 +2,7 @@ import './About.section.scss';
 
 const About = () => {
 	return (
-		<section className="section__about">
+		<section className="section__about" id="sectionAbout">
 			<h2 className="section__about__header">Who we are</h2>
 			<p className="section__about__text">
 				We are a web3 plattform focusing on providing information and data on the digital assets space - mainly

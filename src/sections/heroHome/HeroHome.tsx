@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { ReactComponent as IconArrowDown } from '../../assets/svg/Icon__arrowDown.svg';
 import './HeroHome.scss';
 
@@ -9,9 +9,9 @@ const HeroHome: React.FC = () => {
 				<h1 className="heroHeader heroHeader--animated">ellones</h1>
 				<h3 className="heroSubHeader heroSubHeader--animated">shared history</h3>
 			</div>
-			<NavLink className="heroHome__link" to="#sectionCarousel" title="Scroll Down">
+			<a className="heroHome__link" href="#sectionAbout" title="Scroll Down">
 				<IconArrowDown className="heroHome__link__icon" />
-			</NavLink>
+			</a>
 		</section>
 	);
 };

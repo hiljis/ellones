@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../store/hooks';
 import { selectCurrentUser, selectUserStatus } from '../../store/user/userSlice';
@@ -11,9 +11,27 @@ const UserDropdown = () => {
 	const user = useAppSelector(selectCurrentUser);
 	const userStatus = useAppSelector(selectUserStatus);
 	const [isOpen, setIsOpen] = useState(false);
+	const ref = useRef(null);
+
+	useEffect(() => {
+		const handleClickOutside = (e: MouseEvent) => {
+			if (ref.current && !(ref.current as Element).contains(e.target as Element)) {
+				setIsOpen(false);
+			}
+		};
+
+		window.addEventListener('click', handleClickOutside);
+		return () => {
+			window.removeEventListener('click', handleClickOutside);
+		};
+	}, []);
 
 	const toggleIsOpen = () => {
 		setIsOpen(!isOpen);
+	};
+
+	const closeDropdownList = () => {
+		setIsOpen(false);
 	};
 
 	if (
@@ -39,7 +57,7 @@ const UserDropdown = () => {
 		);
 	} else if (userStatus === 'sign-in-success' && user) {
 		return (
-			<div className="userDropdown">
+			<div className="userDropdown" ref={ref}>
 				<button
 					className="userDropdown__btn"
 					style={{ backgroundColor: user.avatarColor }}
@@ -49,12 +67,10 @@ const UserDropdown = () => {
 				>
 					<div className="userDropdown__btn--icon">{user.username[0].toUpperCase()}</div>
 				</button>
-				{isOpen && (
-					<DropdownList type="user">
-						<Link to="/account">My profile</Link>
-						<Link to="/signout">Sign out</Link>
-					</DropdownList>
-				)}
+				<DropdownList show={isOpen} type="user" closeHandler={closeDropdownList}>
+					<Link to="/account">My profile</Link>
+					<Link to="/signout">Sign out</Link>
+				</DropdownList>
 			</div>
 		);
 	}

@@ -16,7 +16,7 @@ const Header = () => {
 			<LogoFull />
 			<HeaderNav />
 			<div className="header--right">
-				<ThemeDropdown />
+				{/* <ThemeDropdown /> */}
 				<UserDropdown />
 			</div>
 			<BurgerButton />
