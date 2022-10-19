@@ -56,6 +56,7 @@ const UserDropdown = () => {
 			</div>
 		);
 	} else if (userStatus === 'sign-in-success' && user) {
+		console.log(user);
 		return (
 			<div className="userDropdown" ref={ref}>
 				<button
