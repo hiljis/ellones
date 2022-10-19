@@ -26,6 +26,7 @@ export const store = configureStore({
 		theme: themeReducer,
 		counter: counterReducer,
 	},
+	devTools: process.env.NODE_ENV !== 'production',
 	middleware: [saga],
 });
 saga.run(rootSaga);

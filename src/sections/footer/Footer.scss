@@ -81,6 +81,9 @@
 				.footer__col--header {
 					grid-column: 1 / span 4;
 				}
+				span {
+					display: none;
+				}
 			}
 			@include respond(phone) {
 				margin-top: 0;
