@@ -1,3 +1,5 @@
+@import '../../../assets/styles/abstracts/mixins';
+
 .burgerNav {
 	position: fixed;
 	top: 0;
@@ -29,8 +31,7 @@
 		}
 	}
 
-	&__link,
-	&__dropdownButton {
+	&__link {
 		width: 100%;
 		height: 10rem;
 		display: flex;
@@ -38,55 +39,33 @@
 		justify-content: center;
 		font-size: 3.2rem;
 		font-weight: 600;
-		&Content {
-			position: relative;
-		}
+		position: relative;
 		&Icon {
 			position: absolute;
-			right: -5rem;
+			right: 5rem;
 			top: 50%;
 			width: 3rem;
 			height: 3rem;
 			transform: translateY(-50%);
 		}
-		&.open {
-			background-color: blue;
-			color: var(--color-white);
-			svg path {
-				fill: var(--color-white);
-			}
-		}
 	}
-	&__dropdownList {
+
+	&__btnBack {
+		position: absolute;
+		left: 5rem;
+		top: 2rem;
+		width: 6rem;
+		height: 6rem;
 		background-color: var(--color-white);
-		top: 100%;
-		left: 0;
-		width: 100%;
-		height: 0;
-		overflow: hidden;
-		&Item {
-			cursor: pointer;
-			&:hover,
-			&:active,
-			&:focus {
-				background-color: var(--color-primary--10);
-				color: var(--color-primary);
-				svg path {
-					fill: var(--color-primary);
-				}
-			}
+		border: 2px solid var(--color-primary);
+		border-radius: var(--radius--round);
+
+		@include respond(phone) {
+			left: 3rem;
 		}
-		&.open {
-			height: min-content;
+
+		svg {
+			transform: translateY(3px);
 		}
-	}
-	&__dropdownLink {
-		width: 100%;
-		height: 10rem;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		font-size: 3rem;
-		font-weight: 600;
 	}
 }

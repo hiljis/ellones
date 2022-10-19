@@ -11,8 +11,8 @@ const About = () => {
 			</p>
 			<p className="section__about__text">
 				There are thousands of different crypto projects and tokens, and most are sadly scams. We focus on the
-				ones that really matter - the base layer protols. These are the foundation for the future of digital
-				assets, so why not just focus on them?
+				ones that really matter - the base layer protocols. These protocols are the foundation of web3, so why
+				not just focusing on them?
 			</p>
 		</section>
 	);

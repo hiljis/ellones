@@ -10,7 +10,7 @@ const HistoryPage = () => {
 
 	return (
 		<main className="historyPage">
-			<PageHeader>History by month</PageHeader>
+			<PageHeader showLoad={false}>History by month</PageHeader>
 			<HistoryMatrix />
 		</main>
 	);

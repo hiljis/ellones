@@ -4,6 +4,10 @@
 	display: flex;
 	gap: 5rem;
 
+	a {
+		font-weight: 600;
+	}
+
 	@include respond(tab-port) {
 		display: none;
 	}

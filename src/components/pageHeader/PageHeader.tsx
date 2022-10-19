@@ -8,7 +8,7 @@ type Props = {
 	showLoad?: boolean;
 };
 
-const PageHeader: React.FC<Props> = ({ children, showLoad }) => {
+const PageHeader: React.FC<Props> = ({ children, showLoad = true }) => {
 	return (
 		<div className="pageHeader">
 			<h3 className="pageHeader--text">{children}</h3>

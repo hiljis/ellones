@@ -1,4 +1,5 @@
-import { ReactComponent as IconCaretDown } from '../../../assets/svg/icon_caret-down.svg';
+import { ReactComponent as IconCaretForward } from '../../../assets/svg/icon_caret-forward.svg';
+import { ReactComponent as IconCaretBack } from '../../../assets/svg/icon_caret-back.svg';
 import { NavLink } from 'react-router-dom';
 import './BurgerNav.scss';
 import { useState } from 'react';
@@ -12,16 +13,77 @@ type Props = {
 
 const BurgerNav: React.FC<Props> = ({ open, closeHandler }) => {
 	const currentUser = useAppSelector(selectCurrentUser);
-	const [dropdownOpen, setDropdownOpen] = useState(false);
+	const [active, setActive] = useState('main');
+
 	const handleClose = () => {
 		closeHandler();
 	};
-	const handleToggleDropdown = () => {
-		setDropdownOpen(!dropdownOpen);
-	};
+
+	let content;
+	if (active === 'main') {
+		content = (
+			<ul className="burgerNav__list">
+				{currentUser ? (
+					<li className="burgerNav__listItem">
+						<NavLink to="/account" className="burgerNav__link" onClick={handleClose}>
+							my profile
+						</NavLink>
+					</li>
+				) : (
+					<li className="burgerNav__listItem">
+						<NavLink to="/signin" className="burgerNav__link" onClick={handleClose}>
+							sign in
+						</NavLink>
+					</li>
+				)}
+				<li className="burgerNav__listItem">
+					<NavLink to="/charts" className="burgerNav__link" onClick={handleClose}>
+						charts
+					</NavLink>
+				</li>
+				<li className="burgerNav__listItem">
+					<NavLink to="/l1s" className="burgerNav__link" onClick={handleClose}>
+						layer 1s
+					</NavLink>
+				</li>
+				<li className={`burgerNav__listItem`} onClick={() => setActive('market')}>
+					<span className="burgerNav__link">
+						market
+						<IconCaretForward className="burgerNav__linkIcon" />
+					</span>
+				</li>
+			</ul>
+		);
+	} else if (active === 'market') {
+		content = (
+			<ul className="burgerNav__list">
+				<li className="burgerNav__listItem">
+					<NavLink to="/change" className="burgerNav__link" onClick={handleClose}>
+						change
+					</NavLink>
+				</li>
+				<li className="burgerNav__listItem">
+					<NavLink to="/history" className="burgerNav__link" onClick={handleClose}>
+						history
+					</NavLink>
+				</li>
+				<li className="burgerNav__listItem">
+					<NavLink to="/dominance" className="burgerNav__link" onClick={handleClose}>
+						dominance
+					</NavLink>
+				</li>
+				<li className="burgerNav__listItem">
+					<NavLink to="/pairs" className="burgerNav__link" onClick={handleClose}>
+						pairs
+					</NavLink>
+				</li>
+			</ul>
+		);
+	}
 	return (
 		<nav className={`burgerNav ${open ? 'open' : ''}`}>
-			<ul className="burgerNav__list">
+			{content}
+			{/* <ul className="burgerNav__list">
 				{currentUser ? (
 					<li className="burgerNav__listItem">
 						<NavLink to="/account" className="burgerNav__link" onClick={handleClose}>
@@ -78,7 +140,14 @@ const BurgerNav: React.FC<Props> = ({ open, closeHandler }) => {
 						</li>
 					</ul>
 				</li>
-			</ul>
+			</ul> */}
+			{active !== 'main' ? (
+				<button className="burgerNav__btnBack" type="button" onClick={() => setActive('main')} title="Back">
+					<IconCaretBack className="icon--primary icon--xs" />
+				</button>
+			) : (
+				''
+			)}
 		</nav>
 	);
 };

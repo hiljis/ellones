@@ -16,6 +16,14 @@
 	}
 	&__text {
 		line-height: 2;
+		inline-size: 70%;
+
+		@include respond(tab-land) {
+			inline-size: 100%;
+		}
+		@include respond(big-desktop) {
+			inline-size: 50%;
+		}
 	}
 
 	@include respond(tab-land) {

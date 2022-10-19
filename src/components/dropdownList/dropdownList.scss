@@ -3,13 +3,14 @@
 	top: calc(50% + 3rem);
 	left: 50%;
 	transform: translate(-50%, 2rem);
-	border: 3px solid var(--color-black);
+	border: 2px solid var(--color-black);
 	border-radius: var(--radius--md);
 	padding: 1.6rem 0;
 	background-color: white;
 	list-style: none;
 	min-width: 17rem;
 	z-index: 2;
+	box-shadow: 0 15px 20px 0px rgba(0, 0, 0, 0.1);
 
 	&--user li:hover,
 	&--user li:focus {
