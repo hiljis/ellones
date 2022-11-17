@@ -1,3 +1,5 @@
+@import '../../assets/styles/abstracts/mixins';
+
 .layer1sGridPage {
 	grid-column: content-start / content-end;
 	grid-row: main-start / main-end;
@@ -5,4 +7,17 @@
 	display: flex;
 	flex-direction: column;
 	padding: 0 10rem;
+
+	@include respond(tab-land) {
+		padding: 0 5rem;
+	}
+	@include respond(tab-port) {
+		padding: 0 5rem;
+	}
+	@include respond(phone) {
+		padding: 0 3rem;
+	}
+	@include respond(big-desktop) {
+		padding: 0 20rem;
+	}
 }

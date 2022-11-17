@@ -23,7 +23,7 @@ const ChartsPage: React.FC = () => {
 
 	return (
 		<PageContainer>
-			<PageHeader>Charts</PageHeader>
+			<PageHeader showLoad={false}>Charts</PageHeader>
 			{content}
 			<ChartAdderBtn />
 		</PageContainer>

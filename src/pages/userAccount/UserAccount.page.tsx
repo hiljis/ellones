@@ -101,6 +101,7 @@ const UserAccountPage: React.FC = () => {
 					</p>
 				</div>
 			</section>
+			<div className="userAccountPage__separator"></div>
 			<section className="userAccountPage--right">
 				<div className="user__selectAvatar" onClick={() => handleSelect('avatar')}>
 					<UserAvatar username={currentUser.username!} clickHandler={() => handleSelect('avatar')} />

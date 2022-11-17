@@ -29,7 +29,7 @@ const L1Card: React.FC<Props> = ({ ticker, width, link }) => {
 
 	return (
 		<>
-			<div className="l1CardContainer" style={{ width: width }} onClick={handleOpen}>
+			<div className="l1CardContainer" onClick={handleOpen}>
 				{}
 				{card}
 				{getIcon(ticker)}

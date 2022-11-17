@@ -1,3 +1,5 @@
+@import '../../assets/styles/abstracts/mixins';
+
 .checkGroupContainer {
 	position: relative;
 }
@@ -7,21 +9,22 @@
 	left: 50%;
 	transform: translateX(-50%);
 	font-size: 1rem;
-	font-weight: 400;
+	font-weight: 500;
 	letter-spacing: 5px;
 	text-transform: uppercase;
 	color: var(--color-grey);
+	white-space: nowrap;
 }
 
 .checkGroup {
 	overflow: hidden;
 	height: 2.4rem;
-	background-color: var(--color-black);
-	border: 2px solid var(--color-black);
+	// background-color: var(--color-black);
+	// border: 2px solid var(--color-black);
 	border-radius: var(--radius--round);
 	display: flex;
 	align-items: center;
-	gap: 2px;
+	gap: 3px;
 
 	&.disabled {
 		pointer-events: none;
@@ -35,24 +38,35 @@
 		justify-content: center;
 		cursor: pointer;
 
-		color: var(--color-black);
+		background-color: var(--color-primary--10);
+		color: var(--color-primary);
 		font-size: 0.9rem;
 		font-weight: 600;
 		text-transform: uppercase;
 		letter-spacing: 2px;
+		@include respond(phone) {
+			letter-spacing: 1px;
+		}
 
 		&:hover {
-			background-color: var(--color-black);
+			background-color: var(--color-primary);
 			color: var(--color-white);
 		}
 
 		&.sm {
 			padding: 0 1rem;
+
+			@include respond(phone) {
+				padding: 0 0.6rem;
+			}
 		}
 
 		&.md {
 			padding: 0 1rem;
 			min-width: 10rem;
+			@include respond(phone) {
+				padding: 0 0.6rem;
+			}
 		}
 	}
 
@@ -60,7 +74,7 @@
 		display: none;
 
 		&:checked + label {
-			background-color: var(--color-black);
+			background-color: var(--color-primary);
 			color: var(--color-white);
 		}
 	}

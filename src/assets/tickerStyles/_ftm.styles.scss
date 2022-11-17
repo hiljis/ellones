@@ -1,5 +1,6 @@
 :root {
 	--color-ftm--primary: rgb(0, 72, 255);
+	--color-ftm--primary--95: rgba(0, 72, 255, 0.95);
 	--color-ftm--secondary: rgb(25, 105, 255);
 	--color-ftm--tertiary: rgb(0, 0, 190);
 
@@ -62,7 +63,7 @@
 		}
 	}
 
-    .selectTickerBtn.load-success.ftm {
+	.selectTickerBtn.load-success.ftm {
 		background-color: var(--color-ftm--primary);
 	}
 }

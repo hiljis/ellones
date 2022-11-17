@@ -43,9 +43,6 @@ import { DEFAULT_AVATAR_COLOR } from '../../app/utils/consts';
 export function* getSnapShotFromUserAuth(userAuth) {
 	try {
 		const userSnapShot = yield call(createUserDocumentFromAuth, userAuth);
-		if (userAuth.uid !== userSnapShot.id) throw new Error('uid does not match document id');
-		// const data = userSnapShot.data;
-		// throw new Error('TEST ERROR');
 		yield put(signInSuccess(userSnapShot.data()));
 	} catch (error) {
 		yield put(signInFailed(error));

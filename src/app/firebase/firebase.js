@@ -65,11 +65,12 @@ export const createUserDocumentFromAuth = async (userAuth) => {
 	if (!userAuth) return;
 	try {
 		const userDocRef = doc(db, 'users', userAuth.uid);
-		const userSnapShot = await getDoc(userDocRef);
+		let userSnapShot = await getDoc(userDocRef);
 
 		if (!userSnapShot.exists()) {
 			await setDoc(userDocRef, { ...userAuth });
-			return userAuth;
+			userSnapShot = await getDoc(userDocRef);
+			// return userAuth;
 		}
 		return userSnapShot;
 	} catch (error) {

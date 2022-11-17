@@ -1,8 +1,23 @@
+@import '../../../assets/styles/abstracts/mixins';
+
 .marketList {
 	&__listRow {
 		position: relative;
 		display: grid;
 		grid-template-columns: 7rem 20rem repeat(8, 1fr) 20rem;
+		grid-template-columns:
+			[ticker-start]
+			12rem [ticker-end price-start]
+			15rem [price-end oneD-start]
+			1fr [oneD-end oneW-start]
+			1fr [oneW-end oneM-start]
+			1fr [oneM-end threeM-start]
+			1fr [threeM-end sixM-start]
+			1fr [sixM-end oneY-start]
+			1fr [oneY-end threeY-start]
+			1fr [threeY-end range-start]
+			1fr [range-end mCap-start]
+			15rem [mCap-end];
 		align-items: center;
 		justify-items: center;
 		background-color: var(--color-white);
@@ -12,6 +27,10 @@
 
 		&:not(:last-child) {
 			margin-bottom: 3rem;
+
+			@include respond(tab-port) {
+				margin-bottom: 1rem;
+			}
 		}
 
 		&.loading,
@@ -42,12 +61,58 @@
 				background-color: var(--color-delete--10);
 			}
 		}
+
+		// @include respond(tab-port) {
+		// 	grid-template-columns:
+		// 		[ticker-start]
+		// 		12rem [ticker-end price-start]
+		// 		12rem [price-end oneD-start]
+		// 		1fr [oneD-end oneW-start]
+		// 		1fr [oneM-end threeM-start]
+		// 		1fr [threeM-end sixM-start]
+		// 		1fr [sixM-end oneY-start]
+		// 		1fr [oneY-end threeY-start]
+		// 		1fr [threeY-end mCap-start]
+		// 		12rem [mCap-end];
+		// }
+
+		@include respond(tab-port) {
+			grid-template-columns:
+				[ticker-start]
+				8rem [ticker-end price-start]
+				10rem [price-end oneD-start]
+				1fr [oneD-end oneM-start]
+				1fr [oneM-end threeM-start]
+				1fr [threeM-end sixM-start]
+				1fr [sixM-end oneY-start]
+				1fr [oneY-end threeY-start]
+				1fr [threeY-end mCap-start]
+				10rem [mCap-end];
+		}
+		@include respond(phone) {
+			grid-template-columns:
+				[ticker-start]
+				7rem [ticker-end oneD-start]
+				1fr [oneD-end threeM-start]
+				1fr [threeM-end sixM-start]
+				1fr [sixM-end oneY-start]
+				1fr [oneY-end threeY-start]
+				1fr [threeY-end];
+		}
 	}
 
 	.rowItem {
 		font-size: 1.2rem;
 		font-weight: 600;
 		letter-spacing: 1.2px;
+
+		&.col--ticker,
+		&.col--price {
+			margin-left: 1rem;
+		}
+		&.col--mCap {
+			margin-right: 1rem;
+		}
 	}
 }
 

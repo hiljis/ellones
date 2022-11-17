@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
+import Loader from '../../components/loader/loader';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { selectCurrentUser, selectUserStatus, signOutStart } from '../../store/user/userSlice';
 import './SignOut.page.scss';
@@ -24,6 +25,16 @@ const SignOutPage: React.FC = () => {
 			dispatch(signOutStart());
 		}
 	}, [navigate, dispatch, userStatus]);
+
+	if (userStatus === 'checking-user-session' || userStatus === 'no-user' || userStatus === 'sign-out-failed') {
+		return (
+			<main className="signOutPage">
+				<Loader color="black" size="md" />
+			</main>
+		);
+	}
+
+	console.log(userStatus);
 
 	return (
 		<main className="signOutPage">

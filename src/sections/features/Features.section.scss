@@ -1,18 +1,32 @@
+@import '../../assets/styles/abstracts/mixins';
+
 .section__features {
 	display: flex;
 	flex-direction: column;
 
 	width: 100%;
-	padding-top: 15rem;
+	padding-top: 10rem;
 }
 
 .featuresGrid {
 	display: grid;
-	grid-template-columns: 1fr 1fr;
-	grid-template-rows: 1fr 1fr 1fr;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(2, 25vw);
 
-	@media only screen and (min-width: 1800px) {
-		grid-template-columns: 1fr 1fr 1fr;
-		grid-template-rows: 1fr 1fr;
+	@include respond(tab-land) {
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: repeat(3, 25vw);
+	}
+	@include respond(tab-port) {
+		grid-template-columns: repeat(2, 1fr);
+		grid-template-rows: repeat(3, 33vw);
+	}
+	@include respond(phone) {
+		grid-template-columns: 1fr;
+		grid-template-rows: repeat(6, 67vw);
+	}
+	@include respond(big-desktop) {
+		grid-template-columns: repeat(3, 1fr);
+		grid-template-rows: repeat(2, 33vh);
 	}
 }

@@ -1,5 +1,6 @@
 :root {
 	--color-btc--primary: rgb(255, 183, 43);
+	--color-btc--primary--95: rgba(255, 183, 43, 0.95);
 	--color-btc--secondary: rgb(255, 183, 43);
 	--color-btc--tertiary: rgb(255, 183, 43);
 
@@ -74,7 +75,7 @@
 		}
 	}
 
-    .selectTickerBtn.load-success.btc {
+	.selectTickerBtn.load-success.btc {
 		background-color: var(--color-btc--primary);
 	}
 }

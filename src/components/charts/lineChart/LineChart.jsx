@@ -1,4 +1,3 @@
-import { Chart } from 'react-chartjs-2';
 import {
 	Chart as ChartJS,
 	BarElement,
@@ -14,7 +13,9 @@ import {
 	LineElement,
 	Title,
 	Legend,
+	registerables as registerablesJS,
 } from 'chart.js';
+import { Chart } from 'react-chartjs-2';
 import 'chartjs-adapter-date-fns';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import { enGB } from 'date-fns/locale';
@@ -23,22 +24,23 @@ import { useEffect, useRef, useState } from 'react';
 import { getPairlineChartOptions } from './LineChartOptions';
 import { getGradientColors } from '../chartUtils/colors';
 
-ChartJS.register(
-	BarElement,
-	LinearScale,
-	LogarithmicScale,
-	TimeScale,
-	TimeSeriesScale,
-	CategoryScale,
-	Decimation,
-	Tooltip,
-	Filler,
-	PointElement,
-	LineElement,
-	Title,
-	Legend,
-	zoomPlugin
-);
+// ChartJS.register(
+// 	BarElement,
+// 	LinearScale,
+// 	LogarithmicScale,
+// 	TimeScale,
+// 	TimeSeriesScale,
+// 	CategoryScale,
+// 	Decimation,
+// 	Tooltip,
+// 	Filler,
+// 	PointElement,
+// 	LineElement,
+// 	Title,
+// 	Legend,
+// 	zoomPlugin
+// );
+ChartJS.register(...registerablesJS);
 
 const createGradient = (ctx, area, id) => {
 	const { colorStart, colorEnd } = getGradientColors(id);

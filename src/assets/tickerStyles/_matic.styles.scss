@@ -1,6 +1,7 @@
 :root {
 	--color-matic--primary: rgb(123, 63, 228);
 	--color-matic--primary--10: rgba(123, 63, 228, 0.1);
+	--color-matic--primary--95: rgba(123, 63, 228, 0.95);
 	--color-matic--secondary: #7b3fe4;
 	--color-matic--tertiary: #7b3fe4;
 
@@ -68,7 +69,7 @@
 		}
 	}
 
-    .selectTickerBtn.load-success.matic {
+	.selectTickerBtn.load-success.matic {
 		background-color: var(--color-matic--primary);
 	}
 }

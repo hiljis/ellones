@@ -1,3 +1,5 @@
+@import '../../assets/styles/abstracts/mixins';
+
 .logoFull {
 	display: flex;
 	align-items: center;
@@ -6,7 +8,7 @@
 
 	&:hover &--img {
 		transform: translate(-3px, -3px);
-		box-shadow: 3px 3px 0 0 var(--color-secondary);
+		box-shadow: 3px 3px 0 0 var(--color-primary--light);
 	}
 
 	&:active &--img {
@@ -19,10 +21,24 @@
 		height: 5rem;
 		border-radius: var(--radius--sm);
 		transition: all 0.1s;
+
+		@include respond(phone) {
+			width: 6rem;
+			height: 6rem;
+		}
 	}
 
 	&--text {
 		font-size: 2.4rem;
-		font-weight: 600;
+		font-weight: 600 !important;
+		letter-spacing: 0 !important;
+
+		@include respond(phone) {
+			display: none;
+		}
+
+		&.white {
+			color: var(--color-white);
+		}
 	}
 }

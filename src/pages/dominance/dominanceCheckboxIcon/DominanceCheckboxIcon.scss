@@ -1,3 +1,5 @@
+@import '../../../assets/styles/abstracts/mixins';
+
 @keyframes dominanceCheckboxIconAfter_spin {
 	to {
 		transform: rotate(365deg);
@@ -13,6 +15,15 @@
 
 	.checkboxIcon {
 		pointer-events: none;
+	}
+
+	@include respond(tab-port) {
+		width: 6rem;
+		height: 6rem;
+	}
+	@include respond(phone) {
+		width: 5rem;
+		height: 5rem;
 	}
 
 	&::after {

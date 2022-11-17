@@ -1,3 +1,5 @@
+@import '../../assets/styles/abstracts/mixins';
+
 @keyframes lift {
 	to {
 		transform: translate(0, 0);
@@ -7,17 +9,45 @@
 
 .layer1SummaryCard {
 	display: flex;
-	width: 110rem;
+	width: 100rem;
 	height: 45rem;
 	background-color: white;
 	border-radius: var(--radius--xl);
 	overflow: hidden;
 	transform: translate(3rem, 3rem);
 	animation: lift 0.4s forwards;
+
+	@include respond(tab-land) {
+		width: 90rem;
+	}
+	@include respond(tab-port) {
+		display: grid;
+		grid-template-columns: 1.5fr 1fr;
+		grid-template-rows: 1fr 10rem;
+		width: 85%;
+		max-height: 50rem;
+		height: 85%;
+		transform: none;
+		animation: none;
+	}
+	@include respond(phone) {
+		display: flex;
+		flex-direction: column;
+		width: 70%;
+		height: 75%;
+		max-height: 70rem;
+		border-radius: var(--radius--lg);
+	}
 }
 
 .layer1__box {
 	width: 33.333333%;
+	@include respond(tab-port) {
+		width: 50%;
+	}
+	@include respond(phone) {
+		width: 100%;
+	}
 }
 
 .layer1__logo {
@@ -27,18 +57,39 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	@include respond(tab-port) {
+		grid-column: 2 / span 1;
+		grid-row: 1 / span 1;
+		width: 100%;
+	}
+	@include respond(phone) {
+		height: 40%;
+	}
 }
 
 .layer1__logo__img {
 	width: 85%;
 	height: auto;
+	@include respond(tab-port) {
+		width: 50%;
+	}
+	@include respond(phone) {
+		width: 40%;
+	}
 }
 
 .layer1__logo__btnContainer {
 	position: absolute;
 	left: 50%;
 	bottom: 4rem;
+	width: 100%;
 	transform: translateX(-50%);
+	@include respond(tab-port) {
+		bottom: 2rem;
+	}
+	@include respond(phone) {
+		bottom: 2rem;
+	}
 }
 
 .icon--white {
@@ -52,9 +103,20 @@
 	flex-direction: column;
 	padding: 5rem;
 	text-align: left;
+	@include respond(tab-port) {
+		grid-column: 1 / span 1;
+		grid-row: 1 / span 2;
+		padding: 3rem 3rem;
+		width: 100%;
+	}
+	@include respond(phone) {
+		height: 60%;
+		padding: 3rem 2rem;
+	}
 }
 
 .layer1__info__header {
+	position: relative;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -68,8 +130,17 @@
 }
 
 .tags {
+	position: absolute;
+	top: -3rem;
+	right: -3rem;
 	display: flex;
 	gap: 1rem;
+	align-self: flex-start;
+	@include respond(tab-port) {
+		flex-direction: column;
+		top: -1rem;
+		right: 0;
+	}
 }
 
 .tag {
@@ -96,6 +167,7 @@
 	font-weight: 400;
 	line-height: 2.8rem;
 	color: var(--color-black);
+	overflow-y: scroll;
 }
 
 .layer1__info__links {
@@ -117,12 +189,24 @@
 	display: flex;
 	gap: 3rem;
 	margin-top: 2rem;
+
+	@include respond(phone) {
+		display: none;
+	}
 }
 
 .layer1__stats {
 	display: flex;
 	flex-direction: column;
 	background-color: var(--color-black--10);
+	@include respond(tab-port) {
+		grid-column: 2 / span 1;
+		grid-row: 2 / span 1;
+		width: 100%;
+	}
+	@include respond(phone) {
+		display: none;
+	}
 }
 
 .layer1__stats__grid {
@@ -135,6 +219,9 @@
 	width: 100%;
 
 	flex-grow: 1;
+	@include respond(tab-port) {
+		display: none;
+	}
 }
 
 .layer1__statBox {
@@ -205,6 +292,10 @@
 
 	text-align: center;
 	padding: 1rem 0;
+
+	@include respond(tab-port) {
+		letter-spacing: 2px;
+	}
 }
 $fill: 10%;
 

@@ -6,7 +6,7 @@ import './IllustrationMarket.scss';
 
 const IllustrationMarket = () => {
 	return (
-		<div className="illustration__container--market">
+		<div className="illustration__container illustration__container--market">
 			<IconPlus className="illustration__icon--market" />
 			<IconArrowUp className="illustration__icon--market" />
 			<IconMinus className="illustration__icon--market" />

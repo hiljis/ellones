@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import About from '../../sections/about/About.section';
 import Carousel from '../../sections/carousel/Carousel.section';
 import Features from '../../sections/features/Features.section';
 import HeroHome from '../../sections/heroHome/HeroHome';
@@ -12,7 +13,8 @@ const Home = () => {
 	return (
 		<main className="home">
 			<HeroHome />
-			<Carousel visibleCards={7} />
+			<About />
+			<Carousel />
 			<Features />
 		</main>
 	);

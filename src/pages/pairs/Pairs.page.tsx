@@ -23,7 +23,7 @@ const PairsPage: React.FC = () => {
 
 	return (
 		<PageContainer>
-			<PageHeader>Pairs</PageHeader>
+			<PageHeader showLoad={false}>Pairs</PageHeader>
 			{content}
 			<PairAdderBtn />
 		</PageContainer>

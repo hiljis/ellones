@@ -1,3 +1,5 @@
+@import '../../assets/styles/abstracts/mixins';
+
 .signInPage {
 	grid-column: content-start / content-end;
 	grid-row: main-start / main-end;
@@ -7,6 +9,15 @@
 	align-items: center;
 	justify-content: center;
 	gap: 15rem;
+
+	@include respond(tab-land) {
+		gap: 10rem;
+	}
+	@include respond(tab-port) {
+		flex-direction: column;
+		gap: 5rem;
+		justify-content: flex-start;
+	}
 }
 
 .signInLeft {
@@ -35,6 +46,12 @@
 	font-weight: 600;
 	line-height: 1;
 	margin-bottom: 5rem;
+
+	@include respond(tab-port) {
+		margin-top: 12rem;
+		margin-bottom: 3rem;
+		font-size: 6rem;
+	}
 }
 
 .colorSpectrum {
@@ -45,6 +62,10 @@
 	border-radius: var(--radius--round);
 	overflow: hidden;
 	margin-bottom: 3rem;
+
+	@include respond(phone) {
+		width: 75%;
+	}
 }
 
 .colorSpectrum--color {

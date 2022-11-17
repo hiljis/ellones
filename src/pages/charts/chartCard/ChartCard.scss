@@ -1,16 +1,44 @@
+@import '../../../assets/styles/abstracts/mixins';
+
 .chartCard {
 	width: calc(100vw - 20rem);
 	// min-height: 8rem;
 	padding: 1.6rem 1.6rem;
 	border-radius: var(--radius--lg);
 	border: 2px solid var(--color-grey--light);
-	margin: 5rem 0;
+	margin-top: 5rem;
 	position: relative;
 	background-color: var(--color-white);
 	display: grid;
 	grid-template-columns: 10rem 1fr 1fr 1fr 14rem;
 	grid-template-rows: [head-start] 6rem [headRow-end chart-start] 1fr [chart-end foot-start] 4rem [foot-end];
 	align-items: center;
+
+	&:last-of-type {
+		margin-bottom: 5rem;
+	}
+
+	@include respond(tab-land) {
+		margin-top: 3rem;
+		grid-template-rows: [head-start] 7rem [headRow-end chart-start] 1fr [chart-end foot-start] 7rem [foot-end];
+
+		&:last-of-type {
+			margin-bottom: 3rem;
+		}
+	}
+	@include respond(tab-port) {
+		width: 100%;
+		border-radius: 0;
+		border-left: none;
+		border-right: none;
+		margin-bottom: 2rem;
+		&:last-of-type {
+			margin-bottom: 2rem;
+		}
+	}
+	@include respond(big-desktop) {
+		width: calc(100vw - 30rem);
+	}
 
 	&.max {
 		position: fixed;
@@ -58,6 +86,9 @@
 			grid-row: [foot-start] / [foot-end];
 			grid-column: 5;
 		}
+		@include respond(tab-land) {
+			display: none;
+		}
 	}
 
 	&__chartArea {
@@ -69,6 +100,16 @@
 		flex: 1;
 		position: relative;
 		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		@include respond(tab-land) {
+			margin: 2rem 2rem;
+			min-height: 100%;
+		}
+		@include respond(phone) {
+			margin: 0;
+		}
 	}
 
 	&__message {
@@ -264,4 +305,50 @@
 			transform: rotate(180deg);
 		}
 	}
+}
+
+.chartCard__settingsBtn {
+	display: none;
+	// border: 2px solid var(--color-primary);
+	border: none;
+	width: 6rem;
+	height: 6rem;
+	padding: 1.4rem;
+	border-radius: var(--radius--round);
+	background-color: var(--color-primary--10);
+	justify-self: flex-end;
+	align-self: flex-end;
+	grid-row: foot-start / foot-end;
+	grid-column: 5;
+	z-index: 7;
+	cursor: pointer;
+
+	&.open {
+		background-color: var(--color-primary);
+	}
+
+	&.coll {
+		display: none;
+	}
+
+	@include respond(tab-land) {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+}
+
+.settingsOverlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 5rem;
+	align-items: center;
+	justify-content: center;
+	background-color: var(--color-white--90);
+	z-index: 6;
 }

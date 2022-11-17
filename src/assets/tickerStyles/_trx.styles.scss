@@ -1,5 +1,6 @@
 :root {
 	--color-trx--primary: rgb(231, 0, 39);
+	--color-trx--primary--95: rgba(231, 0, 39, 0.95);
 	--color-trx--secondary: #e70028;
 	--color-trx--tertiary: #e70028;
 	--color-trx--primary--dark: rgb(141, 0, 24);
@@ -69,7 +70,7 @@
 		}
 	}
 
-    .selectTickerBtn.load-success.trx {
+	.selectTickerBtn.load-success.trx {
 		background-color: var(--color-trx--primary);
 	}
 }

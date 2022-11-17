@@ -27,7 +27,7 @@ export const getBarChartOptions = (chartData, dataCategory) => {
 					font: {
 						family: "'Poppins', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
 						size: 10,
-						weight: 600,
+						weight: 500,
 						lineHeight: 1,
 						style: 'normal',
 					},
@@ -50,7 +50,7 @@ export const getBarChartOptions = (chartData, dataCategory) => {
 					font: {
 						family: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
 						size: 10,
-						weight: 600,
+						weight: 500,
 						lineHeight: 1,
 						style: 'normal',
 					},

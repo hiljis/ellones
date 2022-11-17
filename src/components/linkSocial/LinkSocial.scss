@@ -1,12 +1,14 @@
+@import '../../assets/styles/abstracts/mixins';
+
 .linkSocial {
 	display: flex;
 	align-items: center;
 	gap: 1.6rem;
 
 	text-decoration: none;
-	font-size: 1.8rem;
-	letter-spacing: 4px;
-	font-weight: 600;
+	font-size: 1.4rem;
+	letter-spacing: 2px;
+	font-weight: 500;
 	color: var(--color-black);
 	cursor: pointer;
 	width: min-content;
@@ -23,16 +25,15 @@
 
 	&--twitter:hover,
 	&--twitter:focus {
-		svg {
-			fill: var(--color-twitter);
+		svg path {
+			fill: var(--color-twitter) !important;
 		}
-
 		color: var(--color-twitter);
 	}
 
 	&--facebook:hover,
 	&--facebook:focus {
-		svg {
+		svg path {
 			fill: var(--color-facebook);
 		}
 
@@ -41,7 +42,7 @@
 
 	&--github:hover,
 	&--github:focus {
-		svg {
+		svg path {
 			fill: var(--color-github);
 		}
 
@@ -50,10 +51,16 @@
 
 	&--youtube:hover,
 	&--youtube:focus {
-		svg {
+		svg path {
 			fill: var(--color-youtube);
 		}
 
 		color: var(--color-youtube);
+	}
+
+	span {
+		@include respond(phone) {
+			display: none;
+		}
 	}
 }

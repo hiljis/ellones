@@ -1,5 +1,11 @@
+@import '../../../assets/styles/abstracts/mixins';
+
 .signUpForm__container {
-	width: 30%;
+	width: 40rem;
+
+	@include respond(phone) {
+		width: 75%;
+	}
 }
 
 .signUpForm {
@@ -28,13 +34,12 @@
 	font-weight: 500;
 	letter-spacing: 2px;
 	padding: 1.2rem 2rem;
-	border: none;
-	box-shadow: inset 0 0 0 2px var(--color-black);
+	border: 2px solid var(--color-black);
 	border-radius: var(--radius--md);
 	color: var(--color-black);
 
 	&:focus {
-		box-shadow: inset 0 0 0 3px var(--color-primary);
+		border-color: var(--color-primary);
 		outline: none;
 	}
 
@@ -61,7 +66,7 @@
 	}
 
 	&--error {
-		box-shadow: inset 0 0 0 3px red;
+		border-color: var(--color-negative);
 	}
 }
 
@@ -77,5 +82,5 @@
 	width: 1.2rem;
 	height: 1.2rem;
 	border-radius: var(--radius--round);
-	background-color: red;
+	background-color: var(--color-negative);
 }

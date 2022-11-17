@@ -10,6 +10,10 @@ type Props = {
 const LinkText: React.FC<Props> = ({ children, type, to }) => {
 	const href = type === 'email' ? `mailto: ${to}` : to;
 
+	if (to === '') {
+		return <div className={`linkText linkText--${type}`}>{children}</div>;
+	}
+
 	if (type === 'resource') {
 		return (
 			<a href={href} className={`linkText linkText--${type}`} target="_blank" rel="noopener noreferrer">

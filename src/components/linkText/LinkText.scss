@@ -2,8 +2,8 @@
 	position: relative;
 	text-decoration: none;
 	font-size: 1.4rem;
-	letter-spacing: 4px;
-	font-weight: 600;
+	letter-spacing: 2px;
+	font-weight: 500;
 	color: var(--color-black);
 	cursor: pointer;
 	width: min-content;
@@ -32,17 +32,17 @@
 
 	&--email:hover,
 	&--email:focus {
-		color: rgba(0, 0, 255, 1);
+		color: var(--color-white);
 	}
 
 	&--email:hover::after,
 	&--email:focus:after {
-		background-color: rgba(0, 0, 255, 1);
+		background-color: var(--color-white);
 	}
 
 	&--charts:hover::after,
 	&--charts:focus::after {
-		background-color: rgba(0, 0, 255, 1);
+		background-color: var(--color-primary--light);
 	}
 
 	&--l1s:hover::after,

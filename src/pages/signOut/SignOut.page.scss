@@ -1,3 +1,5 @@
+@import '../../assets/styles/abstracts/mixins';
+
 @keyframes fade {
 	to {
 		opacity: 0;
@@ -8,6 +10,7 @@
 	grid-column: content-start / content-end;
 	grid-row: main-start / main-end;
 	min-height: calc(100vh - 10rem);
+	position: relative;
 
 	display: flex;
 	flex-direction: column;
@@ -16,13 +19,17 @@
 	gap: 5rem;
 
 	.colorSpectrum-animated {
-		width: 50%;
+		width: 70rem;
 		height: 3rem;
 		display: flex;
 		flex-wrap: nowrap;
 		border-radius: var(--radius--round);
 		overflow: hidden;
 		margin-bottom: 3rem;
+
+		@include respond(tab-port) {
+			width: 75%;
+		}
 
 		.purple {
 			animation: fade 0.2s 1.4s forwards;
@@ -55,4 +62,8 @@
 	font-weight: 600;
 	line-height: 1;
 	animation: fade 0.8s 1.6s forwards;
+
+	@include respond(tab-port) {
+		font-size: 6rem;
+	}
 }

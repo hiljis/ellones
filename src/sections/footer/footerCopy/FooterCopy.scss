@@ -1,6 +1,12 @@
+@import '../../../assets/styles/abstracts/mixins';
+
 .footer__copy {
 	font-size: 1.6rem;
 	font-weight: 500;
 	letter-spacing: 4px;
 	text-align: right;
+
+	@include respond(phone) {
+		text-align: center;
+	}
 }

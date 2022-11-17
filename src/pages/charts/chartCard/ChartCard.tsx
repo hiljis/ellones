@@ -34,6 +34,8 @@ import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { fetchTickerStart, selectMarketDataStatusByTicker } from '../../../store/marketData/marketDataSlice';
 import ChartCardChart from '../chartCardChart/ChartCardChart';
 import SelectTickerBtn from '../selectTickerBtn/SelectTickerBtn';
+import { ReactComponent as IconSettings } from '../../../assets/svg/icon_settings.svg';
+import { ReactComponent as IconClose } from '../../../assets/svg/icon_close.svg';
 import './ChartCard.scss';
 
 type Props = {
@@ -53,6 +55,7 @@ const ChartCard: React.FC<Props> = ({ children, deleteHandler, index }) => {
 	const chartDisplayMode = useAppSelector((state) => selectChartDisplayMode(state, index));
 	const loadStatus = useAppSelector((state) => selectMarketDataStatusByTicker(state, selectedTicker));
 	const [trimmedChartData, setTrimmedChartData] = useState<MarketDataPoint[]>([]);
+	const [isOverlayOpen, setIsOverlayOpen] = useState(false);
 
 	useEffect(() => {
 		if (loadStatus === 'idle' || loadStatus === 'load-failed') dispatch(fetchTickerStart(selectedTicker));
@@ -89,6 +92,10 @@ const ChartCard: React.FC<Props> = ({ children, deleteHandler, index }) => {
 		dispatch(changeChartScale({ index: index, scale: scale }));
 	};
 
+	const handleToggleOverlay = () => {
+		setIsOverlayOpen(!isOverlayOpen);
+	};
+
 	let content;
 	if (!selectedTicker) {
 		content = <p className="chartCard__message">(Choose a chain)</p>;
@@ -116,7 +123,7 @@ const ChartCard: React.FC<Props> = ({ children, deleteHandler, index }) => {
 	return (
 		<article className={`chartCard ${chartDisplayMode}`}>
 			<SelectTickerBtn ticker={selectedTicker} loadStatus={loadStatus} index={index} />
-			<div className="chartCard__checkGroup--dataCategory">
+			<div className="chartCard__checkGroup chartCard__checkGroup--dataCategory">
 				<CheckGroup
 					initSelected={chartDataCategory}
 					widthSize="md"
@@ -132,7 +139,7 @@ const ChartCard: React.FC<Props> = ({ children, deleteHandler, index }) => {
 				</CheckGroup>
 			</div>
 
-			<div className="chartCard__checkGroup--timeSpan">
+			<div className="chartCard__checkGroup chartCard__checkGroup--timeSpan">
 				<CheckGroup
 					initSelected={chartTimeSpan}
 					widthSize="sm"
@@ -190,7 +197,7 @@ const ChartCard: React.FC<Props> = ({ children, deleteHandler, index }) => {
 			</div>
 			<div className="chartCard__chartArea">{content}</div>
 			<div className="chartCard__scaleSwitch"></div>
-			<div className="chartCard__checkGroup--resolution">
+			<div className="chartCard__checkGroup chartCard__checkGroup--resolution">
 				<CheckGroup
 					initSelected={chartResolution}
 					widthSize="md"
@@ -206,7 +213,7 @@ const ChartCard: React.FC<Props> = ({ children, deleteHandler, index }) => {
 					]}
 				</CheckGroup>
 			</div>
-			<div className="chartCard__checkGroup--scale">
+			<div className="chartCard__checkGroup chartCard__checkGroup--scale">
 				<CheckGroup
 					initSelected={chartScale}
 					widthSize="sm"
@@ -220,6 +227,85 @@ const ChartCard: React.FC<Props> = ({ children, deleteHandler, index }) => {
 					]}
 				</CheckGroup>
 			</div>
+			{selectedTicker === '' ? (
+				''
+			) : (
+				<button
+					className={`chartCard__settingsBtn ${chartDisplayMode} ${isOverlayOpen ? 'open' : 'closed'}`}
+					title="Settings"
+					onClick={handleToggleOverlay}
+				>
+					{isOverlayOpen ? (
+						<IconClose className="icon--whiteStroke icon--sm" />
+					) : (
+						<IconSettings className="icon--primaryStroke icon--sm" />
+					)}
+				</button>
+			)}
+			{isOverlayOpen ? (
+				<div className={`settingsOverlay ${chartDisplayMode}`}>
+					<CheckGroup
+						initSelected={chartDataCategory}
+						widthSize="md"
+						selectHandler={handleOnDataCategoryChange}
+						disabled={chartData.length <= 0}
+						title="data category"
+					>
+						{[
+							{ string: 'Market Cap', value: 'mCap' },
+							{ string: 'Volume', value: 'volume' },
+							{ string: 'Price', value: 'price' },
+						]}
+					</CheckGroup>
+					<CheckGroup
+						initSelected={chartTimeSpan}
+						widthSize="sm"
+						selectHandler={handleOnTimeSpanChange}
+						disabled={chartData.length <= 0}
+						title="time span"
+					>
+						{[
+							{ string: '1m', value: DAYS_1M_BACK <= chartData.length ? DAYS_1M_BACK : -1 },
+							{ string: '3m', value: DAYS_3M_BACK <= chartData.length ? DAYS_3M_BACK : -1 },
+							{ string: '6m', value: DAYS_6M_BACK <= chartData.length ? DAYS_6M_BACK : -1 },
+							{ string: '1y', value: DAYS_1Y_BACK <= chartData.length ? DAYS_1Y_BACK : -1 },
+							{ string: '2y', value: DAYS_2Y_BACK <= chartData.length ? DAYS_2Y_BACK : -1 },
+							{ string: '3y', value: DAYS_3Y_BACK <= chartData.length ? DAYS_3Y_BACK : -1 },
+							{ string: '4y', value: DAYS_4Y_BACK <= chartData.length ? DAYS_4Y_BACK : -1 },
+							{ string: '5y', value: DAYS_5Y_BACK <= chartData.length ? DAYS_5Y_BACK : -1 },
+							{ string: 'all', value: chartData.length ? chartData.length : -1 },
+						]}
+					</CheckGroup>
+					<CheckGroup
+						initSelected={chartResolution}
+						widthSize="sm"
+						selectHandler={handleOnResolutionChange}
+						disabled={chartData.length <= 0}
+						title="resolution"
+					>
+						{[
+							{ string: '1 : 1', value: 1 },
+							{ string: '1 : 2', value: 2 },
+							{ string: '1 : 5', value: 5 },
+							{ string: '1 : 10', value: 10 },
+						]}
+					</CheckGroup>
+					<CheckGroup
+						initSelected={chartScale}
+						widthSize="sm"
+						selectHandler={handleOnScaleChange}
+						disabled={chartData.length <= 0}
+						title="scale"
+					>
+						{[
+							{ string: 'lin', value: 'linear' },
+							{ string: 'log', value: 'logarithmic' },
+						]}
+					</CheckGroup>
+				</div>
+			) : (
+				''
+			)}
 		</article>
 	);
 };

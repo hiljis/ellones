@@ -4,7 +4,7 @@ import './IllustrationNetwork.scss';
 
 const IllustrationNetwork = () => {
 	return (
-		<div className="illustration__container--network">
+		<div className="illustration__container illustration__container--network">
 			<IconOne className="illustration__icon--network" />
 			<IconUser className="illustration__icon--network" />
 			<IconOne className="illustration__icon--network" />

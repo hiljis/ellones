@@ -1,10 +1,22 @@
+@import '../../../assets/styles/abstracts/mixins';
+
 .chartBox--line {
 	height: 40rem;
 	// height: 90%;
 	width: 100%;
 
 	&.max {
-		height: calc(100vh - 15rem);
+		height: calc(100vh - 20rem);
+
+		@include respond(tab-land) {
+			height: calc(100vh - 40rem);
+		}
+		@include respond(tab-port) {
+			height: calc(100vh - 40rem);
+		}
+		@include respond(phone) {
+			height: calc(100vh - 30rem);
+		}
 	}
 
 	&.default {

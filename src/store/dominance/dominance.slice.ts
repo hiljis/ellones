@@ -10,7 +10,7 @@ export interface SnapShotChartState {
 export interface HistoricChartState {
 	timeStart: number;
 	timeEnd: number;
-	chartType: 'bar' | 'line' | 'stacked';
+	chartType: ChartType;
 }
 export type TickerIncluded = {
 	ticker: string;
@@ -21,7 +21,9 @@ export type DominanceDataCategory = 'mCap' | 'volume';
 export type DominanceChart = 'snapShot' | 'historic';
 
 export type DominanceState = {
-	activeChart: DominanceChart;
+	displayMode: 'duo' | 'single';
+	isBarChartActive: boolean;
+	isDoughnutChartActive: boolean;
 	snapShotChartState: SnapShotChartState;
 	historicChartState: HistoricChartState;
 	dataCategory: DominanceDataCategory;
@@ -32,7 +34,9 @@ export type DominanceState = {
 };
 
 const initialState: DominanceState = {
-	activeChart: 'snapShot',
+	displayMode: 'duo',
+	isBarChartActive: true,
+	isDoughnutChartActive: true,
 	snapShotChartState: { timeAgo: 0, chartType: 'bar' },
 	historicChartState: { timeStart: 0, timeEnd: 0, chartType: 'stacked' },
 	dataCategory: 'mCap',
@@ -50,8 +54,28 @@ export const dominanceSlice = createSlice({
 			const tickers = action.payload;
 			state.tickers = [...tickers];
 		},
-		toggleActiveChart: (state): void => {
-			state.activeChart = state.activeChart === 'snapShot' ? 'historic' : 'snapShot';
+		setDisplayMode: (state, action: PayloadAction<'duo' | 'single'>): void => {
+			state.displayMode = action.payload;
+		},
+		toggleChart: (state, action: PayloadAction<string>): void => {
+			const chartTarget = action.payload;
+			if (chartTarget === 'bar') {
+				state.isBarChartActive = !state.isBarChartActive;
+			} else {
+				state.isDoughnutChartActive = !state.isDoughnutChartActive;
+			}
+		},
+		switchChart: (state): void => {
+			state.isBarChartActive = !state.isBarChartActive;
+			state.isDoughnutChartActive = !state.isDoughnutChartActive;
+		},
+		initDuoState: (state): void => {
+			state.isBarChartActive = true;
+			state.isDoughnutChartActive = true;
+		},
+		initSingleState: (state): void => {
+			state.isBarChartActive = true;
+			state.isDoughnutChartActive = false;
 		},
 		changeDataCategory: (state, action: PayloadAction<DominanceDataCategory>): void => {
 			state.dataCategory = action.payload;
@@ -72,21 +96,34 @@ export const dominanceSlice = createSlice({
 	},
 });
 
-export const { initDominance, toggleActiveChart, changeDataCategory, toggleTicker, changeSnapShotTime } =
-	dominanceSlice.actions;
+export const {
+	initDominance,
+	setDisplayMode,
+	toggleChart,
+	switchChart,
+	initDuoState,
+	initSingleState,
+	changeDataCategory,
+	toggleTicker,
+	changeSnapShotTime,
+} = dominanceSlice.actions;
 
+export const selectIsChartActive = (state: RootState, targetChart: string) => {
+	if (targetChart === 'bar') {
+		return state.dominance.isBarChartActive;
+	} else {
+		return state.dominance.isDoughnutChartActive;
+	}
+};
 export const selectActiveChart = (state: RootState) => {
-	return state.dominance.activeChart;
+	if (state.dominance.isBarChartActive) return 'bar';
+	return 'doughnut';
 };
 export const selectDataCategory = (state: RootState) => {
 	return state.dominance.dataCategory;
 };
 export const selectDominanceStatus = (state: RootState) => {
 	return state.dominance.status;
-};
-export const selectActiveChartState = (state: RootState) => {
-	if (state.dominance.activeChart === 'snapShot') return state.dominance.snapShotChartState;
-	return state.dominance.historicChartState;
 };
 export const selectDominanceExcludedTickers = (state: RootState) => {
 	return state.dominance.excludedTickers;
@@ -96,6 +133,9 @@ export const selectDominanceTickers = (state: RootState) => {
 };
 export const selectDominanceIsActiveTicker = (state: RootState, ticker: string) => {
 	return !state.dominance.excludedTickers.includes(ticker);
+};
+export const selectDominanceDisplayMode = (state: RootState) => {
+	return state.dominance.displayMode;
 };
 
 export default dominanceSlice.reducer;

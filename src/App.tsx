@@ -1,5 +1,5 @@
-import { Routes, Route } from 'react-router-dom';
-import './App.css';
+import { Routes, Route, useLocation } from 'react-router-dom';
+import './App.scss';
 import Footer from './sections/footer/Footer';
 import Header from './sections/header/Header';
 import Home from './pages/home/Home';
@@ -19,6 +19,7 @@ import DominancePage from './pages/dominance/Dominance.page';
 import PairsPage from './pages/pairs/Pairs.page';
 import BaseBackground from './components/baseBackground/BaseBackground';
 import ChartsPage from './pages/charts/Charts.page';
+import AboutPage from './pages/about/About.page';
 
 function App() {
 	const profiles = useAppSelector(selectProfiles);
@@ -53,6 +54,7 @@ function App() {
 				<Route path="/l1s" element={<L1sPage />} />
 				<Route path="/l1s/:ticker" element={<L1PresentationPage />} />
 				<Route path="/history" element={<HistoryPage />} />
+				<Route path="/about" element={<AboutPage />} />
 			</Routes>
 			<Footer />
 		</div>

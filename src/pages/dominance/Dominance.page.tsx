@@ -9,6 +9,7 @@ import {
 	DAYS_4Y_BACK,
 	DAYS_5Y_BACK,
 } from '../../app/utils/consts';
+import ButtonToggleChart from './buttonToggleChart/ButtonToggleChart';
 import BarChart from '../../components/charts/barChart/BarChart';
 import DoughnutChart from '../../components/charts/doughnutChart/DoughnutChart';
 import CheckGroup from '../../components/checkGroup/CheckGroup';
@@ -17,13 +18,18 @@ import {
 	changeDataCategory,
 	DominanceDataCategory,
 	selectDataCategory,
+	selectDominanceDisplayMode,
 	selectDominanceExcludedTickers,
 	selectDominanceTickers,
+	selectIsChartActive,
+	setDisplayMode,
 } from '../../store/dominance/dominance.slice';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
 import { selectMarketDataByIndex } from '../../store/marketData/marketDataSlice';
 import './Dominance.page.scss';
 import DominanceCheckboxIcon from './dominanceCheckboxIcon/DominanceCheckboxIcon';
+import ButtonToggleActiveChart from './buttonToggleActiveChart/ButtonToggleActiveChart';
+import { ReactComponent as IconReload } from '../../assets/svg/icon_reload.svg';
 
 const DominancePage: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -32,6 +38,8 @@ const DominancePage: React.FC = () => {
 	const marketData = useAppSelector((state) => selectMarketDataByIndex(state, dataCategory, index));
 	const excludedTickers = useAppSelector(selectDominanceExcludedTickers);
 	const tickers = useAppSelector(selectDominanceTickers);
+	const isBarChartActive = useAppSelector((state) => selectIsChartActive(state, 'bar'));
+	const isDoughnutChartActive = useAppSelector((state) => selectIsChartActive(state, 'doughnut'));
 
 	useEffect(() => {
 		window.scrollTo(0, 0);
@@ -51,6 +59,25 @@ const DominancePage: React.FC = () => {
 		const value = parseInt(selectedTime);
 		setIndex(value);
 	};
+
+	const barChart = <BarChart tickerData={filteredMarketData} dataCategory={dataCategory} />;
+	const doughnutChart = <DoughnutChart tickerData={filteredMarketData} dataCategory={dataCategory} />;
+	let duoModeContent;
+	if (isBarChartActive && isDoughnutChartActive)
+		duoModeContent = (
+			<div className="duoMode">
+				{barChart}
+				{doughnutChart}
+			</div>
+		);
+	else if (isBarChartActive) duoModeContent = <div className="duoModeSingle">{barChart}</div>;
+	else if (isDoughnutChartActive) duoModeContent = <div className="duoModeSingle">{doughnutChart}</div>;
+	else
+		duoModeContent = (
+			<div className="duoModeSingle">
+				<span className="duoModeSingle--message">(No active chart)</span>
+			</div>
+		);
 
 	return (
 		<main className="dominancePage">
@@ -76,16 +103,40 @@ const DominancePage: React.FC = () => {
 							{ string: '5y', value: DAYS_5Y_BACK },
 						]}
 					</CheckGroup>
+					<div className="toggleGroup">
+						<ButtonToggleChart dataTarget="bar" />
+						<ButtonToggleChart dataTarget="doughnut" />
+					</div>
+					<ButtonToggleActiveChart />
 				</div>
-				<BarChart tickerData={filteredMarketData} dataCategory={dataCategory} />
-				<DoughnutChart tickerData={filteredMarketData} dataCategory={dataCategory} />
+				{duoModeContent}
+				{/* <div className="duoChart">
+					{isBarChartActive ? <BarChart tickerData={filteredMarketData} dataCategory={dataCategory} /> : ''}
+					{isDoughnutChartActive ? (
+						<DoughnutChart tickerData={filteredMarketData} dataCategory={dataCategory} />
+					) : (
+						''
+					)}
+					{isBarChartActive && isDoughnutChartActive ?}
+				</div> */}
+				<div className="singleMode">
+					{isBarChartActive ? (
+						<BarChart tickerData={filteredMarketData} dataCategory={dataCategory} />
+					) : (
+						<DoughnutChart tickerData={filteredMarketData} dataCategory={dataCategory} />
+					)}
+				</div>
+
 				<form className="section__dominanceCharts__iconToggleRow">
 					{tickers.map((ticker, i) => (
 						<DominanceCheckboxIcon ticker={ticker} key={i} />
-						// <CheckboxIcon ticker={ticker} checkHandler={handleOnTickerCheck} key={i} />
 					))}
 				</form>
 			</section>
+			<div className="rotateMessage">
+				<IconReload className="icon--sm icon--warningStroke" />
+				<p className="rotateMessage--text">Please rotate :)</p>
+			</div>
 		</main>
 	);
 };
