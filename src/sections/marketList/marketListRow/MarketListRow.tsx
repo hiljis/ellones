@@ -3,10 +3,9 @@ import { ReactComponent as IconDownload } from '../../../assets/svg/icon_downloa
 import Loader from '../../../components/loader/loader';
 import PercentBox from './percentBox/PercentBox';
 import { formatNumberAndExtractUnit } from '../../../app/utils/format';
-import { ActiveData, MarketListRowModel, selectRowDataStatusByTicker } from '../../../store/marketList/marketListSlice';
+import { ActiveData, MarketListRowModel } from '../../../store/marketList/marketListSlice';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import {
-	selectMarketDataStatus,
 	selectMarketDataStatusByTicker,
 	fetchTickerStart,
 	fetchTickerStop,
@@ -22,9 +21,7 @@ type Props = {
 const MarketListRow: React.FC<Props> = ({ data, activeData }) => {
 	const ticker = data.ticker;
 	const dispatch = useAppDispatch();
-	const calcStatus = useAppSelector((state) => selectRowDataStatusByTicker(state, ticker));
 	const loadStatus = useAppSelector((state) => selectMarketDataStatusByTicker(state, ticker));
-	const overallMarketDataStatus = useAppSelector(selectMarketDataStatus);
 
 	const handleOnClick = () => {
 		if (loadStatus === 'idle') dispatch(fetchTickerStart(ticker));
@@ -32,17 +29,6 @@ const MarketListRow: React.FC<Props> = ({ data, activeData }) => {
 		if (loadStatus === 'load-failed') dispatch(fetchTickerReset(ticker));
 	};
 
-	// console.log(ticker, data);
-
-	// if (overallMarketDataStatus === 'loading' || overallMarketDataStatus === 'load-failed') {
-	// 	if (loadStatus !== 'load-success' && loadStatus !== 'loading') {
-	// 		return (
-	// 			<li className="marketList__listRow waiting">
-	// 				<span className="rowItem col--ticker">{data.ticker.toUpperCase()}</span>
-	// 			</li>
-	// 		);
-	// 	}
-	// }
 	if (loadStatus === 'idle') {
 		return (
 			<li className="marketList__listRow idle" onClick={handleOnClick}>

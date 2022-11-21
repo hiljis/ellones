@@ -136,13 +136,12 @@ export const getCurrentUser = () => {
 
 onAuthStateChanged(auth, (userAuth) => {
 	if (userAuth) {
-		console.log('signed in: ', userAuth);
+		// Signed in
 		// User is signed in, see docs for a list of available properties
 		// https://firebase.google.com/docs/reference/js/firebase.User
 		const uid = userAuth.uid;
 		// ...
 	} else {
-		console.log('sign out');
 		// User is signed out
 		// ...
 	}
@@ -179,7 +178,6 @@ export const addCollectionAndDocuments = async (collectionKey, objectsToAdd, doc
 	});
 
 	await batch.commit();
-	console.log('DONE');
 };
 
 // UPDATE FAV CHAIN

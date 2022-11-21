@@ -63,7 +63,7 @@ const ChartCard: React.FC<Props> = ({ children, deleteHandler, index }) => {
 
 	useEffect(() => {
 		if (chartData && chartData.length > 0) {
-			setTrimmedChartData(chartData.slice(chartData.length - chartTimeSpan));
+			setTrimmedChartData(chartData.slice(-chartTimeSpan));
 		}
 	}, [chartTimeSpan, chartDataCategory, chartData]);
 
@@ -106,8 +106,6 @@ const ChartCard: React.FC<Props> = ({ children, deleteHandler, index }) => {
 	} else if (trimmedChartData.length === 0) {
 		content = <Loader color="black" size="md" />;
 	} else if (trimmedChartData.length > 0) {
-		console.log(chartData);
-		console.log(trimmedChartData);
 		content = (
 			<ChartCardChart
 				data={trimmedChartData}

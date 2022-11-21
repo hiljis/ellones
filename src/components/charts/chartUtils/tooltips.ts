@@ -5,7 +5,6 @@ export const getMCapTooltip = (data: any) => {
 		style: 'currency',
 		currency: 'USD',
 	});
-	console.log(data);
 	return `${data.label}: ${currencyStr}`;
 };
 
@@ -16,7 +15,6 @@ export const getVolumeTooltip = (data: any) => {
 		style: 'currency',
 		currency: 'USD',
 	});
-	console.log(data);
 	return `${data.label}: ${currencyStr}`;
 };
 
@@ -28,6 +26,5 @@ export const getPriceTooltip = (data: any) => {
 		style: 'currency',
 		currency: 'USD',
 	});
-	console.log(data);
 	return `${data.label}: ${currencyStr}`;
 };

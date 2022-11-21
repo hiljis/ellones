@@ -22,13 +22,11 @@ export function* fetchFromQueueAsync() {
 	let queueIsEmpty = false;
 	while (!queueIsEmpty) {
 		const fetchQueue = [...(yield select(selectFetchQueue))];
-		console.log(fetchQueue);
 		const ticker = fetchQueue.pop();
 		if (!ticker) break;
 		try {
 			yield call(delay, 3000);
 			const data = yield call(fetchMarketDataHistory, ticker);
-			// const data = getTestData(ticker);
 			yield put(fetchTickerSuccess(data));
 			yield put(calculateRowDataStart(data));
 			yield put(calcHistoryDataStart(data));

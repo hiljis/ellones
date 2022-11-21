@@ -67,7 +67,6 @@ export const userSlice = createSlice({
 		},
 		signInSuccess: (state, action: PayloadAction<User>) => {
 			state.currentUser = action.payload;
-			console.log(action.payload);
 			state.status = 'sign-in-success';
 		},
 		signInFailed: (state, action: PayloadAction<string>) => {

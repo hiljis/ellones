@@ -29,6 +29,10 @@ export const tickerId = {
 	eos: 'eos',
 };
 
+const smallestNumber = (...nums) => {
+	return nums.reduce((curr, prev) => (curr < prev ? curr : prev));
+};
+
 export const formatCoinGeckoPriceHistory = (data) => {
 	const prices = data.prices.map((pricePoint) => {
 		return { x: pricePoint[0], y: pricePoint[1] };
@@ -39,10 +43,11 @@ export const formatCoinGeckoPriceHistory = (data) => {
 	const mCaps = data.market_caps.map((marketCapPoint) => {
 		return { x: marketCapPoint[0], y: marketCapPoint[1] };
 	});
+	const shortestLength = smallestNumber(prices.length, volumes.length, mCaps.length);
 	const formattedPriceHistory = {
-		priceHistory: [...prices],
-		volumeHistory: [...volumes],
-		mCapHistory: [...mCaps],
+		priceHistory: prices.slice(-shortestLength),
+		volumeHistory: volumes.slice(-shortestLength),
+		mCapHistory: mCaps.slice(-shortestLength),
 	};
 	return formattedPriceHistory;
 };
