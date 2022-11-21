@@ -121,9 +121,7 @@ export const marketListSlice = createSlice({
 		changeRangeEnd: (state, action: PayloadAction<string | number>) => {
 			state.rangeEnd = action.payload;
 		},
-		calcRangeChange: (state) => {
-			console.log('Calculate range change and update market list');
-		},
+		calcRangeChange: (state) => {},
 		changeStatus: (state, action: PayloadAction<MarketListStatus>) => {
 			state.status = action.payload;
 		},

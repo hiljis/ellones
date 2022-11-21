@@ -138,6 +138,10 @@
 		justify-self: center;
 		width: 100%;
 		position: relative;
+		height: 40rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 
 		@include respond(tab-port) {
 			grid-column: 1 / span 2;

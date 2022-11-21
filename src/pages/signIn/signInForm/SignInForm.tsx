@@ -38,7 +38,6 @@ const SignInForm: React.FC = () => {
 				.required('Required'),
 		}),
 		onSubmit: (values, actions) => {
-			console.log('hej');
 			dispatch(signInEmailStart(values));
 		},
 	});

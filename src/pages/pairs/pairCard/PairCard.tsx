@@ -83,7 +83,7 @@ const PairCard: React.FC<Props> = ({ index }) => {
 			setDenominatorFailed(false);
 			setTimeout(() => {
 				setIsLoading(false);
-			}, 100);
+			}, 400);
 		} else if (numerator && denominator) {
 			if (
 				pairStatus === 'idle' &&
@@ -179,7 +179,6 @@ const PairCard: React.FC<Props> = ({ index }) => {
 		content = <PairChart data={trimmedPairData} />;
 	}
 
-	console.log(marketDataStatusNumerator, marketDataStatusDenominator, pairStatus);
 	return (
 		<article className="pairCard">
 			<button className="pairCard__btnClose" type="button" title="Close" onClick={handleDeletePair} />

@@ -19,7 +19,6 @@ const SignOutPage: React.FC = () => {
 		if (userStatus === 'no-user') {
 			navigate('/');
 		} else if (userStatus === 'sign-out-failed') {
-			// TODO Dislay message
 			navigate('/');
 		} else {
 			dispatch(signOutStart());
@@ -33,8 +32,6 @@ const SignOutPage: React.FC = () => {
 			</main>
 		);
 	}
-
-	console.log(userStatus);
 
 	return (
 		<main className="signOutPage">
